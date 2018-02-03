@@ -42,7 +42,10 @@ PROJECT	=	FDF
 CC		?=	clang 		## default compiler is clang
 CC_FLAG ?=	-Werror \
 			-Wall	\
-			-Wextra
+			-Wextra \
+			-O1 -g -fsanitize=address	\
+			-fno-omit-frame-pointer		\
+			-fsanitize-address-use-after-scope \
 
 ## some useful `flags` for memory verifications
 ##
@@ -56,9 +59,13 @@ MAIN	?=	main.c
 NAME	?=	fdf 		## The name of your binary
 
 #The name of the library you want to make
-LIB_A	?=	libft.a
+P_LIBFT ?= lib/libft
+LIB_A	?= $(P_LIBFT)/libft.a
 LIBFT_A ?= lib/libft/libft.a
+P_MLX	?= lib/mlx_linux
+MLX_A	?= $(P_MLX)/libmlx.a
 
+MLX_FLAG ?= -lXext -lX11
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
 SRC		=
@@ -78,7 +85,8 @@ all : $(LIBFT_A) $(NAME)
 	echo all
 
 $(NAME):	$(SRC)
-	gcc main.c -I ./$(P_INCLUDE) -o $(NAME)
+	$(CC) $(MAIN) -I ./$(P_INCLUDE) -I ./$(P_MLX) $(MLX_FLAG)  $(MLX_A) -I ./$(P_LIBFT)/include $(LIBFT_A)\
+		-o $(NAME)
 
 ## Clean objects and others
 clean:		$(OBJ_P)
@@ -88,8 +96,9 @@ clean:		$(OBJ_P)
 
 ## Cleans everything
 fclean:		clean
-	rm		-f	$(OBJ_W)
-	printf	"$(WARN)[!][$(PROJECT)] Removed all binary ./$(P_BIN)$(C_DEF)\n"
+	rm		-f	$(NAME)
+	printf	"$(WARN)[!][$(PROJECT)] Removed $(NAME)$(C_DEF)\n"
+	make -C lib/libft fclean
 	printf	"$(OK)[+][$(PROJECT)] Fully cleaned$(C_DEF)\n"
 
 $(LIBFT_A):
