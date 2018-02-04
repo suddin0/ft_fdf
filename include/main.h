@@ -1,9 +1,9 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-#include <limits.h>
-#include "libft.h"
-#include "mlx.h"
+# include <limits.h>
+# include "libft.h"
+# include "mlx.h"
 
 # define DEF_ROOT_X 200
 # define DEF_ROOT_Y 200
