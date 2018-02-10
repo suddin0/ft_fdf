@@ -65,7 +65,7 @@ LIBFT_A ?= lib/libft/libft.a
 P_MLX	?= lib/mlx_linux
 MLX_A	?= $(P_MLX)/libmlx.a
 
-MLX_FLAG ?= -lXext -lX11
+MLX_FLAG ?= -lXext -lX11 -lmlx
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
 SRC		=
@@ -82,27 +82,26 @@ __START: all
 
 ## For multiple Binarys
 all : $(LIBFT_A) $(NAME)
-	echo all
 
 $(NAME):	$(SRC)
-	$(CC) $(MAIN) -I ./$(P_INCLUDE) -I ./$(P_MLX) $(MLX_FLAG)  $(MLX_A) -I ./$(P_LIBFT)/include $(LIBFT_A)\
+	@$(CC) $(MAIN) -I ./$(P_INCLUDE) -I ./$(P_MLX) $(MLX_FLAG) -L $(P_MLX) -I ./$(P_LIBFT)/include -L $(P_LIBFT) -lft \
 		-o $(NAME)
 
 ## Clean objects and others
 clean:		$(OBJ_P)
-	rm		-f	$(OBJ_P)
+	@rm		-f	$(OBJ_P)
 	printf	"$(WARN)[!][$(PROJECT)] Removed all objects from ./$(P_OBJ)$(C_DEF)\n"
 	printf	"$(OK)[+][$(PROJECT)] Cleaned$(C_DEF)\n"
 
 ## Cleans everything
 fclean:		clean
-	rm		-f	$(NAME)
+	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed $(NAME)$(C_DEF)\n"
-	make -C lib/libft fclean
+	@make -C lib/libft fclean --no-print-directory
 	printf	"$(OK)[+][$(PROJECT)] Fully cleaned$(C_DEF)\n"
 
 $(LIBFT_A):
-	make -C lib/libft --no-print-directory
+	@make -C lib/libft --no-print-directory
 
 re:			fclean all
 
