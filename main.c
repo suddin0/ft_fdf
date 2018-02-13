@@ -18,7 +18,7 @@ void root_init(t_root *root, char **argv)
 	root->mlx = mlx_init();
 	root->sz_x = DEF_ROOT_X;
 	root->sz_y = DEF_ROOT_Y;
-	ft_strcpy(root->name, argv[1]);
+	ft_strncpy(root->name, argv[1], strlen(argv[1]) - 4);
 	ft_putstr(root->name);
 	root->win = mlx_new_window(root->mlx, root->sz_x, root->sz_y, root->name);
 }
@@ -47,8 +47,8 @@ int pre_check(int argc, char **argv)
 	}
 	else
 		return (1);
-
 }
+
 int main(int argc, char **argv)
 {
 	t_root root;

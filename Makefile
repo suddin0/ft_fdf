@@ -60,12 +60,16 @@ NAME	?=	fdf 		## The name of your binary
 
 #The name of the library you want to make
 P_LIBFT ?= lib/libft
-LIB_A	?= $(P_LIBFT)/libft.a
-LIBFT_A ?= lib/libft/libft.a
-P_MLX	?= lib/mlx_linux
-MLX_A	?= $(P_MLX)/libmlx.a
+LIBFT_A	?= $(P_LIBFT)/libft.a
+P_MLX_LINUX	?= lib/mlx_linux
+P_MLX_MAC	?= lib/mlx_mac
 
-MLX_FLAG ?= -lXext -lX11 -lmlx
+MLX_FLAG_LINUX ?= -lXext -lX11 -lmlx
+MLX_FLAG_MAC ?= -lmlx -framework OpenGL -framework AppKit
+
+# Change the `..._MAC ` to `..._LINUX` depending on OS
+MLX_FLAG	?= $(MLX_FLAG_MAC)
+P_MLX		?= $(P_MLX_MAC)
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
 SRC		=
@@ -84,7 +88,7 @@ __START: all
 all : $(LIBFT_A) $(NAME)
 
 $(NAME):	$(SRC)
-	@$(CC) $(MAIN) -I ./$(P_INCLUDE) -I ./$(P_MLX) $(MLX_FLAG) -L $(P_MLX) -I ./$(P_LIBFT)/include -L $(P_LIBFT) -lft \
+	@$(CC) $(MAIN) -I ./$(P_INCLUDE) -I ./$(P_MLX) -I ./$(P_LIBFT)/include -L $(P_MLX) -L $(P_LIBFT) $(MLX_FLAG) -lft \
 		-o $(NAME)
 
 ## Clean objects and others
