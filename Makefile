@@ -47,6 +47,10 @@ CC_FLAG ?=	-Werror \
 			-fno-omit-frame-pointer		\
 			-fsanitize-address-use-after-scope \
 
+CC_FLAG_ASAN ?=	-O1 -g -fsanitize=address	\
+			-fno-omit-frame-pointer		\
+			-fsanitize-address-use-after-scope \
+
 ## some useful `flags` for memory verifications
 ##
 ## -O1 -g -fsanitize=address	\
@@ -68,11 +72,15 @@ MLX_FLAG_LINUX ?= -lXext -lX11 -lmlx
 MLX_FLAG_MAC ?= -lmlx -framework OpenGL -framework AppKit
 
 # Change the `..._MAC ` to `..._LINUX` depending on OS
-MLX_FLAG	?= $(MLX_FLAG_MAC)
-P_MLX		?= $(P_MLX_MAC)
+MLX_FLAG	?= $(MLX_FLAG_LINUX)
+P_MLX		?= $(P_MLX_LINUX)
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
-SRC		=
+SRC		=	$(MAIN)		\
+			src/map_perser/file_size.c		\
+			src/map_perser/get_map.c		\
+			src/map_perser/is_dir.c			\
+			src/map_perser/is_file.c		\
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))
@@ -88,12 +96,12 @@ __START: all
 all : $(LIBFT_A) $(NAME)
 
 $(NAME):	$(SRC)
-	@$(CC) $(MAIN) -I ./$(P_INCLUDE) -I ./$(P_MLX) -I ./$(P_LIBFT)/include -L $(P_MLX) -L $(P_LIBFT) $(MLX_FLAG) -lft \
+	@$(CC) $(CC_FLAG_ASAN) $(SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX) -I ./$(P_LIBFT)/include -L $(P_MLX) -L $(P_LIBFT) $(MLX_FLAG) -lft \
 		-o $(NAME)
 
 ## Clean objects and others
-clean:		$(OBJ_P)
-	@rm		-f	$(OBJ_P)
+clean:
+	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed all objects from ./$(P_OBJ)$(C_DEF)\n"
 	printf	"$(OK)[+][$(PROJECT)] Cleaned$(C_DEF)\n"
 
