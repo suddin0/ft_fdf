@@ -28,9 +28,15 @@ static long line_pnt(char *str, long line)
 	long i;
 
 	i = line;
+	if(!str)
+	{
+		printf("***** NO STRING GIVEN ***");
+		return (0);
+	}
+	printf("The I IS[%ld]\n", i);
 	while(str[i] && str[i] != 0xA) // 0xA = line feed (new line)
 		i++;
-	if (i == line)
+	if (i == line || str[i] == 0)
 		return (0);	// if new line wasn't found and i was not changed because
 		 			// there zas nothing to read, then we have reached the end of
 					// file
@@ -48,7 +54,7 @@ static int count_num(char *str, long o_line, long n_line)
 	count = 0;
 	while (str[o_line] && (o_line != n_line))
 	{
-		// printf("str[%d][%c] \n",str[o_line], str[o_line]  ); 
+		//printf("str[%d][%c] \n",str[o_line], str[o_line]  ); 
 		if (is_space(str[o_line]) && !signe)
 			i = 0;
 		else if (is_num_hex(str[o_line]))
@@ -80,13 +86,15 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 
 	i = 0;
 	neg = 0;
+	ft_printf("DIG is [%d] o_line[%d] n_line[%d]\n", dig, o_line, n_line);
 
-	num = (long *) malloc(sizeof(long) * dig + 1); // maybe the +1 is not necessary ...
+	num = (long *) malloc(sizeof(long) * (dig + 1)); // maybe the +1 is not necessary ...
 
 	while(str[o_line] && (o_line < n_line))
 	{
 		num[i] = 0;
 		//pass all the spaces
+		//ft_printf("CAME HERE\n");
 		while(is_space(str[o_line]) &&( o_line != n_line))
 			o_line += 1;
 		// ignore the color. If later want to get the color modify here
@@ -124,7 +132,7 @@ long **data_to_array(T_MAP *map)
 	map->line_sz = (long *) malloc(sizeof(long) * map->lines);
 	map->map = (long **) malloc(sizeof(long *) * map->lines);
 
-	while(data)
+	while(data && data->next)
 	{
 		map->line_sz[data->col] = data->row;
 		map->map[data->col] = data->data;
@@ -133,6 +141,37 @@ long **data_to_array(T_MAP *map)
 
 	return (map->map);
 }
+
+//typedef struct S_FDFMAP
+//{
+//	char		*name;		// stores the maps name
+//	char		*path;		// stores the maps path
+//	long		**map;		// stores the map as an long int table[data->col][data->raw]
+//	long		*line_sz;	// stores the amount of number a line contains (for looping purpose)
+//	int			file_sz;	// stores the size if the map file
+//	int			lines;		// saves total number of lines in the chained list (data)
+//	T_M_DATA	*data;		// The chained list that contain each line of the map
+//
+//	struct S_FDFMAP	*next;	// next map;
+//}	T_MAP;
+
+T_MAP *map_malloc()
+{
+	T_MAP *map;
+
+	map = NULL;
+	map = (T_MAP *) malloc(sizeof(T_MAP));	// main structure
+	map->name = NULL;
+	map->path = NULL;
+	map->map = NULL;
+	map->line_sz = NULL;
+	map->file_sz = 0;
+	map->lines = 0;
+	map->data = NULL;
+
+	return (map);
+}
+
 
 T_MAP *get_map(char *name)
 {
@@ -148,13 +187,29 @@ T_MAP *get_map(char *name)
 	rd 			= 0;
 	n_line 		= 0;
 	o_line 		= 0;
+	mp = NULL;
+	map = NULL;
+
+	
+
+
+
+
 
 	// check befor preparing the file opening
+
+	//ft_printf("---AFTER IFS---\n");
 	if (is_file(name) == 1)
 	{
-		map = (T_MAP *) malloc(sizeof(T_MAP));	// main structure
+		map = map_malloc();	// main structure
 		map->file_sz = file_size(name);	// get
-		mp = ft_strnew(map->file_sz);
+		if(!(mp = ft_strnew(map->file_sz)))
+		{
+			ft_printf("[-] Error: allocating %d bytes\n", map->file_sz);
+			return (NULL);
+		}
+
+
 	}
 	else
 	{
@@ -167,6 +222,7 @@ T_MAP *get_map(char *name)
 		printf("[-] Error: opening file: %s\n", name);
 		return (NULL);
 	}
+
 	if ((rd = read(fd, mp, map->file_sz)) < map->file_sz)
 	{
 		printf("[-] Error: reading. Read %d/%d\n", rd , map->file_sz);
@@ -178,7 +234,7 @@ T_MAP *get_map(char *name)
 		data = (T_M_DATA *) malloc(sizeof(T_M_DATA));
 		if((data->row = count_num(mp, o_line, n_line)) <= 0)
 			printf("[-] Error: Invalid map (line %d)\n", map->lines);
-		// printf("DATA->row [%d] \n", data->row); // This part needs ro be debugged as it mess with memory
+		 printf("DATA->row [%d] \n", data->row); // This part needs ro be debugged as it mess with memory
 		data->col = map->lines;
 		data->data = get_num(mp, o_line, n_line, data->row);
 		data->next = map->data;
@@ -188,8 +244,12 @@ T_MAP *get_map(char *name)
 		map->lines++; // conts the number of lines red
 		o_line = n_line + 1; // the +1 is to go to the next position of `\n`
 	}
-	printf("NAME[%s] - IS_FILE RET[%d]\n", name, is_file(name));
+	
+	//sprintf("NAME[%s] - IS_FILE RET[%d]\n", name, is_file(name));
+
+	ft_printf("---BEFOR FUNCTION---\n");
 	data_to_array(map);
+	ft_printf("---INSIDE IIF END---\n");
 	free(mp);
 	return (map);
 

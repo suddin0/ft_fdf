@@ -63,8 +63,11 @@ MAIN	?=	main.c
 NAME	?=	fdf 		## The name of your binary
 
 #The name of the library you want to make
+
 P_LIBFT ?= lib/libft
-LIBFT_A	?= $(P_LIBFT)/libft.a
+LIBFT_A	?= $(P_LIBFT)/lib/libft.a
+LIBFT ?= -I ./$(P_LIBFT)/include -L ./$(P_LIBFT)/lib -lft -lftprintf
+
 P_MLX_LINUX	?= lib/mlx_linux
 P_MLX_MAC	?= lib/mlx_mac
 
@@ -96,7 +99,7 @@ __START: all
 all : $(LIBFT_A) $(NAME)
 
 $(NAME):	$(SRC)
-	@$(CC) $(CC_FLAG_ASAN) $(SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX) -I ./$(P_LIBFT)/include -L $(P_MLX) -L $(P_LIBFT) $(MLX_FLAG) -lft \
+	@$(CC) $(CC_FLAG_ASAN) $(SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT)  \
 		-o $(NAME)
 
 ## Clean objects and others
@@ -113,7 +116,7 @@ fclean:		clean
 	printf	"$(OK)[+][$(PROJECT)] Fully cleaned$(C_DEF)\n"
 
 $(LIBFT_A):
-	@make -C lib/libft --no-print-directory
+	@make -C lib/libft lib/libft.a ft_printf --no-print-directory
 
 re:			fclean all
 

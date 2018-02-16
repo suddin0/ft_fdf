@@ -9,7 +9,9 @@
 # include <errno.h>	// For read
 
 # include "libft.h"
+# include "ft_printf.h"
 # include "mlx.h"
+
 
 # define DEF_ROOT_X 200	// Window width
 # define DEF_ROOT_Y 200	// Window Height

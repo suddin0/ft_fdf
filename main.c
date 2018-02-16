@@ -50,6 +50,33 @@ int pre_check(int argc, char **argv)
 		return (1);
 }
 
+void print_map(T_MAP *map, int space)
+{
+	int l;
+	int p;
+	int num_sz;
+
+
+	l = 0;
+	p = 0;
+	num_sz = 0;
+
+	while (l < map->lines)
+	{
+		while (p < map->line_sz[l])
+		{
+			num_sz = ft_intlen(map->map[l][p]);
+			if ((space - num_sz) > 0)
+				ft_putnchar(' ', space - num_sz);
+			ft_putnbr(map->map[l][p]);
+			p++;
+		}
+		ft_putchar('\n');
+		p = 0;
+		l++;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	t_root root;
@@ -65,6 +92,7 @@ int main(int argc, char **argv)
 
 
 	map = get_map(argv[1]);
+	print_map(map, 2);
 
 	mlx_loop(root.mlx);
 
