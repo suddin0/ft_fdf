@@ -50,7 +50,7 @@ int pre_check(int argc, char **argv)
 		return (1);
 }
 
-void print_map(T_MAP *map, int space)
+void print_map(t_map *map, int space)
 {
 	int l;
 	int p;
@@ -60,7 +60,6 @@ void print_map(T_MAP *map, int space)
 	l = 0;
 	p = 0;
 	num_sz = 0;
-
 	while (l < map->lines)
 	{
 		while (p < map->line_sz[l])
@@ -77,23 +76,41 @@ void print_map(T_MAP *map, int space)
 	}
 }
 
+int	exit_esc(int key, t_root *root)
+{
+	//root->key_pressed = key;
+
+	if(key == BTN_ESC || key == BTN_Q)
+	{
+		mlx_destroy_window(root->mlx,root->win);
+		free_map(root->map);
+		printf("Key pressed %d\n", key);
+		printf("[!] Exiting the programme\n");
+		exit(EXIT_SUCCESS);
+	}
+	else
+		printf("Key pressed %d\n", key);
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
 	t_root root;
-	T_MAP *map;
+	t_map *map;
 
+	map = NULL;
 	if(pre_check(argc, argv) == 0)
 		return (0);
 	root_init(&root, argv);
 
 	printf("is dot fdf [%d]\n", is_dot_fdf(argv[1]));
-	printf("WIN_X = [%d]\n", root.sz_x);
-	printf("WIN_Y = [%d]\n", root.sz_y);
-
-
 	map = get_map(argv[1]);
+	root.map = map;
+
+	printf("******** END OF PERSING *********\n");
 	print_map(map, 2);
 
+	mlx_key_hook (root.win , exit_esc, &root);
 	mlx_loop(root.mlx);
 
 
