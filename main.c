@@ -104,11 +104,20 @@ int main(int argc, char **argv)
 	root_init(&root, argv);
 
 	printf("is dot fdf [%d]\n", is_dot_fdf(argv[1]));
-	map = get_map(argv[1]);
+	if(!(map = get_map(argv[1])))
+			return (-1);
 	root.map = map;
 
 	printf("******** END OF PERSING *********\n");
 	print_map(map, 2);
+
+	char *img = NULL;
+
+	img = mlx_new_image(root.mlx, root.sz_x, root.sz_y);
+	
+
+
+
 
 	mlx_key_hook (root.win , exit_esc, &root);
 	mlx_loop(root.mlx);
@@ -116,3 +125,9 @@ int main(int argc, char **argv)
 
 	return (0);
 }
+
+
+
+
+
+

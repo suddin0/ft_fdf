@@ -230,12 +230,18 @@ library:  object $(P_LIB) $(OBJ_P) $(P_OBJ)
  ft_printf:	$(PRINTF_LIB_A)
 	printf "$(OK)[+][FT_PRINTF] Done $(C_DEF)\n"
 
+##----WARNING:
+## In Mac the --output-sync=target, maybe it is supported by only `gnu make` nor it is necessary as it `make`s it without
 $(PRINTF_LIB_A): $(PRINTF_SRC) $(PRINTF_LIBFT_A)
-	@make  CC_FLAG=$(PRINTF_CC_FLAG) printf_library --output-sync=target --no-print-directory
+	@make  "CC_FLAG=$(PRINTF_CC_FLAG)" printf_library --no-print-directory
+#	make  "CC_FLAG=$(PRINTF_CC_FLAG)" printf_library --output-sync=target --no-print-directory
 
+##----WARNING:
+## In Mac the --output-sync=target, maybe it is supported by only `gnu make` nor it is necessary as it `make`s it without
 $(PRINTF_LIBFT_A):
 	@make clean --no-print-directory
-	@make CC_FLAG=$(PRINTF_LIBFT_CC_FLAG) 	LIB_A=$(PRINTF_LIBFT_A) NAME=LIB_A=$(PRINTF_LIBFT_A) --output-sync=target --no-print-directory
+	@make "CC_FLAG=$(PRINTF_LIBFT_CC_FLAG)" 	"LIB_A=$(PRINTF_LIBFT_A)" "NAME=LIB_A=$(PRINTF_LIBFT_A)" --no-print-directory
+#	make "CC_FLAG=$(PRINTF_LIBFT_CC_FLAG)" 	"LIB_A=$(PRINTF_LIBFT_A)" "NAME=LIB_A=$(PRINTF_LIBFT_A)" --output-sync=target --no-print-directory
 
 
 

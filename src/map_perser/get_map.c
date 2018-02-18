@@ -100,7 +100,7 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 		{
 			if(((o_line + 1) == n_line))
 			{
-				printf("[-] Error: get_number: bad map at [%d][%c]\n", o_line, str[o_line]);
+				printf("[-] Error: get_number: bad map at [%ld][%c]\n", o_line, str[o_line]);
 				exit(-1);
 			}
 			if(str[o_line] == '-')
@@ -183,18 +183,23 @@ t_map *get_map(char *name)
 	}
 	else
 	{
-		ft_printf("[-] Error : not a valid file type\n");
+		if(is_dir(name) == 1)
+			ft_printf("[-] Error : %s is a directory and not a file\n", name);
+		else
+			ft_printf("[-] Error : not a valid file\n");
 		return (NULL);
 	}
 
 	if ((fd = open(name, O_RDONLY)) == -1)
 	{
 		ft_printf("[-] Error: opening file: %s\n", name);
+		free(map);
 		return (NULL);
 	}
 
 	if ((rd = read(fd, mp, map->file_sz)) < map->file_sz)
 	{
+		free(map);
 		ft_printf("[-] Error: reading. Read %d/%d\n", rd , map->file_sz);
 		return (NULL);
 	}
