@@ -51,6 +51,14 @@ typedef struct	s_root
 	t_map *map;
 } t_root;
 
+typedef struct	s_color  // Converts colors
+{
+	unsigned char b;
+	unsigned char g;
+	unsigned char r;
+	unsigned char a;
+}		t_color;
+
 
 
 int file_size(const char *name);

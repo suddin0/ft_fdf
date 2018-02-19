@@ -89,18 +89,15 @@ static void	str_data_process(t_pdata *print, t_pflag *flags, wchar_t *str)
 	int to_copy;
 	int str_len;
 	int a;
-	int i;
 
 	a = flags->precis_val;
 	str_len = wchars_len(str);
-	i = 0;
 	to_copy = (a < str_len && a != -1) ? get_precis(str, a) : str_len;
 	total = (flags->width_val > to_copy) ? flags->width_val : to_copy;
 	a = flags->left_just;
 	if (a > 0)
 		wchar_write(print, str, to_copy);
 	dataset(print, (flags->zero > 0 && a == 0) ? '0' : ' ', total - to_copy);
-	i = 0;
 	if (flags->left_just <= 0)
 		wchar_write(print, str, to_copy);
 }

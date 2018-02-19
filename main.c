@@ -93,6 +93,27 @@ int	exit_esc(int key, t_root *root)
 	return (0);
 }
 
+//typedef struct	color  // Converts colors
+//{
+//	unsigned char b;
+//	unsigned char g;
+//	unsigned char r;
+//	unsigned char a;
+//}		t_color;
+
+
+t_color	  get_color(int r, int g, int b, int a)
+{
+	t_color	col;
+
+	col.b = b;
+	col.g = g;
+	col.r = r;
+	col.a = a;
+	return (col);
+}
+
+
 int main(int argc, char **argv)
 {
 	t_root root;
@@ -105,17 +126,30 @@ int main(int argc, char **argv)
 
 	printf("is dot fdf [%d]\n", is_dot_fdf(argv[1]));
 	if(!(map = get_map(argv[1])))
-			return (-1);
+		return (-1);
 	root.map = map;
 
 	printf("******** END OF PERSING *********\n");
 	print_map(map, 2);
 
-	char *img = NULL;
+	void *img_ptr = NULL;
+	char *img	  = NULL;
 
-	img = mlx_new_image(root.mlx, root.sz_x, root.sz_y);
+
+	int i = 0;
+	img_ptr = mlx_new_image(root.mlx, root.sz_x, root.sz_y);
+	img		= mlx_get_data_addr(img_ptr, &i, &i, &i);
+
+	t_color  p ;
+	p = get_color(217,96,82, 0x00);
+
+	printf("THE COLOR CODE IS [%d]\n", p);
+
+	while (i != (root.sz_x * root.sz_y))
+		((int) img)[i++] = 14245970;
+	mlx_put_image_to_window(root.mlx, root.win, img_ptr, 0, 0);
+
 	
-
 
 
 
