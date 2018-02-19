@@ -49,6 +49,7 @@ typedef struct	s_root
 	int sz_y;
 	char name[NAME_MAX + 5];
 	t_map *map;
+	void *img_ptr;
 } t_root;
 
 typedef struct	s_color  // Converts colors
@@ -61,10 +62,16 @@ typedef struct	s_color  // Converts colors
 
 
 
-int file_size(const char *name);
-t_map *get_map(char *name);
-int is_dir(const char *name);
-int is_file(const char *name);
-void free_map(t_map *map);
+int		file_size(const char *name);
+t_map	*get_map(char *name);
+int		is_dir(const char *name);
+int		is_file(const char *name);
+void	free_map(t_map *map);
+void	print_map(t_map *map, int space);
+int		pre_check(int argc, char **argv);
+void	root_init(t_root *root, char **argv);
+
+
+
 #endif
 

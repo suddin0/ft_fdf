@@ -85,6 +85,9 @@ SRC		=	$(MAIN)		\
 			src/map_perser/is_dir.c			\
 			src/map_perser/is_file.c		\
 			src/free_map.c		\
+			src/print_map.c		\
+			src/pre_check.c		\
+			src/root_init.c		\
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))
