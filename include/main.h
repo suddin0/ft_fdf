@@ -15,7 +15,11 @@
 
 
 # define DEF_ROOT_X 1200		// Window width
-# define DEF_ROOT_Y 700		// Window Height
+# define DEF_ROOT_Y 1000		// Window Height
+
+# define ORIGINE_X  20
+# define ORIGINE_Y  20
+//# define STEP_X 10;
 
 
 // contain map object data and various informations about it
@@ -40,6 +44,20 @@ typedef struct s_fdfmap
 	struct s_fdfmap	*next;	// next map;
 }	t_map;
 
+typedef struct s_mlx_image
+{
+	void *img_ptr;	// Image pointer
+	char *img;		// Image
+	int	  bpp;		// Bit par pixel
+	int	  sl;		// Size_len
+	int	  end;		// Endian;
+	int	  o_x;		// Origine x;
+	int	  o_y;		// Origine y
+	int	  x;		// width
+	int	  y;		// height
+
+} t_img;
+
 // THe Main structure with window and all
 typedef struct	s_root
 {
@@ -50,6 +68,9 @@ typedef struct	s_root
 	char name[NAME_MAX + 5];
 	t_map *map;
 	void *img_ptr;
+	char *img;
+	t_img menu;
+	t_img prev;
 } t_root;
 
 typedef struct	s_color  // Converts colors
