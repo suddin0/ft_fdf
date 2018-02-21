@@ -15,10 +15,10 @@
 
 
 # define DEF_ROOT_X 1200		// Window width
-# define DEF_ROOT_Y 1000		// Window Height
+# define DEF_ROOT_Y 700		// Window Height
 
-# define ORIGINE_X  20
-# define ORIGINE_Y  20
+# define ORIGINE_X  70.0
+# define ORIGINE_Y  70.0
 //# define STEP_X 10;
 
 
