@@ -17,8 +17,8 @@
 # define DEF_ROOT_X 1200		// Window width
 # define DEF_ROOT_Y 700		// Window Height
 
-# define ORIGINE_X  70.0
-# define ORIGINE_Y  70.0
+# define ORIGINE_X  70.0f
+# define ORIGINE_Y  70.0f
 //# define STEP_X 10;
 
 
@@ -58,6 +58,12 @@ typedef struct s_mlx_image
 
 } t_img;
 
+typedef struct s_point
+{
+	double x;
+	double y;
+	double z;
+} t_point;
 // THe Main structure with window and all
 typedef struct	s_root
 {
