@@ -82,9 +82,9 @@ void  draw_line(t_img *img, double Xo, double Yo, double  Xn, double Yn, t_color
 	//Xincrement = ((Xn/Zn) - (Xo/Zo)) / (float) steps; // X or Y increment by this ration
 	//Yincrement = ((Yn/Zn) - (Yo/Zo)) / (float) steps;
 
-	//printf("DRAW-LiNE                   Xo[%6.6lf]    Yo[%6.6lf]\n", Xo, Yo);
-	//printf("DRAW-LiNE                   Xn[%6.6lf]    Yn[%6.6lf]\n", Xn, Yn);
-	//printf("CAME HERE int DRAW-LiNE  X-INC[%6.6lf] Y-INC[%6.6lf]\n", Xincrement, Yincrement);
+	printf("DRAW-LiNE                   Xo[%6.6lf]    Yo[%6.6lf]\n", Xo, Yo);
+	printf("DRAW-LiNE                   Xn[%6.6lf]    Yn[%6.6lf]\n", Xn, Yn);
+	printf("CAME HERE int DRAW-LiNE  X-INC[%6.6lf] Y-INC[%6.6lf]\n", Xincrement, Yincrement);
 	while(steps)
 	{
 		x += Xincrement;
@@ -194,6 +194,9 @@ void init_prev(t_root *root, t_img *prev)
 	set_color(prev->img, prev->x * prev->y, get_col(241,232,202, 0));
 }
 //  draw_line(t_img *img, double Xo, double Yo, double  Xn, double Yn, t_color color)
+
+
+
 //void show_map(t_map *map, t_img *img)
 //{
 //	int l;
@@ -220,8 +223,8 @@ void init_prev(t_root *root, t_img *prev)
 //			{
 //				z1 = (((double) map->map[l    ][p] * 0.60 == 0) ? 0.60 : (double) map->map[l    ][p] * 0.60) ;
 //				z2 = (((double) map->map[l + 1][p] * 0.60 == 0) ? 0.60 : (double) map->map[l + 1][p] * 0.60) ;
-//				//draw_line(img, x / z1, y / z1, (x) / z2, (y + step) / z2, get_col(25,25,25, 0));
-//				line(img, x / z1, y / z1, (x) / z2, (y + step) / z2, get_col(25,25,25, 0));
+//				draw_line(img, x / z1, y / z1, (x) / z2, (y + step) / z2, get_col(25,25,25, 0));
+//				//line(img, x / z1, y / z1, (x) / z2, (y + step) / z2, get_col(25,25,25, 0));
 //			}
 //			if (p + 1 < map->line_sz[l])
 //			{
@@ -229,8 +232,8 @@ void init_prev(t_root *root, t_img *prev)
 //				//z2 = ((double) map->map[l][p + 1] * 0.5 == 0) ? 1.0 : (double) map->map[l][p + 1] * 0.3;
 //				z1 = (((double) map->map[l][p	 ] * 0.60 == 0) ? 0.60 : (double) map->map[l][p    ] * 0.60) ;
 //				z2 = (((double) map->map[l][p + 1] * 0.60 == 0) ? 0.60 : (double) map->map[l][p + 1] * 0.60) ;
-//				//draw_line(img, x / z1, y / z1, (x + step) / z2, y/ z2, get_col(25,25,25, 0));
-//				line(img, x / z1, y / z1, (x + step) / z2, y/ z2, get_col(25,25,25, 0));
+//				draw_line(img, x / z1, y / z1, (x + step) / z2, y/ z2, get_col(25,25,25, 0));
+//				//line(img, x / z1, y / z1, (x + step) / z2, y/ z2, get_col(25,25,25, 0));
 //				//draw_line(img, x, y, z1, (x + step), y, z2, get_col(25,25,25, 0));
 //			}
 //			//ft_printf("CAME HERE\n");
@@ -243,6 +246,10 @@ void init_prev(t_root *root, t_img *prev)
 //		l++;
 //	}
 //}
+
+
+
+
 
 void show_map(t_map *map, t_img *img)
 {
@@ -258,44 +265,38 @@ void show_map(t_map *map, t_img *img)
 
 	a.x = ORIGINE_X;
 	a.y = ORIGINE_Y;
-	a.z = 0;
+	a.z = 1;
 
 	b.x = ORIGINE_X;
 	b.y = ORIGINE_Y;
-	b.z = 0;
+	b.z = 1;
 
 	while (l < map->lines)
 	{
 		p = 0;
 		while (p  < map->line_sz[l])
 		{
-			//if((p + 1) < map->line_sz[l])
 			if (l + 1 < map->lines && p < map->line_sz[l + 1])
 			{
 				a.z = (((double) map->map[l    ][p] * 0.60f == 0) ? 1.00f : (double) map->map[l    ][p] * 0.60f) ;
 				b.z = (((double) map->map[l + 1][p] * 0.60f == 0) ? 1.00f : (double) map->map[l + 1][p] * 0.60f) ;
-				//draw_line(img, x / z1, y / z1, (x) / z2, (y + step) / z2, get_col(25,25,25, 0));
-				//line(img, a.x / a.z, a.y / a.z, (b.x) / b.z, (b.y + step) / b.z, get_col(25,25,25, 0));
-				//draw_line(img, a.x / a.z, a.y / a.z, b.x / b.z, (b.y + step) / b.z, get_col(25, 25, 25, 0));
+				draw_line(img, a.x / a.z, a.y / a.z, b.x / b.z, (b.y + step) / b.z, get_col(25, 25, 25, 0));
 			}
 			if (p + 1 <  map->line_sz[l])
 			{
-				//z1 = ((double) map->map[l][p	] * 0.5 == 0) ? 1.0 : (double) map->map[l][p	] * 0.3;
-				//z2 = ((double) map->map[l][p + 1] * 0.5 == 0) ? 1.0 : (double) map->map[l][p + 1] * 0.3;
-				a.z = (((double) map->map[l][p    ] * 0.60f == 0) ? 1.00f : (double) map->map[l][p    ] * 0.60f) ;
-				b.z = (((double) map->map[l][p + 1] * 0.60f == 0) ? 1.00f : (double) map->map[l][p + 1] * 0.60f) ;
-				//draw_line(img, x / z1, y / z1, (x + step) / z2, y/ z2, get_col(25,25,25, 0));
-				//line(img, a.x / a.z, a.y / a.z, (b.x + step) / b.z, b.y / b.z, get_col(25,25,25, 0));
+				a.z = (((double) map->map[l][p    ] * 0.60f == 0.0f) ? 1.00f : (double) map->map[l][p    ] * 0.60f) ;
+				b.z = (((double) map->map[l][p + 1] * 0.60f == 0.0f) ? 1.00f : (double) map->map[l][p + 1] * 0.60f) ;
 				draw_line(img, a.x / a.z, a.y / a.z, (b.x + step) / b.z, b.y / b.z, get_col(25, 25, 25, 0));
-				//draw_line(img, x, y, z1, (x + step), y, z2, get_col(25,25,25, 0));
 			}
-			//ft_printf("CAME HERE\n");
 			a.x += step;
+			b.x = a.x;
 			p += 1;
 		}
 
 		a.x = ORIGINE_X;
 		a.y += step;
+		b.x = a.x;
+		b.y = a.y;
 		l++;
 	}
 }
