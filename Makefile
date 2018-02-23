@@ -48,7 +48,7 @@ CC_FLAG ?=	-Werror \
 			-fsanitize-address-use-after-scope \
 			-lm \
 
-CC_FLAG_ASAN ?=	-O1 -g -fsanitize=address	\
+CC_FLAG_ASAN ?=	-O1 -g -lm -fsanitize=address	\
 			-fno-omit-frame-pointer		\
 			-fsanitize-address-use-after-scope \
 
@@ -89,12 +89,14 @@ SRC		=	$(MAIN)		\
 			src/print_map.c		\
 			src/pre_check.c		\
 			src/root_init.c		\
+			src/init.c			\
+			src/color.c			\
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))
 
 ## Objects with their path name
-OBJ_P	=	$(addprefix $(P_OBJ)/,$(OBJ))	## addprefix add the 
+OBJ_P	=	$(addprefix $(P_OBJ)/,$(OBJ))	## addprefix add the
 											## path name to the files...
 ## Start making here
 __START: all
@@ -153,7 +155,7 @@ library:	object $(P_OBJ) $(OBJ_P)
 ## os has been detected
 os_dep: #put your prerequisite for os dependent stufs
 	## put your os dependent comands here
-	## this will be launched if the os name is 
+	## this will be launched if the os name is
 	## different then what read from the os file.
 	## ex: make re
 	printf "[$(PROJECT)] Os dependent stufs\n"

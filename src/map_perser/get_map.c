@@ -32,10 +32,13 @@ static long line_pnt(char *str, long line)
 		return (0);
 	while(str[i] && str[i] != 0xA) // 0xA = line feed (new line)
 		i++;
+		printf("CAME HERE LINE_PNT i[%d]\n", i);
 	if (i == line || str[i] == 0)
 		return (0);	// if new line wasn't found and i was not changed because
 		 			// there zas nothing to read, then we have reached the end of
+
 					// file
+	printf("CAME HERE LINE_PNT\n");
 	return (i);
 }
 
@@ -50,7 +53,7 @@ static int count_num(char *str, long o_line, long n_line)
 	count = 0;
 	while (str[o_line] && (o_line != n_line))
 	{
-		//printf("str[%d][%c] \n",str[o_line], str[o_line]  ); 
+		//printf("str[%d][%c] \n",str[o_line], str[o_line]  );
 		if (is_space(str[o_line]) && !signe)
 			i = 0;
 		else if (is_num_hex(str[o_line]))
@@ -117,23 +120,74 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 	return num;
 }
 
-long **data_to_array(t_map *map)
+//long **data_to_array(t_map *map)
+//{
+//	t_m_data *data;
+//
+//	data = map->data;
+//	map->line_sz = (long *) malloc(sizeof(long) * map->lines);
+//	map->map = (long **) malloc(sizeof(long *) * map->lines);
+//
+//	while(data)
+//	{
+//		map->line_sz[data->col] = data->row;
+//		map->map[data->col] = data->data;
+//		data = data->next;
+//	}
+//
+//	return (map->map);
+//}
+
+t_point  **data_to_array(t_map *map)
 {
 	t_m_data *data;
+	int i;
+	float x;
+	float y;
+
+	if(!map)
+		return (NULL);
 
 	data = map->data;
 	map->line_sz = (long *) malloc(sizeof(long) * map->lines);
-	map->map = (long **) malloc(sizeof(long *) * map->lines);
+	//map->map = (long **) malloc(sizeof(long *) * map->lines);
+	map->map = (t_point **) malloc(sizeof(t_point *) * (map->lines + 1));
+	ft_memset(map->map, 0, map->lines + 1);
+	i = 0;
+	x = map->origine_x;
+	y = map->origine_y;
 
+	// Go tho the end of the list
+	while(data->next)
+		data = data->next;
+
+	// Start from the end of the list and rewind
 	while(data)
 	{
+
+		i = 0;
 		map->line_sz[data->col] = data->row;
-		map->map[data->col] = data->data;
-		data = data->next;
+		map->map[data->col] = (t_point *) malloc(sizeof(t_point) * data->row);
+		while (i != data->row)
+		{
+			//printf("DATA_TO_ARRAY i[%d] x[%lf] y[%lf] z[%ld]\n", i, x, y, (data->data)[i]);
+			(map->map)[data->col][i].x = x;
+			(map->map)[data->col][i].y = y;
+			//(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.60;
+			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
+			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 1; // The 0.91 determines the height (z) step. It's a controle mecanisme
+			i++;
+			x += map->step;
+		}
+		y += map->step;
+		x =  map->origine_x;
+		//data = data->next;
+		data = data->prev; // Go to the start of the list
 	}
 
 	return (map->map);
 }
+
 
 t_map *map_malloc()
 {
@@ -158,6 +212,8 @@ t_map *get_map(char *name)
 {
 	t_map *map;
 	t_m_data *data;
+	t_m_data *data_prev;
+
 
 	char	*mp;	// data from the map file
 	int 	fd;		// file descitpor of the map
@@ -204,9 +260,22 @@ t_map *get_map(char *name)
 		return (NULL);
 	}
 
+
+	map->origine_x = ORIGINE_X;
+	map->origine_y = ORIGINE_Y;
+
+	printf("map->origine_x [%lf]\n", map->origine_x);
+	printf("map->origine_y [%lf]\n", map->origine_y);
+	map->step = STEP;
+
+
+
 	while((n_line = line_pnt(mp, o_line)) > 0)
 	{
+		printf("CAME HERE WHILE GET_MAP\n");
 		data = (t_m_data *) malloc(sizeof(t_m_data));
+		data->next = NULL;
+		data->prev = NULL;
 		if((data->row = count_num(mp, o_line, n_line)) <= 0)
 		{
 			ft_printf("[-] Error: Invalid map (line %d)\n", map->lines + 1);
@@ -214,8 +283,11 @@ t_map *get_map(char *name)
 		}
 		data->col = map->lines;
 		data->data = get_num(mp, o_line, n_line, data->row);
-		data->next = map->data;
-		map->data = data;
+		data->next = map->data; // data = 4 -- m->data = 3
+		data_prev  = data;      // data_prev = 4
+		map->data = data;       // m->data = 4  m->data->next = 3
+		if(data->next) // set the previous
+			data->next->prev = data_prev; // data->next->prev = 4
 		while(data)
 			data = data->next;
 		map->lines++;

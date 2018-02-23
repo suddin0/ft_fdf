@@ -15,10 +15,10 @@ void print_map(t_map *map, int space)
 	{
 		while (p < map->line_sz[l])
 		{
-			num_sz = ft_intlen(map->map[l][p]);
+			num_sz = ft_intlen(map->map[l][p].z);
 			if ((space - num_sz) > 0)
 				ft_putnchar(' ', space - num_sz);
-			ft_putnbr(map->map[l][p]);
+			ft_putnbr(map->map[l][p].z);
 			p++;
 		}
 		ft_putchar('\n');

@@ -3,3 +3,5 @@
 *.a
 *.dSYM
 .swp
+.gch
+.test
