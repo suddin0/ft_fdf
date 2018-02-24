@@ -32,13 +32,13 @@ static long line_pnt(char *str, long line)
 		return (0);
 	while(str[i] && str[i] != 0xA) // 0xA = line feed (new line)
 		i++;
-		printf("CAME HERE LINE_PNT i[%d]\n", i);
+		// printf("CAME HERE LINE_PNT i[%d]\n", i);
 	if (i == line || str[i] == 0)
 		return (0);	// if new line wasn't found and i was not changed because
 		 			// there zas nothing to read, then we have reached the end of
 
 					// file
-	printf("CAME HERE LINE_PNT\n");
+	// printf("CAME HERE LINE_PNT\n");
 	return (i);
 }
 
@@ -154,8 +154,12 @@ t_point  **data_to_array(t_map *map)
 	map->map = (t_point **) malloc(sizeof(t_point *) * (map->lines + 1));
 	ft_memset(map->map, 0, map->lines + 1);
 	i = 0;
-	x = map->origine_x;
-	y = map->origine_y;
+
+	// x = map->origine_x;
+	// y = map->origine_y;
+
+	x = 0;
+	y = 0;
 
 	// Go tho the end of the list
 	while(data->next)
@@ -171,16 +175,27 @@ t_point  **data_to_array(t_map *map)
 		while (i != data->row)
 		{
 			//printf("DATA_TO_ARRAY i[%d] x[%lf] y[%lf] z[%ld]\n", i, x, y, (data->data)[i]);
+
+			// --  (map->map)[data->col][i].x = x;
+			// --  (map->map)[data->col][i].y = y;
+
 			(map->map)[data->col][i].x = x;
 			(map->map)[data->col][i].y = y;
+
 			//(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.60;
 			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 1; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			i++;
-			x += map->step;
+			// -- x += map->step;
+			x ++;
 		}
-		y += map->step;
-		x =  map->origine_x;
+		// --  y += map->step;
+		// -- x =  map->origine_x;
+
+		y ++;
+		x = 0;
+
+
 		//data = data->next;
 		data = data->prev; // Go to the start of the list
 	}

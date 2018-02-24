@@ -31,7 +31,7 @@
 
 #define	MLX_H
 
-
+#include <string.h> // This was added by suddin (me) for strlcat 
 void	*mlx_init();
 /*
 **  needed before everything else.

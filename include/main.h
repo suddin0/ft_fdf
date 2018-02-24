@@ -80,7 +80,7 @@ typedef struct s_mlx_image
 	int	  o_y;		// Origine y
 	int	  x;		// width
 	int	  y;		// height
-} t_img;
+} t_image;
 
 // THe Main structure with window and all
 typedef struct	s_root
@@ -93,8 +93,8 @@ typedef struct	s_root
 	t_map *map;
 	void *img_ptr;
 	char *img;
-	t_img menu;
-	t_img prev;
+	t_image menu;
+	t_image prev;
 } t_root;
 
 
@@ -109,11 +109,11 @@ int		pre_check(int argc, char **argv);
 void	root_init(t_root *root, char **argv);
 
 t_color	get_col(int r, int g, int b, int a);
-void	put_color(t_img *img, int x, int y, t_color col);
+void	put_color(t_image *img, int x, int y, t_color col);
 void	set_color(char *img, unsigned int len, t_color col);
 
-void init_menu(t_root *root, t_img *menu);
-void init_prev(t_root *root, t_img *prev);
+void init_menu(t_root *root, t_image *menu);
+void init_prev(t_root *root, t_image *prev);
 
 
 

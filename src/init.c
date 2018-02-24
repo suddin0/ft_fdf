@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-void init_menu(t_root *root, t_img *menu)
+void init_menu(t_root *root, t_image *menu)
 {
 	menu->o_x = 0;
 	menu->o_y = 0;
@@ -16,7 +16,7 @@ void init_menu(t_root *root, t_img *menu)
 	set_color(menu->img, menu->x * menu->y, get_col(51, 51, 51, 0));
 }
 
-void init_prev(t_root *root, t_img *prev)
+void init_prev(t_root *root, t_image *prev)
 {
 	prev->o_x = root->sz_x / 4;
 	prev->o_y = 0;

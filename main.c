@@ -26,7 +26,7 @@ int	exit_esc(int key, t_root *root)
 
 
 //void  draw_line_img_iso(t_root *r, int Xo, int Yo, int  Xn, int Yn, t_color color)
-void  draw_line_iso(t_img *img, double Xo, double Yo, double  Xn, double Yn, t_color color)
+void  draw_line_iso(t_image *img, double Xo, double Yo, double  Xn, double Yn, t_color color)
 {
 	int	steps;
 	double	x;
@@ -50,8 +50,8 @@ void  draw_line_iso(t_img *img, double Xo, double Yo, double  Xn, double Yn, t_c
 	}
 }
 
-// void  draw_line(t_img *img, double Xo, double Yo, double  Xn, double Yn, t_color color)
-// //void  draw_line(t_img *img, double Xo, double Yo, double Zo, double  Xn, double Yn, double Zn, t_color color)
+// void  draw_line(t_image *img, double Xo, double Yo, double  Xn, double Yn, t_color color)
+// //void  draw_line(t_image *img, double Xo, double Yo, double Zo, double  Xn, double Yn, double Zn, t_color color)
 // {
 // 	unsigned steps;
 // 	double	x;
@@ -127,7 +127,7 @@ void rotat(t_map *map)
 	}
 }
 
-void  draw_line_p(t_img *img, t_point o, t_point n, t_color color)
+void  draw_line_p(t_image *img, t_point o, t_point n, t_color color)
 {
 	unsigned steps;
 	double	x;
@@ -140,7 +140,7 @@ void  draw_line_p(t_img *img, t_point o, t_point n, t_color color)
 	n.x /= (n.z);
 	n.y /= (n.z);
 
-	// printf("DRAW LINE OX[%lf] OY[%lf] -- NX[%lf] NY[%lf]", o.x, o.y, n.x, n.y);
+	 printf("DRAW LINE OX[%lf] OY[%lf] -- NX[%lf] NY[%lf]\n", o.x, o.y, n.x, n.y);
 
 	steps = ((n.x - o.x) > (n.y - o.y)) ? fabs(n.x - o.x) : fabs(n.y - o.y);
 	x = o.x;
@@ -159,7 +159,7 @@ void  draw_line_p(t_img *img, t_point o, t_point n, t_color color)
 
 
 
-void show_map(t_map *map, t_img *img)
+void show_map(t_map *map, t_image *img)
 {
 	int l;
 	int p;
@@ -236,8 +236,25 @@ int main(int argc, char **argv)
 
 	show_map(root.map, &(root.prev));
 
+	/* ------ Using an xpm image ----- */
+	int ppp = 0;
+	void *nn = NULL;
+	void *rr = NULL;
+
+	int h = 0;
+	int w = 0;
+
+	nn = mlx_new_image(root.mlx, root.sz_x, root.sz_y);
+	// rr = mlx_xpm_file_to_image(root.mlx , "res/__IMG__/dove.xpm", &w, &w);
+	rr = mlx_xpm_file_to_image(root.mlx , "res/FONTS/HH2.xpm", &w, &w);
+	// mlx_put_image_to_window(root.mlx, root.win, rr, 0,0);
+	/* ---------- End xpm image view -------- */
+
+
 	mlx_put_image_to_window(root.mlx, root.win, root.menu.img_ptr, root.menu.o_x, root.menu.o_y);
 	mlx_put_image_to_window(root.mlx, root.win, root.prev.img_ptr, root.prev.o_x, root.prev.o_y);
+	mlx_put_image_to_window(root.mlx, root.win, rr, 0,0);
+
 	mlx_key_hook (root.win , exit_esc, &root);
 	mlx_loop(root.mlx);
 	return (0);

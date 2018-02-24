@@ -12,7 +12,7 @@ t_color	  get_col(int r, int g, int b, int a)
 }
 
 
-void put_color(t_img *img, int x, int y, t_color col)
+void put_color(t_image *img, int x, int y, t_color col)
 {
 	x = (x >= img->x || x < 0) ? 0 : x;
 	y = (y >= img->y || y < 0) ? 0 : y;
