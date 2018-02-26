@@ -91,6 +91,11 @@ SRC		=	$(MAIN)		\
 			src/root_init.c		\
 			src/init.c			\
 			src/color.c			\
+			src/event_handler.c	\
+			src/draw_line.c	\
+			src/draw_dot.c	\
+			src/draw_map.c	\
+			src/modif_matrix.c	\
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))

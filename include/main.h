@@ -7,30 +7,48 @@
 # include <stdio.h>			// For printf
 # include <unistd.h>		// For read
 # include <errno.h>			// For read
+# include <math.h>			// For read
 
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx.h"
 # include "button_map.h"	// Tus use buttom macros
+# include "nn_mask.h"	// Tus use buttom macros
+# include "mlx_int.h"
 
 
-# define DEF_ROOT_X 1200		// Window width
-# define DEF_ROOT_Y 700		// Window Height
+# define DEF_ROOT_X 1600		// Window width
+# define DEF_ROOT_Y 950		// Window Height
 
-# define ORIGINE_X  100.0f
+# define ORIGINE_X  300.0f
 # define ORIGINE_Y  170.0f
-# define STEP  30.0f
-//# define get_col(r, g, b, a) ((r << 16) + (g << 8) + (b) + ((a << 24) * -1))
-//# define STEP_X 10;
+# define STEP 2.0f
 
+// Image Sizes
+# define MENU_X DEF_ROOT_X / 4
+# define MENU_Y DEF_ROOT_Y
 
-typedef struct	s_color  // Converts colors
-{
-	unsigned char b;
-	unsigned char g;
-	unsigned char r;
-	unsigned char a;
-}		t_color;
+# define FOOT_X DEF_ROOT_X - (DEF_ROOT_X / 4)
+# define FOOT_Y 23
+
+# define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
+# define PREV_Y DEF_ROOT_Y - FOOT_Y
+// -------------------
+
+// Event Notification and mask shortcurring
+// Notify
+# define PMOTION	NN_MotionNotify
+# define KPRESS		NN_KeyPress
+# define KRELEASE	NN_KeyRelease
+# define VISIBL		NN_VisibilityNotify
+
+// Masks
+# define PMOTION_M	NN_PointerMotionMask
+# define KPRESS_M	NN_KeyPressMask
+# define KRELEASE_M	NN_KeyReleaseMask
+# define VISIBL_M	NN_VisibilityChangeMask
+# define COLOR(MLX_PTR, H_COLOR) mlx_get_color_value(MLX_PTR, H_COLOR)
+# define CLEAR(I) set_color(I.img, I.x * I.y, I.bg);
 
 typedef struct s_point
 {
@@ -55,7 +73,7 @@ typedef struct s_fdfmap
 	char		*name;		// stores the maps name
 	char		*path;		// stores the maps path
 	//long		**map;		// stores the map as an long int table[data->col][data->raw]
-	t_point		**map;	// stores the map as an long int table[data->col][data->raw]
+	t_point		**map;		// stores the map as an long int table[data->col][data->raw]
 	long		*line_sz;	// stores the amount of number a line contains (for looping purpose)
 	int			file_sz;	// stores the size if the map file
 	int			lines;		// saves total number of lines in the chained list (data)
@@ -69,6 +87,17 @@ typedef struct s_fdfmap
 	struct s_fdfmap	*next;	// next map;
 }	t_map;
 
+typedef struct s_button
+{
+	int type;
+	int o_x;
+	int o_y;
+	int x;
+	int y;
+	char *def;
+	char *hov;
+} t_button;
+
 typedef struct s_mlx_image
 {
 	void *img_ptr;	// Image pointer
@@ -80,21 +109,22 @@ typedef struct s_mlx_image
 	int	  o_y;		// Origine y
 	int	  x;		// width
 	int	  y;		// height
+	int	  bg;		// Background color
 } t_image;
 
 // THe Main structure with window and all
 typedef struct	s_root
 {
-	void *mlx;
-	void *win;
-	int sz_x;
-	int sz_y;
-	char name[NAME_MAX + 5];
-	t_map *map;
-	void *img_ptr;
-	char *img;
-	t_image menu;
-	t_image prev;
+	void	*mlx;	// Mlx pointer
+	void	*win;	// Window pointer
+	int		sz_x;	// Window Width
+	int		sz_y;	// Window Height
+	char	name[NAME_MAX + 5]; // Window name
+	t_map *map;		// Stores the map to show in Preview section
+	t_image	menu; 	// Menu section
+	t_image	prev; 	// Previeu section
+	t_image	foot; // Footer section
+	char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
 } t_root;
 
 
@@ -108,12 +138,26 @@ void	print_map(t_map *map, int space);
 int		pre_check(int argc, char **argv);
 void	root_init(t_root *root, char **argv);
 
-t_color	get_col(int r, int g, int b, int a);
-void	put_color(t_image *img, int x, int y, t_color col);
-void	set_color(char *img, unsigned int len, t_color col);
 
-void init_menu(t_root *root, t_image *menu);
-void init_prev(t_root *root, t_image *prev);
+void	put_color(t_image *img, int x, int y, int col);
+void	set_color(char *img, unsigned int len, int col);
+
+void	init_menu(t_root *root, t_image *menu);
+void	init_prev(t_root *root, t_image *prev);
+void	init_foot(t_root *root, t_image *f);
+
+
+void	event_handler(t_root *root);
+
+void	draw_line(t_image *img, t_point o, t_point n, int color);
+void  	draw_dot(t_image *img, t_point o, t_point n, int color);
+// void	draw_map(void *v, t_map *map, t_image *img);
+void draw_map(void *img_ptr, t_map *map, t_image *img);
+
+
+
+void modif_matrix(t_map *map, void f(t_point *a, double val), double rot);
+
 
 
 

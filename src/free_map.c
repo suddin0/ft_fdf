@@ -1,6 +1,6 @@
 #include "main.h"
 
-static void free_data(t_m_data *data)
+inline static void free_data(t_m_data *data)
 {
 	t_m_data *tmp;
 
@@ -13,6 +13,21 @@ static void free_data(t_m_data *data)
 		tmp = data;
 	}
 }
+
+inline static void free_point(t_map *map, t_point **point)
+{
+	int line;
+
+	line = 0;
+	while(line != map->lines)
+	{
+		printf("FREE_DATA 1\n");
+		free(point[line++]);
+	}
+	free(point);
+
+}
+
 void free_map(t_map *map)
 {
 	t_map *tmp_map;
@@ -22,8 +37,12 @@ void free_map(t_map *map)
 		return ;
 	while(tmp_map)
 	{
-		if (tmp_map->map)
-			free(tmp_map->map);
+		printf("FREE_MAP 1\n");
+
+		// if (tmp_map->map)
+		// 	free(tmp_map->map);
+		//if (tmp_map->map)
+			free_point(tmp_map, tmp_map->map);
 		free(tmp_map->line_sz);
 		if(tmp_map->data)
 			free_data(tmp_map->data);

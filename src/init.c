@@ -1,31 +1,47 @@
 #include "main.h"
 
 
-void init_menu(t_root *root, t_image *menu)
+void init_menu(t_root *root, t_image *m)
 {
-	menu->o_x = 0;
-	menu->o_y = 0;
-	menu->x	  = root->sz_x / 4;
-	menu->y	  = root->sz_y;
+	m->o_x = 0;
+	m->o_y = 0;
+	m->x = MENU_X;
+	m->y = MENU_Y;
+	m->bg = COLOR(root->mlx, 0x1b2d3b);
 
-	// printf("MENU->X [%d]\n", menu->x);
-	// printf("MENU->Y [%d]\n", menu->y);
-	// printf("menu x*y [%d]\n", menu->x * menu->y);
-	menu->img_ptr	= mlx_new_image(root->mlx, menu->x , menu->y);
-	menu->img		= mlx_get_data_addr(menu->img_ptr, &(menu->bpp), &(menu->sl), &(menu->end));
-	set_color(menu->img, menu->x * menu->y, get_col(51, 51, 51, 0));
+	m->img_ptr = mlx_new_image(root->mlx, m->x , m->y);
+	m->img = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->sl), &(m->end));
+	set_color(m->img, m->x * m->y, m->bg);
+	mlx_put_image_to_window(root->mlx, root->win, m->img_ptr, m->o_x, m->o_y);
 }
 
-void init_prev(t_root *root, t_image *prev)
+
+void init_prev(t_root *root, t_image *p)
 {
-	prev->o_x = root->sz_x / 4;
-	prev->o_y = 0;
-	prev->x	  = root->sz_x - root->sz_x / 4;
-	prev->y	  = root->sz_y;
-	// printf("PREV->X [%d]\n", prev->x);
-	// printf("PREV->Y [%d]\n", prev->y);
-	// printf("prev x*y [%d]\n", prev->x * prev->y);
-	prev->img_ptr	= mlx_new_image(root->mlx, prev->x, prev->y);
-	prev->img		= mlx_get_data_addr(prev->img_ptr, &(prev->bpp), &(prev->sl), &(prev->end));
-	set_color(prev->img, prev->x * prev->y, get_col(241, 232, 202, 255));
+	p->o_x = MENU_X;
+	p->o_y = 0;
+	p->x = PREV_X;
+	p->y = PREV_Y;
+	p->bg = COLOR(root->mlx, 0x021626);
+
+	p->img_ptr = mlx_new_image(root->mlx, p->x, p->y);
+	p->img = mlx_get_data_addr(p->img_ptr, &(p->bpp), &(p->sl), &(p->end));
+
+	set_color(p->img, p->x * p->y, p->bg);
+	mlx_put_image_to_window(root->mlx, root->win, p->img_ptr, p->o_x, p->o_y);
+}
+
+void init_foot(t_root *root, t_image *f)
+{
+	f->o_x = MENU_X;
+	f->o_y = PREV_Y;
+	f->x = FOOT_X;
+	f->y = FOOT_Y;
+	f->bg = COLOR(root->mlx, 0x1b2d3b);
+
+	f->img_ptr = mlx_new_image(root->mlx, f->x, f->y);
+	f->img = mlx_get_data_addr(f->img_ptr, &(f->bpp), &(f->sl), &(f->end));
+
+	set_color(f->img, f->x * f->y, f->bg);
+	mlx_put_image_to_window(root->mlx, root->win, f->img_ptr, f->o_x, f->o_y);
 }

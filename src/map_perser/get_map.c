@@ -155,11 +155,11 @@ t_point  **data_to_array(t_map *map)
 	ft_memset(map->map, 0, map->lines + 1);
 	i = 0;
 
-	// x = map->origine_x;
-	// y = map->origine_y;
+	x = map->origine_x;
+	y = map->origine_y;
 
-	x = 0;
-	y = 0;
+	// x = 0;
+	// y = 0;
 
 	// Go tho the end of the list
 	while(data->next)
@@ -176,24 +176,24 @@ t_point  **data_to_array(t_map *map)
 		{
 			//printf("DATA_TO_ARRAY i[%d] x[%lf] y[%lf] z[%ld]\n", i, x, y, (data->data)[i]);
 
-			// --  (map->map)[data->col][i].x = x;
-			// --  (map->map)[data->col][i].y = y;
-
 			(map->map)[data->col][i].x = x;
 			(map->map)[data->col][i].y = y;
 
-			//(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.60;
-			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
-			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 1; // The 0.91 determines the height (z) step. It's a controle mecanisme
-			i++;
-			// -- x += map->step;
-			x ++;
-		}
-		// --  y += map->step;
-		// -- x =  map->origine_x;
+			// (map->map)[data->col][i].x = x;
+			// (map->map)[data->col][i].y = y;
 
-		y ++;
-		x = 0;
+			//(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.60;
+			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
+			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 1; // The 0.91 determines the height (z) step. It's a controle mecanisme
+			i++;
+			x += map->step;
+			// x ++;
+		}
+		y += map->step;
+		x =  map->origine_x;
+
+		// y ++;
+		// x = 0;
 
 
 		//data = data->next;

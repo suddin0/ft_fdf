@@ -69,8 +69,11 @@
 	#define BTN_NUM_9	65434
 	#define BTN_NUM_RET	65421
 
-	#define BTN_PLUS	65451
-	#define BTN_MINUX	65453
+	// #define BTN_PLUS	65451
+	// #define BTN_MINUS	65453
+	#define BTN_PLUS	43
+	#define BTN_MINUS	45
+
 	#define BTN_MULT	65450
 	#define BTN_DIV		65455
 	#define BTN_DOT		65439
@@ -169,7 +172,7 @@
 	#define BTN_NUM_RET	76
 
 	#define BTN_PLUS	69
-	#define BTN_MINUX	78
+	#define BTN_MINUS	78
 	#define BTN_MULT	67
 	#define BTN_DIV		75
 	#define BTN_DOT		65
