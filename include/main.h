@@ -20,9 +20,9 @@
 # define DEF_ROOT_X 1600		// Window width
 # define DEF_ROOT_Y 950		// Window Height
 
-# define ORIGINE_X  300.0f
-# define ORIGINE_Y  170.0f
-# define STEP 2.0f
+# define ORIGINE_X  10.0f
+# define ORIGINE_Y  10.0f
+# define STEP 30.0f
 
 // Image Sizes
 # define MENU_X DEF_ROOT_X / 4
@@ -68,10 +68,26 @@ typedef struct s_map_data
 
 }	t_m_data;
 
+
+typedef struct s_mlx_image
+{
+	void *img_ptr;	// Image pointer
+	char *img;		// Image
+	int	  bpp;		// Bit par pixel
+	int	  sl;		// Size_len
+	int	  end;		// Endian;
+	int	  o_x;		// Origine x;
+	int	  o_y;		// Origine y
+	int	  x;		// width
+	int	  y;		// height
+	int	  bg;		// Background color
+} t_image;
+
 typedef struct s_fdfmap
 {
 	char		*name;		// stores the maps name
 	char		*path;		// stores the maps path
+	t_image		*img;		// A copy of the section where map is shown
 	//long		**map;		// stores the map as an long int table[data->col][data->raw]
 	t_point		**map;		// stores the map as an long int table[data->col][data->raw]
 	long		*line_sz;	// stores the amount of number a line contains (for looping purpose)
@@ -98,19 +114,6 @@ typedef struct s_button
 	char *hov;
 } t_button;
 
-typedef struct s_mlx_image
-{
-	void *img_ptr;	// Image pointer
-	char *img;		// Image
-	int	  bpp;		// Bit par pixel
-	int	  sl;		// Size_len
-	int	  end;		// Endian;
-	int	  o_x;		// Origine x;
-	int	  o_y;		// Origine y
-	int	  x;		// width
-	int	  y;		// height
-	int	  bg;		// Background color
-} t_image;
 
 // THe Main structure with window and all
 typedef struct	s_root
@@ -130,7 +133,7 @@ typedef struct	s_root
 
 
 int		file_size(const char *name);
-t_map	*get_map(char *name);
+t_map	*get_map(char *name, t_image *img);
 int		is_dir(const char *name);
 int		is_file(const char *name);
 void	free_map(t_map *map);
@@ -149,10 +152,11 @@ void	init_foot(t_root *root, t_image *f);
 
 void	event_handler(t_root *root);
 
-void	draw_line(t_image *img, t_point o, t_point n, int color);
+// void	draw_line(t_image *img, t_point o, t_point n, int color);
+void	draw_line(t_map  *map, t_point o, t_point n, int color);
 void  	draw_dot(t_image *img, t_point o, t_point n, int color);
 // void	draw_map(void *v, t_map *map, t_image *img);
-void draw_map(void *img_ptr, t_map *map, t_image *img);
+void draw_map(void *img_ptr, t_map *map);
 
 
 

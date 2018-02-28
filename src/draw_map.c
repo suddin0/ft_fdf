@@ -1,6 +1,7 @@
 #include "main.h"
 
-void draw_map(void *img_ptr, t_map *map, t_image *img)
+void draw_map(void *img_ptr, t_map *map)
+// void draw_map(void *img_ptr, t_map *map, t_image *img)
 {
 	int l;
 	int p;
@@ -23,13 +24,17 @@ void draw_map(void *img_ptr, t_map *map, t_image *img)
 				// draw_line(img, m[l][p], m[l + 1][p], COLOR(img_ptr, 0x99a1a8));
 				// draw_line(img, m[l][p], m[l + 1][p], COLOR(img_ptr, 0xDAEDCF));
 				// draw_line(img, m[l][p], m[l + 1][p], COLOR(img_ptr, 0xff8000));
-				// draw_line(img, m[l][p], m[l + 1][p], COLOR(img_ptr, 0xe0e0bd)); --
-				draw_dot(img, m[l][p], m[l + 1][p], COLOR(img_ptr, 0xe0e0bd));
+				draw_line(map, m[l][p], m[l + 1][p], COLOR(img_ptr, 0xe0e0bd)); // --
+
+				// draw_dot(img, m[l][p], m[l + 1][p], COLOR(img_ptr, 0xe0e0bd));
+
 			if (p + 1 <  map->line_sz[l])
 				// draw_line(img, m[l][p], m[l][p + 1], COLOR(img_ptr, 0xff8000));
-				// draw_line(img, m[l][p], m[l][p + 1], COLOR(img_ptr, 0xe0e0bd)); --
-				draw_dot(img, m[l][p], m[l][p + 1], COLOR(img_ptr, 0xe0e0bd));
 				// draw_line(img, m[l][p], m[l][p + 1], COLOR(img_ptr, 0xDAEDCF));
+				draw_line(map, m[l][p], m[l][p + 1], COLOR(img_ptr, 0xe0e0bd)); //--
+
+				// draw_dot(img, m[l][p], m[l][p + 1], COLOR(img_ptr, 0xe0e0bd));
+
 			p += 1;
 		}
 		l++;

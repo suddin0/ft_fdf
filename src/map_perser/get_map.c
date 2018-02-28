@@ -155,11 +155,11 @@ t_point  **data_to_array(t_map *map)
 	ft_memset(map->map, 0, map->lines + 1);
 	i = 0;
 
-	x = map->origine_x;
-	y = map->origine_y;
+	// x = map->origine_x; // --
+	// y = map->origine_y;	// --
 
-	// x = 0;
-	// y = 0;
+	x = 0;
+	y = 0;
 
 	// Go tho the end of the list
 	while(data->next)
@@ -176,8 +176,8 @@ t_point  **data_to_array(t_map *map)
 		{
 			//printf("DATA_TO_ARRAY i[%d] x[%lf] y[%lf] z[%ld]\n", i, x, y, (data->data)[i]);
 
-			(map->map)[data->col][i].x = x;
-			(map->map)[data->col][i].y = y;
+			(map->map)[data->col][i].x = x; // --
+			(map->map)[data->col][i].y = y; // --
 
 			// (map->map)[data->col][i].x = x;
 			// (map->map)[data->col][i].y = y;
@@ -186,14 +186,14 @@ t_point  **data_to_array(t_map *map)
 			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 1; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			i++;
-			x += map->step;
-			// x ++;
+			// x += map->step; // --
+			x ++;
 		}
-		y += map->step;
-		x =  map->origine_x;
+		// y += map->step;		// --
+		// x =  map->origine_x;	// --
 
-		// y ++;
-		// x = 0;
+		y++;
+		x = 0;
 
 
 		//data = data->next;
@@ -204,7 +204,7 @@ t_point  **data_to_array(t_map *map)
 }
 
 
-t_map *map_malloc()
+t_map *map_malloc(t_image *img)
 {
 	t_map *map;
 
@@ -212,18 +212,22 @@ t_map *map_malloc()
 	map = (t_map *) malloc(sizeof(t_map));	// main structure
 	map->name = NULL;
 	map->path = NULL;
+	map->img = img;
 	map->map = NULL;
 	map->line_sz = NULL;
 	map->file_sz = 0;
 	map->lines = 0;
 	map->data = NULL;
 	map->next = NULL;
+	map->origine_x = 0.0f;
+	map->origine_y = 0.0f;
+	map->step = STEP;
 
 	return (map);
 }
 
 
-t_map *get_map(char *name)
+t_map *get_map(char *name, t_image *img)
 {
 	t_map *map;
 	t_m_data *data;
@@ -244,7 +248,7 @@ t_map *get_map(char *name)
 
 	if (is_file(name) == 1)
 	{
-		map = map_malloc();	// main structure
+		map = map_malloc(img);	// main structure
 		map->file_sz = file_size(name);	// get
 		if(!(mp = ft_strnew(map->file_sz)))
 		{

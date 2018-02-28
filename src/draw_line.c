@@ -1,6 +1,6 @@
 #include "main.h"
 
-void  draw_line(t_image *img, t_point o, t_point n, int color)
+void  draw_line(t_map *map, t_point o, t_point n, int color)
 {
 	unsigned steps;
 	double	x;
@@ -13,6 +13,17 @@ void  draw_line(t_image *img, t_point o, t_point n, int color)
 	// o.y *= 20;
 	// n.x *= 20;
 	// n.y *= 20;
+
+	// o.x /= (o.z);
+	// o.y /= (o.z);
+	// n.x /= (n.z);
+	// n.y /= (n.z);
+
+
+	o.x = map->origine_x + (STEP * o.x);
+	o.y = map->origine_y + (STEP * o.y);
+	n.x = map->origine_x + (STEP * n.x);
+	n.y = map->origine_y + (STEP * n.y);
 
 	o.x /= (o.z);
 	o.y /= (o.z);
@@ -31,7 +42,7 @@ void  draw_line(t_image *img, t_point o, t_point n, int color)
 	{
 		x += Xincrement;
 		y += Yincrement;
-		put_color(img, x, y, color); // Normal view
+		put_color(map->img, x, y, color); // Normal view
 		steps--;
 	}
 }

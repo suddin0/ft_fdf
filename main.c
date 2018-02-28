@@ -142,9 +142,8 @@ int main(int argc, char **argv)
 		return (0);
 	root_init(&root, argv);
 
-	if(!(map = get_map(argv[1])))
-		return (-1);
-	root.map = map;
+
+
 	printf("******** END OF PERSING *********\n");
 	//print_map(map, 3);
 
@@ -152,7 +151,10 @@ int main(int argc, char **argv)
 	init_prev(&root, &(root.prev));
 	init_foot(&root, &(root.foot));
 
-	draw_map(root.mlx, root.map, &(root.prev));
+	if(!(map = get_map(argv[1], &(root.prev))))
+		return (-1);
+	root.map = map;
+	draw_map(root.mlx, root.map);
 
 	/* ------ Using an xpm image ----- */
 	int ppp = 0;

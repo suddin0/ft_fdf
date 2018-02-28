@@ -14,10 +14,10 @@ void  draw_dot(t_image *img, t_point o, t_point n, int color)
 	// n.x *= 20;
 	// n.y *= 20;
 
-	o.x /= (o.z);
-	o.y /= (o.z);
-	n.x /= (n.z);
-	n.y /= (n.z);
+	// o.x /= (o.z);
+	// o.y /= (o.z);
+	// n.x /= (n.z);
+	// n.y /= (n.z);
 
 	 printf("DRAW DOT OX[%lf] OY[%lf] -- NX[%lf] NY[%lf]\n", o.x, o.y, n.x, n.y);
 

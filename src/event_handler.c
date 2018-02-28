@@ -19,20 +19,19 @@ int pmotion(int x, int y, t_root *root)
 }
 
 
-void trans_x(t_point *a, double v)
+void trans_x(t_map *a, double v)
 {
-	a->x += v;
+	a->origine_x += v;
 }
 
-void trans_y(t_point *a, double v)
+void trans_y(t_map *a, double v)
 {
-	a->y += v;
+	a->origine_y += v;
 }
 
-void zoom(t_point *a, double v)
+void zoom(t_map *a, int v)
 {
-	a->x += v;
-	a->y += v;
+	a->step += v;
 	// a->z += v;
 }
 
@@ -89,7 +88,7 @@ void rotat_z(t_point *a, double v)
 
 	a->x = (x * cos(v))  + (y * -sin(v)) + (z * 0);
 	a->y = (x * sin(v))  + (y *  cos(v)) + (z * 0);
-	a->z = (x *        0)  + (y *         0) + (z * 1);
+	a->z = (x *      0)  + (y *       0) + (z * 1);
 	printf("-- ROTAT_X AFTER X[%lf] Y[%lf] Z[%lf]\n", a->x, a->y, a->z);
 }
 
@@ -110,85 +109,91 @@ int kpress(int key, t_root *root)
 	else if (key == BTN_UP)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modif_matrix(root->map, trans_y, -3.0);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		// modif_matrix(root->map, trans_y, -3.0);
+		trans_y(root->map, -3.0);
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_DOWN)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modif_matrix(root->map, trans_y, 3.0);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		// modif_matrix(root->map, trans_y, 3.0);
+		trans_y(root->map, 3.0);
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_RIGT)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modif_matrix(root->map, trans_x, 3.0);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		// modif_matrix(root->map, trans_x, 3.0);
+		trans_x(root->map, 3.0);
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_LEFT)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modif_matrix(root->map, trans_x, -3.0);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		// modif_matrix(root->map, trans_x, -3.0);
+		trans_x(root->map, -3.0);
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_PLUS)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modif_matrix(root->map, zoom, 1.1);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		// modif_matrix(root->map, zoom, 1.1);
+		zoom(root->map, 5);
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_MINUS)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modif_matrix(root->map, zoom, -1.1);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		// modif_matrix(root->map, zoom, -1.1);
+		zoom(root->map, -5);
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_X)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modif_matrix(root->map, rotat_x, 0.10);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_S)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modif_matrix(root->map, rotat_x, -0.10);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_Y)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modif_matrix(root->map, rotat_y, 0.10);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_U)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modif_matrix(root->map, rotat_y, -0.10);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_Z)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modif_matrix(root->map, rotat_z, 0.10);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else if (key == BTN_A)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modif_matrix(root->map, rotat_z, -0.10);
-		draw_map(root->prev.img_ptr, root->map, &(root->prev));
+		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
 	else
