@@ -1,6 +1,6 @@
 #include "main.h"
 
-void modif_matrix(t_map *map, void f(t_point *a, double val), double rot)
+void modmatrix(t_map *map, void f(t_point *a, double val), double rot)
 {
 	int l;
 	int p;

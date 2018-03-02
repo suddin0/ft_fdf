@@ -95,7 +95,10 @@ SRC		=	$(MAIN)		\
 			src/draw_line.c	\
 			src/draw_dot.c	\
 			src/draw_map.c	\
-			src/modif_matrix.c	\
+			src/matrans/modmatrix.c	\
+			src/matrans/rotate_x.c \
+			src/matrans/rotate_y.c \
+			src/matrans/rotate_z.c \
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))

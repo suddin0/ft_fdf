@@ -14,7 +14,7 @@ void  draw_line(t_map *map, t_point o, t_point n, int color)
 	n.y = map->origine_y + (map->step * n.y);
 
 
-	 printf("DRAW LINE OX[%lf] OY[%lf] -- NX[%lf] NY[%lf]\n", o.x, o.y, n.x, n.y);
+	 // printf("DRAW LINE OX[%lf] OY[%lf] -- NX[%lf] NY[%lf]\n", o.x, o.y, n.x, n.y);
 
 	steps = ((n.x - o.x) > (n.y - o.y)) ? fabs(n.x - o.x) : fabs(n.y - o.y);
 	x = o.x;

@@ -52,6 +52,9 @@ int main(int argc, char **argv)
 	if(!(map = get_map(argv[1], &(root.prev))))
 		return (-1);
 	root.map = map;
+
+	modmatrix(map, rotate_x, 120);
+	modmatrix(map, rotate_y, 120);
 	draw_map(root.mlx, root.map);
 
 	/* ------ Using an xpm image ----- */

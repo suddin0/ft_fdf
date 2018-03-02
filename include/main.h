@@ -161,7 +161,10 @@ void draw_map(void *img_ptr, t_map *map);
 
 
 
-void modif_matrix(t_map *map, void f(t_point *a, double val), double rot);
+void modmatrix(t_map *map, void f(t_point *a, double val), double rot);
+void rotate_x(t_point *a, double v);
+void rotate_y(t_point *a, double v);
+void rotate_z(t_point *a, double v);
 
 
 
