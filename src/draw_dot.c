@@ -1,6 +1,6 @@
 #include "main.h"
 
-void  draw_dot(t_image *img, t_point o, t_point n, int color)
+void  draw_dot(t_map *map, t_point o, t_point n, int color)
 {
 	unsigned steps;
 	double	x;
@@ -8,16 +8,10 @@ void  draw_dot(t_image *img, t_point o, t_point n, int color)
 	double Xincrement;
 	double Yincrement;
 
-
-	// o.x *= 20;
-	// o.y *= 20;
-	// n.x *= 20;
-	// n.y *= 20;
-
-	// o.x /= (o.z);
-	// o.y /= (o.z);
-	// n.x /= (n.z);
-	// n.y /= (n.z);
+	o.x = map->origine_x + (map->step * o.x);
+	o.y = map->origine_y + (map->step * o.y);
+	n.x = map->origine_x + (map->step * n.x);
+	n.y = map->origine_y + (map->step * n.y);
 
 	 printf("DRAW DOT OX[%lf] OY[%lf] -- NX[%lf] NY[%lf]\n", o.x, o.y, n.x, n.y);
 
@@ -27,16 +21,16 @@ void  draw_dot(t_image *img, t_point o, t_point n, int color)
 
 	Xincrement = (n.x - o.x) / (double) steps;
 	Yincrement = (n.y - o.y) / (double) steps;
-	put_color(img, x, y, color);
+	put_color(map->img, x, y, color);
 
-	x += (Xincrement * (steps / 2.5));
-	y += (Yincrement * (steps / 2.5));
+	x += (Xincrement * (steps / 2));
+	y += (Yincrement * (steps / 2));
 
-	put_color(img, x, y, color);
+	put_color(map->img, x, y, color);
 
 	x += (Xincrement * steps);
 	y += (Yincrement * steps);
 
 
-	put_color(img, x, y, color);
+	put_color(map->img, x, y, color);
 }

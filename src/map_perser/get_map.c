@@ -183,8 +183,9 @@ t_point  **data_to_array(t_map *map)
 			// (map->map)[data->col][i].y = y;
 
 			//(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.60;
-			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
+			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 1; // The 0.91 determines the height (z) step. It's a controle mecanisme
+			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 0.10 : (data->data)[i]; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			i++;
 			// x += map->step; // --
 			x ++;
@@ -222,6 +223,7 @@ t_map *map_malloc(t_image *img)
 	map->origine_x = 0.0f;
 	map->origine_y = 0.0f;
 	map->step = STEP;
+	map->color = COLOR(img->img_ptr, 0xFF3399);
 
 	return (map);
 }

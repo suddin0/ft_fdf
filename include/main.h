@@ -20,8 +20,8 @@
 # define DEF_ROOT_X 1600		// Window width
 # define DEF_ROOT_Y 950		// Window Height
 
-# define ORIGINE_X  10.0f
-# define ORIGINE_Y  10.0f
+# define ORIGINE_X  270.0f
+# define ORIGINE_Y  290.0f
 # define STEP 30.0f
 
 // Image Sizes
@@ -99,6 +99,7 @@ typedef struct s_fdfmap
 	double		origine_x;	// Where should the ´x´ point of the map start
 	double		origine_y;	// Where should the ´y´ point of the map start
 	int			step;		// Distance between each points
+	int 		color;
 
 	struct s_fdfmap	*next;	// next map;
 }	t_map;
@@ -154,7 +155,7 @@ void	event_handler(t_root *root);
 
 // void	draw_line(t_image *img, t_point o, t_point n, int color);
 void	draw_line(t_map  *map, t_point o, t_point n, int color);
-void  	draw_dot(t_image *img, t_point o, t_point n, int color);
+void  	draw_dot(t_map *img, t_point o, t_point n, int color);
 // void	draw_map(void *v, t_map *map, t_image *img);
 void draw_map(void *img_ptr, t_map *map);
 

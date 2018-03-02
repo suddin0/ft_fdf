@@ -32,6 +32,8 @@ void trans_y(t_map *a, double v)
 void zoom(t_map *a, int v)
 {
 	a->step += v;
+	a->origine_x += -v;
+	a->origine_y += -v;
 	// a->z += v;
 }
 
@@ -48,7 +50,7 @@ void rotat_x(t_point *a, double v)
 	printf("++ ROTAT_X BEFOR X[%lf] Y[%lf] Z[%lf]\n", x, y, z);
 
 
-	a->x = (x * 1)  + (y *         0) + (z *         0);
+	a->x = (x * 1)  + (y *       0) + (z *       0);
 	a->y = (x * 0)  + (y *  cos(v)) + (z * -sin(v));
 	a->z = (x * 0)  + (y *  sin(v)) + (z *  cos(v));
 	printf("-- ROTAT_X AFTER X[%lf] Y[%lf] Z[%lf]\n", a->x, a->y, a->z);
@@ -68,7 +70,7 @@ void rotat_y(t_point *a, double v)
 
 
 	a->x = (x *  cos(v))  + (y * 0) + (z *  sin(v));
-	a->y = (x *       0)  + (y * 1) + (z *        0);
+	a->y = (x *       0)  + (y * 1) + (z *       0);
 	a->z = (x * -sin(v))  + (y * 0) + (z *  cos(v));
 	printf("-- ROTAT_X AFTER X[%lf] Y[%lf] Z[%lf]\n", a->x, a->y, a->z);
 
@@ -92,6 +94,15 @@ void rotat_z(t_point *a, double v)
 	printf("-- ROTAT_X AFTER X[%lf] Y[%lf] Z[%lf]\n", a->x, a->y, a->z);
 }
 
+
+void change_z(t_point *a, double v)
+{
+
+	a->z += v;
+	printf("-- change_z AFTER X[%lf] Y[%lf] Z[%lf]\n", a->x, a->y, a->z);
+}
+
+
 int kpress(int key, t_root *root)
 {
 	CLEAR(root->prev);
@@ -110,7 +121,7 @@ int kpress(int key, t_root *root)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		// modif_matrix(root->map, trans_y, -3.0);
-		trans_y(root->map, -3.0);
+		trans_y(root->map, -10.0);
 		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
@@ -118,7 +129,7 @@ int kpress(int key, t_root *root)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		// modif_matrix(root->map, trans_y, 3.0);
-		trans_y(root->map, 3.0);
+		trans_y(root->map, 10.0);
 		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
@@ -126,7 +137,7 @@ int kpress(int key, t_root *root)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		// modif_matrix(root->map, trans_x, 3.0);
-		trans_x(root->map, 3.0);
+		trans_x(root->map, 10.0);
 		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
@@ -134,7 +145,7 @@ int kpress(int key, t_root *root)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		// modif_matrix(root->map, trans_x, -3.0);
-		trans_x(root->map, -3.0);
+		trans_x(root->map, -10.0);
 		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
@@ -193,6 +204,20 @@ int kpress(int key, t_root *root)
 	{
 	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modif_matrix(root->map, rotat_z, -0.10);
+		draw_map(root->prev.img_ptr, root->map);
+		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
+	}
+	else if (key == BTN_W)
+	{
+	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
+		modif_matrix(root->map, change_z, 2);
+		draw_map(root->prev.img_ptr, root->map);
+		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
+	}
+	else if (key == BTN_E)
+	{
+	// void modif_matrix(t_map *map, void *(f(t_point *a, double val)), double rot);
+		modif_matrix(root->map, change_z, -2);
 		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}

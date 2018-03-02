@@ -8,27 +8,11 @@ void  draw_line(t_map *map, t_point o, t_point n, int color)
 	double Xincrement;
 	double Yincrement;
 
+	o.x = map->origine_x + (map->step * o.x);
+	o.y = map->origine_y + (map->step * o.y);
+	n.x = map->origine_x + (map->step * n.x);
+	n.y = map->origine_y + (map->step * n.y);
 
-	// o.x *= 20;
-	// o.y *= 20;
-	// n.x *= 20;
-	// n.y *= 20;
-
-	// o.x /= (o.z);
-	// o.y /= (o.z);
-	// n.x /= (n.z);
-	// n.y /= (n.z);
-
-
-	o.x = map->origine_x + (STEP * o.x);
-	o.y = map->origine_y + (STEP * o.y);
-	n.x = map->origine_x + (STEP * n.x);
-	n.y = map->origine_y + (STEP * n.y);
-
-	o.x /= (o.z);
-	o.y /= (o.z);
-	n.x /= (n.z);
-	n.y /= (n.z);
 
 	 printf("DRAW LINE OX[%lf] OY[%lf] -- NX[%lf] NY[%lf]\n", o.x, o.y, n.x, n.y);
 
