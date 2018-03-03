@@ -14,7 +14,7 @@ int draw_win(t_root *root)
 
 int pmotion(int x, int y, t_root *root)
 {
-	printf("Came in PMOTIOON X[%d] - Y[%d]\n", x, y);
+	// printf("Came in PMOTIOON X[%d] - Y[%d]\n", x, y);
 	return 1;
 }
 
@@ -150,8 +150,8 @@ int kpress(int key, t_root *root)
 		draw_map(root->prev.img_ptr, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
 	}
-	else
-		printf("Came in PRESS BUTTON [%d]\n", key);
+	// else
+	// 	printf("Came in PRESS BUTTON [%d]\n", key);
 
 	return 1;
 }
@@ -163,11 +163,22 @@ int krelease(int key, t_root *root)
 	return 1;
 }
 
+int bpress(int key, int x, int y, t_root *root)
+{
+	printf("Pressed BUTTON [%d]  X[%d] Y[%d]\n", key, x, y);
+	printf("IN B_PRESS ROOT ADD [%p]\n", root);
+
+	printf("IN B_PRESS ROOT->SZ_X [%d]\n", root->sz_x);
+	printf("IN B_PRESS ROOT->SZ_Y [%d]\n", root->sz_y);
+	return 1;
+}
+
 void event_handler(t_root *root)
 {
 	mlx_hook(root->win, PMOTION, PMOTION_M, &pmotion, root); // Mouse motion
 	mlx_hook(root->win, KPRESS, KPRESS_M, &kpress, root); // button press
 	mlx_hook(root->win, KRELEASE, KRELEASE_M, &krelease, root); // button release
 	mlx_hook(root->win, VISIBL, VISIBL_M, &draw_win, root); // expose
+	mlx_hook(root->win, BPRESS, BPRESS_M, &bpress, root); // expose
 
 }

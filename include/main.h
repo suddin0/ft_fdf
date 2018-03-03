@@ -14,7 +14,7 @@
 # include "mlx.h"
 # include "button_map.h"	// Tus use buttom macros
 # include "nn_mask.h"	// Tus use buttom macros
-# include "mlx_int.h"
+// # include "mlx_int.h"
 
 
 # define DEF_ROOT_X 1600		// Window width
@@ -36,15 +36,17 @@
 // -------------------
 
 // Event Notification and mask shortcurring
-// Notify
+// Notify NN_ButtonPress
 # define PMOTION	NN_MotionNotify
 # define KPRESS		NN_KeyPress
+# define BPRESS		NN_ButtonPress
 # define KRELEASE	NN_KeyRelease
 # define VISIBL		NN_VisibilityNotify
 
 // Masks
 # define PMOTION_M	NN_PointerMotionMask
 # define KPRESS_M	NN_KeyPressMask
+# define BPRESS_M	NN_ButtonPressMask
 # define KRELEASE_M	NN_KeyReleaseMask
 # define VISIBL_M	NN_VisibilityChangeMask
 # define COLOR(MLX_PTR, H_COLOR) mlx_get_color_value(MLX_PTR, H_COLOR)
@@ -104,17 +106,46 @@ typedef struct s_fdfmap
 	struct s_fdfmap	*next;	// next map;
 }	t_map;
 
+
+/* Interfacing */
+// typedef struct s_button
+// {
+// 	int type;
+// 	int o_x;
+// 	int o_y;
+// 	int x;
+// 	int y;
+// 	char *def;
+// 	char *hov;
+// } t_button;
+
 typedef struct s_button
 {
-	int type;
-	int o_x;
-	int o_y;
-	int x;
-	int y;
-	char *def;
-	char *hov;
+	char	type;				// Button type (radiobutton/ clickable button)
+	char	stat;				// Acitve, inactive etc...
+	char	*view[3];		// Image / color in active, desctiv, hovrt etc... mode
+	int 	x;					// Width
+	int 	y;					// Height
+	int		o_x;				// Origine x
+	int		o_y;				// origine y
+	void 	(*f)(void *root);				// A function to execute with a certain parameter
 } t_button;
 
+
+typedef struct s_menu
+{
+	t_image *img;			// Image of the section where we can modify
+	char	opt;				// define at what options it is in 0 (default) 1 (chose map) 3 (info)
+	char	hover;			// If there are any hoverable content present (0 (no) / 1 (yes))
+	char	click;			// if there are any clickable content present (0 (no) / 1 (yes))
+	void	(*hover_f)(void *root);	// Function to execute on click
+	void	(*click_f)(void *root);	// Function to execute on click
+
+	t_button	opt1;
+	t_button	opt2;
+	t_button	opt3;
+
+} t_menu;
 
 // THe Main structure with window and all
 typedef struct	s_root
@@ -130,6 +161,7 @@ typedef struct	s_root
 	t_image	foot; // Footer section
 	char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
 } t_root;
+
 
 
 

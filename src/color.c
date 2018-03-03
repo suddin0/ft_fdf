@@ -17,14 +17,15 @@ void set_color(char *img, unsigned int len, int col)
 	if (len > 8)
 		while (len > 8)
 		{
-			((int *) img)[len--] = col;
-			((int *) img)[len--] = col;
-			((int *) img)[len--] = col;
-			((int *) img)[len--] = col;
-			((int *) img)[len--] = col;
-			((int *) img)[len--] = col;
-			((int *) img)[len--] = col;
-			((int *) img)[len--] = col;
+			((int *) img)[len - 1] = col;
+			((int *) img)[len - 2] = col;
+			((int *) img)[len - 3] = col;
+			((int *) img)[len - 4] = col;
+			((int *) img)[len - 5] = col;
+			((int *) img)[len - 6] = col;
+			((int *) img)[len - 7] = col;
+			((int *) img)[len - 8] = col;
+			len -= 8;
 		}
 	while (len > 0)
 		((int *) img)[len--] =  col;
