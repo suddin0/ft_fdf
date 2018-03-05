@@ -40,9 +40,9 @@ void init_menu(t_root *root, t_image *m)
 
 	root->men.img = m;
 	root->men.max_opt = 3;
-	opt_init(&(root->men.opt[0]), 133, 95, 0  );
-	opt_init(&(root->men.opt[1]), 133, 95, 133);
-	opt_init(&(root->men.opt[2]), 133, 95, 266);
+	opt_init(&(root->men.opt[0]), OPT_X, OPT_Y, 0			);
+	opt_init(&(root->men.opt[1]), OPT_X, OPT_Y, OPT_X		);
+	opt_init(&(root->men.opt[2]), OPT_X, OPT_Y, OPT_X * 2	);
 
 	draw_button(root->men.opt[0], m, COLOR(root->mlx, 0x88d8b0));
 	draw_button(root->men.opt[1], m, COLOR(root->mlx, 0xff6f69));

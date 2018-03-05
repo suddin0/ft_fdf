@@ -13,10 +13,10 @@
 # include "ft_printf.h"
 # include "mlx.h"
 # include "button_map.h"	// Tus use buttom macros
-# include "nn_mask.h"	// Tus use buttom macros
-// # include "mlx_int.h"
+# include "nn_mask.h"		// Tus use buttom macros
+// # include "mlx_int.h" 	// If included many errors appears
 
-
+/* Main Winsow */
 # define DEF_ROOT_X 1600		// Window width
 # define DEF_ROOT_Y 950		// Window Height
 
@@ -28,11 +28,16 @@
 # define MENU_X DEF_ROOT_X / 4
 # define MENU_Y DEF_ROOT_Y
 
+# define OPT_X MENU_X / 3
+# define OPT_Y 95
+
+
 # define FOOT_X DEF_ROOT_X - (DEF_ROOT_X / 4)
 # define FOOT_Y 23
 
 # define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
+
 // -------------------
 
 // Event Notification and mask shortcurring
@@ -107,18 +112,6 @@ typedef struct s_fdfmap
 }	t_map;
 
 
-/* Interfacing */
-// typedef struct s_button
-// {
-// 	int type;
-// 	int o_x;
-// 	int o_y;
-// 	int x;
-// 	int y;
-// 	char *def;
-// 	char *hov;
-// } t_button;
-
 typedef struct s_button
 {
 	char	type;				// Button type (radiobutton/ clickable button)
@@ -128,6 +121,7 @@ typedef struct s_button
 	int 	y;					// Height
 	int		o_x;				// Origine x
 	int		o_y;				// origine y
+	void 	*value;				// Contain some value
 	void 	(*f)(void *root);	// A function to execute with a certain parameter
 } t_button;
 
@@ -140,7 +134,7 @@ typedef struct s_menu
 	void	(*hover_f)(void *root);	// Function to execute on click
 	void	(*click_f)(void *root);	// Function to execute on click
 
-	t_button	opt[4];
+	t_button	opt[4]; 	// MAin top buttons
 	char	max_opt;		// define at what options it is in 0 (default) 1 (chose map) 3 (info)
 
 	// t_button	opt2;
