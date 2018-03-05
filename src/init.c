@@ -1,5 +1,30 @@
 #include "main.h"
 
+void opt_init(t_button *button, int width, int height, int o_x)
+{
+	button->type = 1;
+	button->stat = 0;
+	// button->view = {NULL, NULL, NULL};
+	button->x = width;
+	button->y = height;
+	button->o_x = o_x;
+	button->o_y = 0;
+	button->f = NULL;
+}
+
+void draw_button(t_button button, t_image *img, int color)
+{
+	int i = button.o_x;
+	int j = button.o_y;
+
+	while(j != button.o_y + button.y)
+	{
+		i = button.o_x;
+		while (i++ != (button.o_x + button.x))
+			put_color(img, i, j, color);
+		j++;
+	}
+}
 
 void init_menu(t_root *root, t_image *m)
 {
@@ -12,6 +37,17 @@ void init_menu(t_root *root, t_image *m)
 	m->img_ptr = mlx_new_image(root->mlx, m->x , m->y);
 	m->img = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->sl), &(m->end));
 	set_color(m->img, m->x * m->y, m->bg);
+
+	root->men.img = m;
+	root->men.max_opt = 3;
+	opt_init(&(root->men.opt[0]), 133, 95, 0  );
+	opt_init(&(root->men.opt[1]), 133, 95, 133);
+	opt_init(&(root->men.opt[2]), 133, 95, 266);
+
+	draw_button(root->men.opt[0], m, COLOR(root->mlx, 0x88d8b0));
+	draw_button(root->men.opt[1], m, COLOR(root->mlx, 0xff6f69));
+	draw_button(root->men.opt[2], m, COLOR(root->mlx, 0xffeead));
+
 	mlx_put_image_to_window(root->mlx, root->win, m->img_ptr, m->o_x, m->o_y);
 }
 

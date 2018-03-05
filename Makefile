@@ -76,8 +76,8 @@ MLX_FLAG_LINUX ?= -lXext -lX11 -lmlx
 MLX_FLAG_MAC ?= -lmlx -framework OpenGL -framework AppKit
 
 # Change the `..._MAC ` to `..._LINUX` depending on OS
-MLX_FLAG	?= $(MLX_FLAG_MAC)
-P_MLX		?= $(P_MLX_MAC)
+MLX_FLAG	?= $(MLX_FLAG_LINUX)
+P_MLX		?= $(P_MLX_LINUX)
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
 SRC		=	$(MAIN)		\
@@ -96,9 +96,7 @@ SRC		=	$(MAIN)		\
 			src/draw_dot.c	\
 			src/draw_map.c	\
 			src/matrans/modmatrix.c	\
-			src/matrans/rotate_x.c \
-			src/matrans/rotate_y.c \
-			src/matrans/rotate_z.c \
+			src/matrans/rotate_point.c \
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))

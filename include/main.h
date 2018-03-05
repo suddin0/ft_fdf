@@ -128,22 +128,23 @@ typedef struct s_button
 	int 	y;					// Height
 	int		o_x;				// Origine x
 	int		o_y;				// origine y
-	void 	(*f)(void *root);				// A function to execute with a certain parameter
+	void 	(*f)(void *root);	// A function to execute with a certain parameter
 } t_button;
 
 
 typedef struct s_menu
 {
 	t_image *img;			// Image of the section where we can modify
-	char	opt;				// define at what options it is in 0 (default) 1 (chose map) 3 (info)
 	char	hover;			// If there are any hoverable content present (0 (no) / 1 (yes))
 	char	click;			// if there are any clickable content present (0 (no) / 1 (yes))
 	void	(*hover_f)(void *root);	// Function to execute on click
 	void	(*click_f)(void *root);	// Function to execute on click
 
-	t_button	opt1;
-	t_button	opt2;
-	t_button	opt3;
+	t_button	opt[4];
+	char	max_opt;		// define at what options it is in 0 (default) 1 (chose map) 3 (info)
+
+	// t_button	opt2;
+	// t_button	opt3;
 
 } t_menu;
 
@@ -158,8 +159,9 @@ typedef struct	s_root
 	t_map *map;		// Stores the map to show in Preview section
 	t_image	menu; 	// Menu section
 	t_image	prev; 	// Previeu section
-	t_image	foot; // Footer section
-	char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
+	t_image	foot; 	// Footer section
+	// char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
+	t_menu 	men;
 } t_root;
 
 
