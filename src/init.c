@@ -26,6 +26,15 @@ void draw_button(t_button button, t_image *img, int color)
 	}
 }
 
+void def_opt_init(t_root *root)
+{
+	opt_init(&(root->men.opt[0]), OPT_X, OPT_Y, 0		 );
+	opt_init(&(root->men.opt[1]), OPT_X, OPT_Y, OPT_X	 );
+	opt_init(&(root->men.opt[2]), OPT_X, OPT_Y, OPT_X * 2);
+
+	// ctl_init(&(root->men.opt[0]), 0, 0, 0 );
+}
+
 void init_menu(t_root *root, t_image *m)
 {
 	m->o_x = 0;
@@ -39,7 +48,8 @@ void init_menu(t_root *root, t_image *m)
 	set_color(m->img, m->x * m->y, m->bg);
 
 	root->men.img = m;
-	root->men.max_opt = 3;
+	// root->men.max_opt = 3;
+	root->men.c_opt = 0;
 	opt_init(&(root->men.opt[0]), OPT_X, OPT_Y, 0			);
 	opt_init(&(root->men.opt[1]), OPT_X, OPT_Y, OPT_X		);
 	opt_init(&(root->men.opt[2]), OPT_X, OPT_Y, OPT_X * 2	);

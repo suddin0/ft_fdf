@@ -116,7 +116,8 @@ typedef struct s_button
 {
 	char	type;				// Button type (radiobutton/ clickable button)
 	char	stat;				// Acitve, inactive etc...
-	char	*view[3];		// Image / color in active, desctiv, hovrt etc... mode
+	char	*view[3];			// Image / color in active, desctiv, hovrt etc... mode
+	char	name[100];			// Button name (might be used for search or hover uses)
 	int 	x;					// Width
 	int 	y;					// Height
 	int		o_x;				// Origine x
@@ -135,7 +136,9 @@ typedef struct s_menu
 	void	(*click_f)(void *root);	// Function to execute on click
 
 	t_button	opt[4]; 	// MAin top buttons
-	char	max_opt;		// define at what options it is in 0 (default) 1 (chose map) 3 (info)
+	t_button	ctl[12];		// Controle buttons for the first option
+	t_button	*maps;		// Maps as buttons as they might have undefined numbers for second option
+	char	c_opt;			// define at what options it is in 0 (default) 1 (chose map) 3 (info)
 
 	// t_button	opt2;
 	// t_button	opt3;
