@@ -38,6 +38,8 @@
 # define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
 
+# define BUTTON_SIZE MENU_X * 30
+
 // -------------------
 
 // Event Notification and mask shortcurring
@@ -116,7 +118,7 @@ typedef struct s_button
 {
 	char	type;				// Button type (radiobutton/ clickable button)
 	char	stat;				// Acitve, inactive etc...
-	char	*view[3];			// Image / color in active, desctiv, hovrt etc... mode
+	char	view[3][BUTTON_SIZE];			// Image / color in active, desctiv, hovrt etc... mode
 	char	name[100];			// Button name (might be used for search or hover uses)
 	int 	x;					// Width
 	int 	y;					// Height

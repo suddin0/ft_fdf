@@ -28,8 +28,8 @@ include .misc/make/misc_var
 
 ## Te `.SILENT` launche evrything specified in
 ## silent mode so you dont have to put the `@`
-.SILENT	: __START	NAME	clean fclean all re object library os_dep
-.PHONY	: __START			clean fclean all re object library os_dep
+.SILENT	: __START	NAME	clean fclean all re object library os_dep image_creator
+.PHONY	: __START			clean fclean all re object library os_dep image_creator
 
 
 ## This is launched if no param given
@@ -80,6 +80,9 @@ MLX_FLAG	?= $(MLX_FLAG_LINUX)
 P_MLX		?= $(P_MLX_LINUX)
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
+
+IMAGE_CREATOR = src/image_creator/image_creator.c
+
 SRC		=	$(MAIN)		\
 			src/map_perser/file_size.c		\
 			src/map_perser/get_map.c		\
@@ -97,6 +100,12 @@ SRC		=	$(MAIN)		\
 			src/draw_map.c	\
 			src/matrans/modmatrix.c	\
 			src/matrans/rotate_point.c \
+
+IMAGE_SRC =	src/map_perser/file_size.c		\
+			src/map_perser/get_map.c		\
+			src/map_perser/is_dir.c			\
+			src/map_perser/is_file.c		\
+			src/root_init.c		\
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))
@@ -155,6 +164,12 @@ library:	object $(P_OBJ) $(OBJ_P)
 	printf "$(OK)[+][$(PROJECT)] The $(LIB_A) library was made$(C_DEF)\n"
 
 
+
+image_creator: $(LIBFT_A)  $(IMAGE_CREATOR) $(IMAGE_SRC) $(P_BIN)
+	printf "$(WARN)[!][$(PROJECT)] Creating image_creator in $(P_BIN)$(C_DEF)\n"
+	$(CC) $(IMAGE_CREATOR)  $(CC_FLAG_ASAN) $(IMAGE_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
+	-o image_creator
+	printf "$(OK)[+][$(PROJECT)] image_creator compiled in $(P_BIN)$(C_DEF)\n"
 
 ## This rule is called when a difference in operating sistem has been
 ## detected. You can put your prerequisite to be changed if a different
