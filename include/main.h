@@ -22,7 +22,7 @@
 
 # define ORIGINE_X  270.0f
 # define ORIGINE_Y  290.0f
-# define STEP 30.0f
+# define STEP 		30.0f
 
 // Image Sizes
 # define MENU_X DEF_ROOT_X / 4
@@ -38,7 +38,7 @@
 # define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
 
-# define BUTTON_SIZE MENU_X * 30
+# define BUTTON_SIZE 14140 // max button size 8mb [8388608]
 
 // -------------------
 

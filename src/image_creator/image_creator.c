@@ -1,13 +1,13 @@
 #include "main.h"
 
-char file_check(int argc, char ***argv)
+int file_check(int argc, char ***argv)
 {
 	int i;
 
 	i = 0;
-	while (i != argc)
+	while (i != argc - 1)
 	{
-		printf("CAME IIN FILE_CHECK [%d]\n", i);
+		printf("CAME IIN FILE_CHECK [%d] [%s] - [%s] - [%s]\n", i, argv[i][0], argv[i][1], argv[i][2]);
 		if(is_file(argv[i][0]) <= 0 || is_file(argv[i][1]) <= 0 || is_file(argv[i][2]) <= 0)
 			return (i + 1);
 		i++;
@@ -125,17 +125,12 @@ int main(int argc, char **argv)
 
 	t_image ig[3]; // image
 	char ***file;
-
 	int i;
 	int file_error;
-
 	t_button b;
-	// t_image m;
 	t_root root;
 
-	file_error = -1;
-	root.mlx = mlx_init();
-	i = 0;
+
 	if (argc < 2)
 	{
 		ft_printf("[!] No file was given as arguments\n");
@@ -152,7 +147,9 @@ int main(int argc, char **argv)
 		ft_printf("[-] Error files: %s\n", argv[file_error]);
 		return (-1);
 	}
-
+	file_error = -1;
+	root.mlx = mlx_init();
+	i = 0;
 	int ll = 0;
 	while(file[ll] && ll != argc)
 	{
@@ -161,27 +158,29 @@ int main(int argc, char **argv)
 	}
 	i = 0;
 
-	while (i != argc + 1)
+	while (i != argc - 1)
 	{
+		printf("CAME HERE WHINE in MAIN\n");
 		clear_button(&b);
 		(ig[0]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][0], &((ig[0]).x), &((ig[0]).y));
 		(ig[1]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][1], &((ig[1]).x), &((ig[1]).y));
-		(ig[1]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][2], &((ig[1]).x), &((ig[1]).y));
+		(ig[2]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][2], &((ig[2]).x), &((ig[2]).y));
+
 		(ig[0]).img = mlx_get_data_addr((ig[0]).img_ptr, &((ig[0]).bpp), &((ig[0]).sl), &((ig[0]).end));
 		(ig[1]).img = mlx_get_data_addr((ig[1]).img_ptr, &((ig[1]).bpp), &((ig[1]).sl), &((ig[1]).end));
-		(ig[1]).img = mlx_get_data_addr((ig[2]).img_ptr, &((ig[2]).bpp), &((ig[2]).sl), &((ig[2]).end));
+		(ig[2]).img = mlx_get_data_addr((ig[2]).img_ptr, &((ig[2]).bpp), &((ig[2]).sl), &((ig[2]).end));
 
 		b.type = 0;
 		b.stat = 0;
-		ft_strncpy(b.view[0], (ig[0]).img, (ig[0]).x * (ig[0]).y);
-		ft_strncpy(b.view[1], (ig[1]).img, (ig[1]).x * (ig[1]).y);
-		ft_strncpy(b.view[2], (ig[1]).img, (ig[1]).x * (ig[1]).y);
+		ft_strncpy((b.view)[0], (ig[0]).img, (ig[0]).x * (ig[0]).y);
+		ft_strncpy((b.view)[1], (ig[1]).img, (ig[1]).x * (ig[1]).y);
+		ft_strncpy((b.view)[2], (ig[2]).img, (ig[2]).x * (ig[2]).y);
 		name_copy (b.name, file[i][0]);
 
 
 		mlx_destroy_image(root.mlx, (ig[0]).img_ptr);
 		mlx_destroy_image(root.mlx, (ig[1]).img_ptr);
-		mlx_destroy_image(root.mlx, (ig[1]).img_ptr);
+		mlx_destroy_image(root.mlx, (ig[2]).img_ptr);
 		printf("NAME [%s]", b.name);
 		i++;
 	}
