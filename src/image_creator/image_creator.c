@@ -117,6 +117,15 @@ void name_copy(char *dest, char *src)
 	ft_strncpy(&(dest[start]), src, end);
 }
 
+
+void size_check(char *name, int a, int  b)
+{
+	if ((a * b) > BUTTON_SIZE)
+	{
+		ft_printf("[-] Error size: %s is too larg to hold in stake %dmb, max size %dmb\n", name, a * b, BUTTON_SIZE);
+		exit(-1);
+	}
+}
 int main(int argc, char **argv)
 {
 
@@ -134,7 +143,7 @@ int main(int argc, char **argv)
 	if (argc < 2)
 	{
 		ft_printf("[!] No file was given as arguments\n");
-		return (0);
+		return (-1);
 	}
 
 	if (create_name(&file, argc, argv) != 1)
@@ -145,6 +154,7 @@ int main(int argc, char **argv)
 	if((file_error = file_check(argc, file)) != 0)
 	{
 		ft_printf("[-] Error files: %s\n", argv[file_error]);
+		free_file(file, argc);
 		return (-1);
 	}
 	file_error = -1;
@@ -169,6 +179,10 @@ int main(int argc, char **argv)
 		(ig[0]).img = mlx_get_data_addr((ig[0]).img_ptr, &((ig[0]).bpp), &((ig[0]).sl), &((ig[0]).end));
 		(ig[1]).img = mlx_get_data_addr((ig[1]).img_ptr, &((ig[1]).bpp), &((ig[1]).sl), &((ig[1]).end));
 		(ig[2]).img = mlx_get_data_addr((ig[2]).img_ptr, &((ig[2]).bpp), &((ig[2]).sl), &((ig[2]).end));
+
+		size_check(file[i][0], (ig[0]).x, (ig[0]).x);
+		size_check(file[i][1], (ig[1]).x, (ig[1]).x);
+		size_check(file[i][2], (ig[2]).x, (ig[2]).x);
 
 		b.type = 0;
 		b.stat = 0;

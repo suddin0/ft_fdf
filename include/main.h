@@ -40,6 +40,10 @@
 
 # define BUTTON_SIZE 14140 // max button size 8mb [8388608]
 
+# define MENU_BG_COLOR	0x1b2d3b
+# define PREV_BG_COLOR	0x021626
+# define MAP_COLOR		0xe0e0bd
+
 // -------------------
 
 // Event Notification and mask shortcurring
