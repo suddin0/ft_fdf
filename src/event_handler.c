@@ -2,9 +2,9 @@
 
 int draw_win(t_root *root)
 {
-	mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, root->menu.o_x, root->menu.o_y);
+	// mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, root->menu.o_x, root->menu.o_y);
 	mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	mlx_put_image_to_window(root->mlx, root->win, root->foot.img_ptr, root->foot.o_x, root->foot.o_y);
+	// mlx_put_image_to_window(root->mlx, root->win, root->foot.img_ptr, root->foot.o_x, root->foot.o_y);
 	return 1;
 }
 
@@ -51,9 +51,9 @@ int kpress(int key, t_root *root)
 	CLEAR(root->prev);
 	if(key == BTN_ESC || key == BTN_Q)
 	{
-		mlx_destroy_image(root->mlx, root->menu.img_ptr);
+		// mlx_destroy_image(root->mlx, root->menu.img_ptr);
 		mlx_destroy_image(root->mlx, root->prev.img_ptr);
-		mlx_destroy_image(root->mlx, root->foot.img_ptr);
+		// mlx_destroy_image(root->mlx, root->foot.img_ptr);
 		mlx_destroy_window(root->mlx,root->win);
 		free_map(root->map);
 		printf("Key pressed %d\n", key);
@@ -163,36 +163,36 @@ int krelease(int key, t_root *root)
 	return 1;
 }
 
-int button_press(int x, int y, t_button button)
+int button_press(int x, int y, t_root *root)
 {
 	// printf("CAME HERE TO CHECK LENGTH X[%d] - Y[%d]  BX[%d] - BY[%d] - BOX[%d] - BOY[%d]\n", x, y, button.x, button.y, button.o_x, button.o_y);
-	if(x > button.o_x && x < button.o_x + button.x && y > button.o_y && y < button.o_y + button.y)
-		return (1);
-	else
+	// if(x > button.o_x && x < button.o_x + button.x && y > button.o_y && y < button.o_y + button.y)
+	// 	return (1);
+	// else
 		return (0);
 }
 
 void click_menu(t_root *root, int key, int x, int y)
 {
-	if ( button_press(x, y, root->men.opt[0]) == 1)
-		printf("Print The first button\n");
-	else if ( button_press(x, y, root->men.opt[1]) == 1)
-		printf("Print The Second button\n");
-	else if ( button_press(x, y, root->men.opt[2]) == 1)
-		printf("Print The Third button\n");
+	// if ( button_press(x, y, root->men.opt[0]) == 1)
+	// 	printf("Print The first button\n");
+	// else if ( button_press(x, y, root->men.opt[1]) == 1)
+	// 	printf("Print The Second button\n");
+	// else if ( button_press(x, y, root->men.opt[2]) == 1)
+	// 	printf("Print The Third button\n");
 }
 
 int bpress(int key, int x, int y, t_root *root)
 {
-	if(x > root->menu.o_x && x < root->menu.o_x + root->menu.x && y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
-	{
-		click_menu(root, key, x, y);
-		printf("Clicked in Menu\n");
-	}
-	else if(x > root->prev.o_x && x < root->prev.o_x + root->prev.x && y > root->prev.o_y && y < root->prev.o_y + root->prev.y)
-		printf("Clicked in Prev\n");
-	else
-		printf("Came in B_PRESS\n");
+	// if(x > root->menu.o_x && x < root->menu.o_x + root->menu.x && y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
+	// {
+	// 	click_menu(root, key, x, y);
+	// 	printf("Clicked in Menu\n");
+	// }
+	// else if(x > root->prev.o_x && x < root->prev.o_x + root->prev.x && y > root->prev.o_y && y < root->prev.o_y + root->prev.y)
+	// 	printf("Clicked in Prev\n");
+	// else
+	// 	printf("Came in B_PRESS\n");
 
 	return (1);
 }
