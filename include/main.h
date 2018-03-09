@@ -112,11 +112,8 @@ typedef struct	s_root
 	int		sz_y;	// Window Height
 	char	name[NAME_MAX + 5]; // Window name
 	t_map *map;		// Stores the map to show in Preview section
-	// t_image	menu; 	// Menu section
 	t_image	prev; 	// Previeu section
-	// t_image	foot; 	// Footer section
-	// char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
-	// t_menu 	men;
+	void 	(*(kevent[10]))(struct s_root *root); // Functions executed in key press
 } t_root;
 
 
@@ -139,14 +136,10 @@ void	set_color(char *img, unsigned int len, int col);
 void	init_prev(t_root *root, t_image *prev);
 // void	init_foot(t_root *root, t_image *f);
 
-
 void	event_handler(t_root *root);
 
-// void	draw_line(t_image *img, t_point o, t_point n, int color);
 void	draw_line(t_map  *map, t_point o, t_point n, int color);
-// void  	draw_dot(t_map *img, t_point o, t_point n, int color);
-// void	draw_map(void *v, t_map *map, t_image *img);
-void draw_map(void *img_ptr, t_map *map);
+void 	draw_map(void *img_ptr, t_map *map);
 
 
 
@@ -154,8 +147,22 @@ void modmatrix(t_map *map, void f(t_point *a, double val), double rot);
 void rotate_x(t_point *a, double v);
 void rotate_y(t_point *a, double v);
 void rotate_z(t_point *a, double v);
+void trans_x(t_map *a, double v);
+void trans_y(t_map *a, double v);
+void zoom(t_map *a, int v);
 
-
+void k_up(t_root *root);
+void k_down(t_root *root);
+void k_right(t_root *root);
+void k_left(t_root *root);
+void k_plus(t_root *root);
+void k_minus(t_root *root);
+void k_x(t_root *root);
+void k_s(t_root *root);
+void k_y(t_root *root);
+void k_u(t_root *root);
+void k_z(t_root *root);
+void k_a(t_root *root);
 
 
 #endif

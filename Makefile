@@ -100,6 +100,7 @@ SRC		=	$(MAIN)		\
 			src/draw_map.c	\
 			src/matrans/modmatrix.c	\
 			src/matrans/rotate_point.c \
+			src/matrans/key_func_one.c \
 
 IMAGE_SRC =	src/map_perser/file_size.c		\
 			src/map_perser/get_map.c		\

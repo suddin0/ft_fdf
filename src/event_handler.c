@@ -18,33 +18,28 @@ int pmotion(int x, int y, t_root *root)
 	return 1;
 }
 
-
-void trans_x(t_map *a, double v)
-{
-	a->origine_x += v;
-}
-
-void trans_y(t_map *a, double v)
-{
-	a->origine_y += v;
-}
-
-void zoom(t_map *a, int v)
-{
-	a->step += v;
-	a->origine_x += -v;
-	a->origine_y += -v;
-	// a->z += v;
-}
-
-
-void change_z(t_point *a, double v)
-{
-
-	a->z += v;
-	printf("-- change_z AFTER X[%lf] Y[%lf] Z[%lf]\n", a->x, a->y, a->z);
-}
-
+//
+// void trans_x(t_map *a, double v)
+// {
+// 	a->origine_x += v;
+// }
+//
+// void trans_y(t_map *a, double v)
+// {
+// 	a->origine_y += v;
+// }
+//
+// void zoom(t_map *a, int v)
+// {
+// 	if ((a->origine_x <= 0 || a->origine_y <= 0 || a->step <= 0) && v <= 0)
+// 	{
+// 		ft_printf("[!] Reached minimum zoom, cannot unzoom %d\n", v);
+// 		return ;
+// 	}
+// 	a->step += v;
+// 	a->origine_x += -v;
+// 	a->origine_y += -v;
+// }
 
 int kpress(int key, t_root *root)
 {
@@ -67,7 +62,7 @@ int kpress(int key, t_root *root)
 		trans_y(root->map, -10.0);
 		draw_map(root->mlx, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
+	} // --
 	else if (key == BTN_DOWN)
 	{
 	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
@@ -75,7 +70,7 @@ int kpress(int key, t_root *root)
 		trans_y(root->map, 10.0);
 		draw_map(root->mlx, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
+	} // --
 	else if (key == BTN_RIGT)
 	{
 	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
@@ -83,7 +78,7 @@ int kpress(int key, t_root *root)
 		trans_x(root->map, 10.0);
 		draw_map(root->mlx, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
+	} // --
 	else if (key == BTN_LEFT)
 	{
 	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
@@ -91,7 +86,7 @@ int kpress(int key, t_root *root)
 		trans_x(root->map, -10.0);
 		draw_map(root->mlx, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
+	} // --
 	else if (key == BTN_PLUS)
 	{
 	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
@@ -107,28 +102,28 @@ int kpress(int key, t_root *root)
 		zoom(root->map, -5);
 		draw_map(root->mlx, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
+	} // --
 	else if (key == BTN_X)
 	{
 	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modmatrix(root->map, rotate_x, 0.10);
 		draw_map(root->mlx, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
+	} // --
 	else if (key == BTN_S)
 	{
 	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modmatrix(root->map, rotate_x, -0.10);
 		draw_map(root->mlx, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
+	} // --
 	else if (key == BTN_Y)
 	{
 	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
 		modmatrix(root->map, rotate_y, 0.10);
 		draw_map(root->mlx, root->map);
 		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
+	} //  --
 	else if (key == BTN_U)
 	{
 	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
