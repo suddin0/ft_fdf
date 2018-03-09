@@ -17,6 +17,7 @@ int file_check(int argc, char ***argv)
 
 void clear_button(t_button *button)
 {
+	button->id = 0;
 	button->type = 0;
 	button->stat = 0;
 	memset(button->view[0], 0, BUTTON_SIZE);
@@ -106,15 +107,18 @@ void name_copy(char *dest, char *src)
 	int start;
 	int end;
 
-	if(!dest || src)
+	if(!dest || !src)
 		return;
 	start = 0;
 	len = ft_strlen(src);
-	while(len--)
-		if (src[len] == '/')
-			start = len + 1;
-	end =  ft_strlen(&(src[start])) - 5;
-	ft_strncpy(&(dest[start]), src, end);
+
+	while(len-- && src[len] != '/');
+	start = (len == 0) ? len : len + 1;
+	end =  ft_strlen(&(src[start])) - 6;
+
+	printf("INSIDE COPY_NAME start[%d] - end[%d] [%.*s]\n", start, end, end, &(src[start]) );
+
+	ft_strncpy(dest, &(src[start]), end);
 }
 
 
@@ -126,6 +130,26 @@ void size_check(char *name, int a, int  b)
 		exit(-1);
 	}
 }
+
+
+void write_struct(t_button b[], char *path)
+{
+	int fd;
+
+	fd = open(path, O_WRONLY | O_CREAT, 0644);
+	write(fd, b, sizeof(t_button) * BUTTON_MAX);
+	close(fd);
+}
+
+void show_image(char *img, int x, int y)
+{
+	int i = 0;
+
+	while(i++ != (x * y))
+			printf("image i[%d] x[%d] y[%d] img[%d]\n", i, x, y, img[i]);
+}
+
+
 int main(int argc, char **argv)
 {
 
@@ -136,7 +160,7 @@ int main(int argc, char **argv)
 	char ***file;
 	int i;
 	int file_error;
-	t_button b;
+	t_button b[BUTTON_MAX];
 	t_root root;
 
 
@@ -146,6 +170,11 @@ int main(int argc, char **argv)
 		return (-1);
 	}
 
+	if((argc - 1) > BUTTON_MAX)
+	{
+		ft_printf("[-] Error MAX_BUTTON: Too much muttons, maximum limit is %d", BUTTON_MAX);
+		return(-1);
+	}
 	if (create_name(&file, argc, argv) != 1)
 	{
 		ft_printf("[-] Error setting file name in create_name(...) function");
@@ -171,7 +200,7 @@ int main(int argc, char **argv)
 	while (i != argc - 1)
 	{
 		printf("CAME HERE WHINE in MAIN\n");
-		clear_button(&b);
+		clear_button(&(b[i]));
 		(ig[0]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][0], &((ig[0]).x), &((ig[0]).y));
 		(ig[1]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][1], &((ig[1]).x), &((ig[1]).y));
 		(ig[2]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][2], &((ig[2]).x), &((ig[2]).y));
@@ -184,20 +213,37 @@ int main(int argc, char **argv)
 		size_check(file[i][1], (ig[1]).x, (ig[1]).x);
 		size_check(file[i][2], (ig[2]).x, (ig[2]).x);
 
-		b.type = 0;
-		b.stat = 0;
-		ft_strncpy((b.view)[0], (ig[0]).img, (ig[0]).x * (ig[0]).y);
-		ft_strncpy((b.view)[1], (ig[1]).img, (ig[1]).x * (ig[1]).y);
-		ft_strncpy((b.view)[2], (ig[2]).img, (ig[2]).x * (ig[2]).y);
-		name_copy (b.name, file[i][0]);
+
+		b[i].type = 1;
+		b[i].stat = 3;
+		b[i].id   = 69;
+		b[i].o_x  = 0;
+		b[i].o_y  = 200;
+
+		b[i].x  = (ig[0]).x;
+		b[i].y  = (ig[0]).y;
+
+
+
+		ft_memcpy((b[i].view)[0], (ig[0]).img, (ig[0]).x * (ig[0]).y);
+		ft_memcpy((b[i].view)[1], (ig[1]).img, (ig[1]).x * (ig[1]).y);
+		ft_memcpy((b[i].view)[2], (ig[2]).img, (ig[2]).x * (ig[2]).y);
+		name_copy ((b[i]).name, file[i][0]);
+
+		show_image((b[i].view)[0], b[i].x, b[i].y);
+		// show_image((ig[2]).img, (ig[2]).x , (ig[2]).y);
+
+
 
 
 		mlx_destroy_image(root.mlx, (ig[0]).img_ptr);
 		mlx_destroy_image(root.mlx, (ig[1]).img_ptr);
 		mlx_destroy_image(root.mlx, (ig[2]).img_ptr);
-		printf("NAME [%s]", b.name);
+		printf("NAME [%s]\n", b[i].name);
 		i++;
 	}
+
+	write_struct(b, BUTTON_STRUCT_PATH);
 
 	free_file(file, argc);
 	exit(0);

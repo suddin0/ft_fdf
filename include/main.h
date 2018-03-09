@@ -39,6 +39,8 @@
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
 
 # define BUTTON_SIZE 14140 // max button size 8mb [8388608]
+# define BUTTON_MAX 16 // Maximum numer of buttons we will use in button creator or in our first menu
+# define BUTTON_STRUCT_PATH "res/__buttons__/button.struct"
 
 # define MENU_BG_COLOR	0x1b2d3b
 # define PREV_BG_COLOR	0x021626
@@ -120,6 +122,7 @@ typedef struct s_fdfmap
 
 typedef struct s_button
 {
+	int		id;					// Button id
 	char	type;				// Button type (radiobutton/ clickable button)
 	char	stat;				// Acitve, inactive etc...
 	char	view[3][BUTTON_SIZE];			// Image / color in active, desctiv, hovrt etc... mode
@@ -141,8 +144,9 @@ typedef struct s_menu
 	void	(*hover_f)(void *root);	// Function to execute on click
 	void	(*click_f)(void *root);	// Function to execute on click
 
-	t_button	opt[4]; 	// MAin top buttons
-	t_button	ctl[12];		// Controle buttons for the first option
+	t_button	opt[4]; // temp
+	t_button	button[BUTTON_MAX];	// All graphical Buttons in the default menu including the top 3
+	// t_button	ctl[12];	// Controle buttons for the first option
 	t_button	*maps;		// Maps as buttons as they might have undefined numbers for second option
 	char	c_opt;			// define at what options it is in 0 (default) 1 (chose map) 3 (info)
 

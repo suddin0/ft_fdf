@@ -206,6 +206,6 @@ void event_handler(t_root *root)
 	mlx_hook(root->win, KPRESS, KPRESS_M, &kpress, root); // button press
 	mlx_hook(root->win, KRELEASE, KRELEASE_M, &krelease, root); // button release
 	mlx_hook(root->win, VISIBL, VISIBL_M, &draw_win, root); // expose
-	mlx_hook(root->win, BPRESS, BPRESS_M, &bpress, root); // expose
+	mlx_hook(root->win, BPRESS, BPRESS_M, &bpress, root); // button press (mouse)
 
 }

@@ -26,6 +26,54 @@ void draw_button(t_button button, t_image *img, int color)
 	}
 }
 
+void put_color2(t_image *img, int x, int y, char col)
+{
+	x = (x >= img->x || x < 0) ? 0 : x;
+	y = (y >= img->y || y < 0) ? 0 : y;
+	//if(x < img->x && x > 0 && y < img->y && (x + (y * img->x)) < img->x * img->y)
+	if(x > 0 && y > 0 && (x + (y * img->x)) < img->x * img->y)
+		((char *) img->img)[x + (y * img->x)]  = col;
+}
+
+
+// void put_color(t_image *img, int x, int y, int col)
+// {
+// 	x = (x >= img->x || x < 0) ? 0 : x;
+// 	y = (y >= img->y || y < 0) ? 0 : y;
+// 	//if(x < img->x && x > 0 && y < img->y && (x + (y * img->x)) < img->x * img->y)
+// 	if(x > 0 && y > 0 && (x + (y * img->x)) < img->x * img->y)
+// 		((int *) img->img)[x + (y * img->x)]  = col;
+// }
+
+void draw_button2(t_button button, t_image *img)
+{
+	int i = button.o_x;
+	int j = button.o_y;
+	int k = 0; // char itarator
+
+	ft_printf("BUTTON[%s] O_X[%d] O_Y[%d]  button.x[%d] - button.y[%d]\n", button.name, i, j, button.x, button.y);
+
+	while(j != button.o_y + button.y)
+	{
+		i = button.o_x;
+		while (i++ != (button.o_x + button.x))
+		{
+			printf("Came here BUTTON2 i[%d] j[%d] k[%d] btn[%d]\n", i, j, k, button.view[2][k]);
+			put_color2(img, i, j, (button.view[1])[k++]);
+		}
+		j++;
+	}
+	printf("EXiTING BUTTON 2\n");
+}
+
+void show_image(char *img, int x, int y)
+{
+	int i = 0;
+
+	while(i++ != (x * y))
+			printf("image i[%d] x[%d] y[%d] img[%d]\n", i, x, y, img[i]);
+}
+
 void def_opt_init(t_root *root)
 {
 	opt_init(&(root->men.opt[0]), OPT_X, OPT_Y, 0		 );
@@ -35,8 +83,13 @@ void def_opt_init(t_root *root)
 	// ctl_init(&(root->men.opt[0]), 0, 0, 0 );
 }
 
+
+
+
+
 void init_menu(t_root *root, t_image *m)
 {
+	int fd;
 	m->o_x = 0;
 	m->o_y = 0;
 	m->x = MENU_X;
@@ -58,6 +111,13 @@ void init_menu(t_root *root, t_image *m)
 	draw_button(root->men.opt[1], m, COLOR(root->mlx, 0xff6f69));
 	draw_button(root->men.opt[2], m, COLOR(root->mlx, 0xffeead));
 
+	// fd = open(BUTTON_STRUCT_PATH, O_RDONLY);
+	// read(fd, root->men.button, sizeof(t_button) * BUTTON_MAX);
+
+	// show_image(root->men.button[0].view[2], root->men.button[0].x, root->men.button[0].y);
+
+
+	// draw_button2((root->men.button)[0], m);
 	mlx_put_image_to_window(root->mlx, root->win, m->img_ptr, m->o_x, m->o_y);
 }
 
