@@ -26,44 +26,33 @@ void draw_button(t_button button, t_image *img, int color)
 	}
 }
 
-void put_color2(t_image *img, int x, int y, char col)
-{
-	x = (x >= img->x || x < 0) ? 0 : x;
-	y = (y >= img->y || y < 0) ? 0 : y;
-	//if(x < img->x && x > 0 && y < img->y && (x + (y * img->x)) < img->x * img->y)
-	if(x > 0 && y > 0 && (x + (y * img->x)) < img->x * img->y)
-		((char *) img->img)[x + (y * img->x)]  = col;
-}
-
-
-// void put_color(t_image *img, int x, int y, int col)
-// {
-// 	x = (x >= img->x || x < 0) ? 0 : x;
-// 	y = (y >= img->y || y < 0) ? 0 : y;
-// 	//if(x < img->x && x > 0 && y < img->y && (x + (y * img->x)) < img->x * img->y)
-// 	if(x > 0 && y > 0 && (x + (y * img->x)) < img->x * img->y)
-// 		((int *) img->img)[x + (y * img->x)]  = col;
-// }
-
 void draw_button2(t_button button, t_image *img)
 {
-	int i = button.o_x;
-	int j = button.o_y;
-	int k = 0; // char itarator
+	int x;
+	int y;
+	int k;
 
-	ft_printf("BUTTON[%s] O_X[%d] O_Y[%d]  button.x[%d] - button.y[%d]\n", button.name, i, j, button.x, button.y);
-
-	while(j != button.o_y + button.y)
+	x = button.o_x;
+	y = button.o_y;
+	k = 0;
+	while (y < button.o_y + button.y)
 	{
-		i = button.o_x;
-		while (i++ != (button.o_x + button.x))
+		x = button.o_x;
+		while (x < (button.o_x + button.x) * 4)
 		{
-			printf("Came here BUTTON2 i[%d] j[%d] k[%d] btn[%d]\n", i, j, k, button.view[2][k]);
-			put_color2(img, i, j, (button.view[1])[k++]);
+			// We multiply img->x by 4 because the real size of img is 4 times bigger then it seems
+			if(x > 0 && y > 0 && (x + (y * img->x)) < img->x * img->y)
+			{
+				(img->img)[x + 0 + (y * img->x * 4)]  = (button.view[2])[k + 0];
+				(img->img)[x + 1 + (y * img->x * 4)]  = (button.view[2])[k + 1];
+				(img->img)[x + 2 + (y * img->x * 4)]  = (button.view[2])[k + 2];
+				(img->img)[x + 3 + (y * img->x * 4)]  = (button.view[2])[k + 3];
+			}
+			k += 4;
+			x += 4;
 		}
-		j++;
+		y++;
 	}
-	printf("EXiTING BUTTON 2\n");
 }
 
 void show_image(char *img, int x, int y)
@@ -111,13 +100,12 @@ void init_menu(t_root *root, t_image *m)
 	draw_button(root->men.opt[1], m, COLOR(root->mlx, 0xff6f69));
 	draw_button(root->men.opt[2], m, COLOR(root->mlx, 0xffeead));
 
-	// fd = open(BUTTON_STRUCT_PATH, O_RDONLY);
-	// read(fd, root->men.button, sizeof(t_button) * BUTTON_MAX);
-
+	fd = open(BUTTON_STRUCT_PATH, O_RDONLY);
+	read(fd, root->men.button, sizeof(t_button) * BUTTON_MAX);
+	draw_button2((root->men.button)[0], m);
 	// show_image(root->men.button[0].view[2], root->men.button[0].x, root->men.button[0].y);
 
 
-	// draw_button2((root->men.button)[0], m);
 	mlx_put_image_to_window(root->mlx, root->win, m->img_ptr, m->o_x, m->o_y);
 }
 

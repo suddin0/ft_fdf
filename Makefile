@@ -75,9 +75,19 @@ P_MLX_MAC	?= lib/mlx_mac
 MLX_FLAG_LINUX ?= -lXext -lX11 -lmlx
 MLX_FLAG_MAC ?= -lmlx -framework OpenGL -framework AppKit
 
+## Variables are set deending on the OS
+ifeq ($(MY_OS_NAME),Darwin)
+	MLX_FLAG = $(MLX_FLAG_MAC)
+	P_MLX	= $(P_MLX_MAC)
+else
+	MLX_FLAG = $(MLX_FLAG_LINUX)
+	P_MLX	= $(P_MLX_LINUX)
+endif
+
+
 # Change the `..._MAC ` to `..._LINUX` depending on OS
-MLX_FLAG	?= $(MLX_FLAG_MAC)
-P_MLX		?= $(P_MLX_MAC)
+# MLX_FLAG	?= $(MLX_FLAG_MAC)
+# P_MLX		?= $(P_MLX_MAC)
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
 

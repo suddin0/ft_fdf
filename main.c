@@ -75,24 +75,24 @@ int main(int argc, char **argv)
 
 	int fd;
 
-	fd = open(BUTTON_STRUCT_PATH, O_RDONLY);
-	read(fd, root.men.button, sizeof(t_button) * BUTTON_MAX);
+	// fd = open(BUTTON_STRUCT_PATH, O_RDONLY);
+	// read(fd, root.men.button, sizeof(t_button) * BUTTON_MAX);
 
 
-	nn = mlx_new_image(root.mlx, root.sz_x, root.sz_y);
+	// nn = mlx_new_image(root.mlx, root.sz_x, root.sz_y);
 	// rr = mlx_xpm_file_to_image(root.mlx , "res/__IMG__/dove.xpm", &w, &w);
-	rr = mlx_xpm_file_to_image(root.mlx , "res/__buttons__/xpm/arrow_0.xpm", &dt_x, &dt_y);
-	dt = mlx_get_data_addr(rr, &(none), &(none), &(none));
+	// rr = mlx_xpm_file_to_image(root.mlx , "res/__buttons__/xpm/arrow_0.xpm", &dt_x, &dt_y);
+	// dt = mlx_get_data_addr(rr, &(none), &(none), &(none));
 
 
 
-	ft_printf("dx[%d] - dy[%d] __  bx[%d]  by[%d]", dt_x, dt_y, root.men.button[0].x , root.men.button[0].y);
-	ft_memcpy(dt, root.men.button[0].view[2], (root.men.button[0].x * root.men.button[0].y) * sizeof(int));
+	// ft_printf("dx[%d] - dy[%d] __  bx[%d]  by[%d]", dt_x, dt_y, root.men.button[0].x , root.men.button[0].y);
+	// ft_memcpy(dt, root.men.button[0].view[2], (root.men.button[0].x * root.men.button[0].y) * sizeof(int));
 
 
 	// show_image(dt, dt_x, dt_y);
 
-	mlx_put_image_to_window(root.mlx, root.win, rr, 0,0);
+	// mlx_put_image_to_window(root.mlx, root.win, rr, 0,0);
     //
 	// rr = mlx_xpm_file_to_image(root.mlx , "res/FONTS/HH2.xpm", &w, &w);
 
