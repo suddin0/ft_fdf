@@ -24,8 +24,23 @@
 # define ORIGINE_Y  290.0f
 # define STEP 		30.0f
 
-# define PREV_X DEF_ROOT_X
-# define PREV_Y DEF_ROOT_Y
+// Image Sizes
+# define MENU_X DEF_ROOT_X / 4
+# define MENU_Y DEF_ROOT_Y
+
+# define OPT_X MENU_X / 3
+# define OPT_Y 95
+
+
+# define FOOT_X DEF_ROOT_X - (DEF_ROOT_X / 4)
+# define FOOT_Y 23
+
+# define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
+# define PREV_Y DEF_ROOT_Y - FOOT_Y
+
+# define BUTTON_SIZE 14140 * 4 // max button size 8mb [8388608]
+# define BUTTON_MAX 16 // Maximum numer of buttons we will use in button creator or in our first menu
+# define BUTTON_STRUCT_PATH "res/__buttons__/button.struct"
 
 # define MENU_BG_COLOR	0x1b2d3b
 # define PREV_BG_COLOR	0x021626
@@ -49,7 +64,6 @@
 # define VISIBL_M	NN_VisibilityChangeMask
 # define COLOR(MLX_PTR, H_COLOR) mlx_get_color_value(MLX_PTR, H_COLOR)
 # define CLEAR(I) set_color(I.img, I.x * I.y, I.bg);
-# define MAX_EVENT_KEY 15
 
 typedef struct s_point
 {
@@ -89,6 +103,7 @@ typedef struct s_fdfmap
 	char		*name;		// stores the maps name
 	char		*path;		// stores the maps path
 	t_image		*img;		// A copy of the section where map is shown
+	//long		**map;		// stores the map as an long int table[data->col][data->raw]
 	t_point		**map;		// stores the map as an long int table[data->col][data->raw]
 	long		*line_sz;	// stores the amount of number a line contains (for looping purpose)
 	int			file_sz;	// stores the size if the map file
@@ -100,8 +115,45 @@ typedef struct s_fdfmap
 	double		origine_y;	// Where should the ´y´ point of the map start
 	int			step;		// Distance between each points
 	int 		color;
+
 	struct s_fdfmap	*next;	// next map;
 }	t_map;
+
+
+typedef struct s_button
+{
+	int		id;					// Button id
+	char	type;				// Button type (radiobutton/ clickable button)
+	char	stat;				// Acitve, inactive etc...
+	char	view[3][BUTTON_SIZE];			// Image / color in active, desctiv, hovrt etc... mode
+	char	name[100];			// Button name (might be used for search or hover uses)
+	int 	x;					// Width
+	int 	y;					// Height
+	int		o_x;				// Origine x
+	int		o_y;				// origine y
+	void 	*value;				// Contain some value
+	void 	(*f)(void *root);	// A function to execute with a certain parameter
+} t_button;
+
+
+typedef struct s_menu
+{
+	t_image *img;			// Image of the section where we can modify
+	char	hover;			// If there are any hoverable content present (0 (no) / 1 (yes))
+	char	click;			// if there are any clickable content present (0 (no) / 1 (yes))
+	void	(*hover_f)(void *root);	// Function to execute on click
+	void	(*click_f)(void *root);	// Function to execute on click
+
+	t_button	opt[4]; // temp
+	t_button	button[BUTTON_MAX];	// All graphical Buttons in the default menu including the top 3
+	// t_button	ctl[12];	// Controle buttons for the first option
+	t_button	*maps;		// Maps as buttons as they might have undefined numbers for second option
+	char	c_opt;			// define at what options it is in 0 (default) 1 (chose map) 3 (info)
+
+	// t_button	opt2;
+	// t_button	opt3;
+
+} t_menu;
 
 // THe Main structure with window and all
 typedef struct	s_root
@@ -112,10 +164,14 @@ typedef struct	s_root
 	int		sz_y;	// Window Height
 	char	name[NAME_MAX + 5]; // Window name
 	t_map *map;		// Stores the map to show in Preview section
+	t_image	menu; 	// Menu section
 	t_image	prev; 	// Previeu section
-	void 	(*(kevent[MAX_EVENT_KEY]))(struct s_root *root); // Functions executed in key press
-	int		key_set[MAX_EVENT_KEY];
+	t_image	foot; 	// Footer section
+	// char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
+	t_menu 	men;
 } t_root;
+
+
 
 
 int		file_size(const char *name);
@@ -131,14 +187,18 @@ void	root_init(t_root *root, char **argv);
 void	put_color(t_image *img, int x, int y, int col);
 void	set_color(char *img, unsigned int len, int col);
 
-// void	init_menu(t_root *root, t_image *menu);
+void	init_menu(t_root *root, t_image *menu);
 void	init_prev(t_root *root, t_image *prev);
-// void	init_foot(t_root *root, t_image *f);
+void	init_foot(t_root *root, t_image *f);
+
 
 void	event_handler(t_root *root);
 
+// void	draw_line(t_image *img, t_point o, t_point n, int color);
 void	draw_line(t_map  *map, t_point o, t_point n, int color);
-void 	draw_map(void *img_ptr, t_map *map);
+void  	draw_dot(t_map *img, t_point o, t_point n, int color);
+// void	draw_map(void *v, t_map *map, t_image *img);
+void draw_map(void *img_ptr, t_map *map);
 
 
 
@@ -146,23 +206,8 @@ void modmatrix(t_map *map, void f(t_point *a, double val), double rot);
 void rotate_x(t_point *a, double v);
 void rotate_y(t_point *a, double v);
 void rotate_z(t_point *a, double v);
-void trans_x(t_map *a, double v);
-void trans_y(t_map *a, double v);
-void zoom(t_map *a, int v);
 
-void k_up(t_root *root);
-void k_down(t_root *root);
-void k_right(t_root *root);
-void k_left(t_root *root);
-void k_plus(t_root *root);
-void k_minus(t_root *root);
-void k_x(t_root *root);
-void k_s(t_root *root);
-void k_y(t_root *root);
-void k_u(t_root *root);
-void k_z(t_root *root);
-void k_a(t_root *root);
-void k_esc(t_root *root);
+
 
 
 #endif

@@ -91,7 +91,7 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 	while(str[o_line] && (o_line < n_line))
 	{
 		num[i] = 0;
-		while(is_space(str[o_line]) && (o_line < n_line))
+		while(is_space(str[o_line]) &&( o_line != n_line))
 			o_line += 1;
 		if(str[o_line] == ',')
 		{
@@ -101,7 +101,7 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 		}
 		if((str[o_line] == '-') || (str[o_line] == '+'))
 		{
-			if(((o_line + 1) >= n_line))
+			if(((o_line + 1) == n_line))
 			{
 				printf("[-] Error: get_number: bad map at [%ld][%c]\n", o_line, str[o_line]);
 				exit(-1);
@@ -110,16 +110,8 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 				neg = 1;
 			o_line++;
 		}
-		while(str[o_line] && o_line < n_line)
-		{
-			if(!ft_isdigit(str[o_line]))
-			{
-				ft_printf("[-] Error: unexpected character in line [%ld][%c]\n", o_line, str[o_line]);
-				exit(-1);
-			}
+		while(str[o_line] && ft_isdigit(str[o_line]) && o_line < n_line)
 			num[i] = (num[i] * 10L) + (str[o_line++] - 48);
-			printf("CAME HERE TO GET NUMBER [%d] \n", str[o_line]);
-		}
 		if(neg)
 			num[i] *= -1;
 		i++;
@@ -155,38 +147,60 @@ t_point  **data_to_array(t_map *map)
 
 	if(!map)
 		return (NULL);
+
 	data = map->data;
-	printf("IN_DATA_TO_ARRAY map.lines[%d]\n", map->lines);
 	map->line_sz = (long *) malloc(sizeof(long) * map->lines);
+	//map->map = (long **) malloc(sizeof(long *) * map->lines);
 	map->map = (t_point **) malloc(sizeof(t_point *) * (map->lines + 1));
 	ft_memset(map->map, 0, map->lines + 1);
 	i = 0;
 
+	// x = map->origine_x; // --
+	// y = map->origine_y;	// --
+
 	x = 0;
 	y = 0;
-	while(data && data->next)
+
+	// Go tho the end of the list
+	while(data->next)
 		data = data->next;
+
+	// Start from the end of the list and rewind
 	while(data)
 	{
 
 		i = 0;
 		map->line_sz[data->col] = data->row;
-		if(!(map->map[data->col] = (t_point *) malloc(sizeof(t_point) * data->row)))
-		{
-			printf("Error getting memory l167\n");
-		}
+		map->map[data->col] = (t_point *) malloc(sizeof(t_point) * data->row);
 		while (i != data->row)
 		{
-			(map->map)[data->col][i].x = x;
-			(map->map)[data->col][i].y = y;
+			//printf("DATA_TO_ARRAY i[%d] x[%lf] y[%lf] z[%ld]\n", i, x, y, (data->data)[i]);
+
+			(map->map)[data->col][i].x = x; // --
+			(map->map)[data->col][i].y = y; // --
+
+			// (map->map)[data->col][i].x = x;
+			// (map->map)[data->col][i].y = y;
+
+			//(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.60;
+			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
+			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 1; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 0.10 : (data->data)[i]; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			i++;
+			// x += map->step; // --
 			x ++;
 		}
+		// y += map->step;		// --
+		// x =  map->origine_x;	// --
+
 		y++;
 		x = 0;
+
+
+		//data = data->next;
 		data = data->prev; // Go to the start of the list
 	}
+
 	return (map->map);
 }
 
@@ -300,9 +314,6 @@ t_map *get_map(char *name, t_image *img)
 		map->lines++;
 		o_line = n_line + 1;
 	}
-	if(n_line < 0)
-		return (NULL);
-	printf("GOING OUT OF GET_MAP\n");
 	close(fd);
 	data_to_array(map);
 	free(mp);
