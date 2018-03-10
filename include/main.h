@@ -49,6 +49,7 @@
 # define VISIBL_M	NN_VisibilityChangeMask
 # define COLOR(MLX_PTR, H_COLOR) mlx_get_color_value(MLX_PTR, H_COLOR)
 # define CLEAR(I) set_color(I.img, I.x * I.y, I.bg);
+# define MAX_EVENT_KEY 15
 
 typedef struct s_point
 {
@@ -99,7 +100,6 @@ typedef struct s_fdfmap
 	double		origine_y;	// Where should the ´y´ point of the map start
 	int			step;		// Distance between each points
 	int 		color;
-
 	struct s_fdfmap	*next;	// next map;
 }	t_map;
 
@@ -113,10 +113,9 @@ typedef struct	s_root
 	char	name[NAME_MAX + 5]; // Window name
 	t_map *map;		// Stores the map to show in Preview section
 	t_image	prev; 	// Previeu section
-	void 	(*(kevent[10]))(struct s_root *root); // Functions executed in key press
+	void 	(*(kevent[MAX_EVENT_KEY]))(struct s_root *root); // Functions executed in key press
+	int		key_set[MAX_EVENT_KEY];
 } t_root;
-
-
 
 
 int		file_size(const char *name);
@@ -163,6 +162,7 @@ void k_y(t_root *root);
 void k_u(t_root *root);
 void k_z(t_root *root);
 void k_a(t_root *root);
+void k_esc(t_root *root);
 
 
 #endif

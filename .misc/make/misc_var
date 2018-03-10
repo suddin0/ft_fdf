@@ -1,4 +1,4 @@
-###############################################################################                            
+###############################################################################
 ##                                                                           ##
 ##  This file contains miscelinious valiables to make life easier            ##
 ##  `W` indicate `Wild` as in wildcard                                       ##
@@ -24,6 +24,7 @@ OBJ_W		?=	$(shell find $(P_OBJ) | grep \\.o$)
 ## ware set then it will do accordingly
 
 MY_OS		:=	$(shell uname -ms)
+MY_OS_NAME	:=	$(shell uname -s)
 
 ## If the file os do not exists then wont be read
 ## else it will get the content of the file.
@@ -49,5 +50,5 @@ ifeq ($(MY_OS),$(OS_CHK))
 else
 	echo $(MY_OS) > $(P_MISC)/os
 	make os_dep --no-print-directory
-	
+
 endif

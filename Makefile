@@ -75,9 +75,21 @@ P_MLX_MAC	?= lib/mlx_mac
 MLX_FLAG_LINUX ?= -lXext -lX11 -lmlx
 MLX_FLAG_MAC ?= -lmlx -framework OpenGL -framework AppKit
 
+
+## Variables are set deending on the OS
+ifeq ($(MY_OS_NAME),Darwin)
+	MLX_FLAG = $(MLX_FLAG_MAC)
+	P_MLX	= $(P_MLX_MAC)
+else
+	MLX_FLAG = $(MLX_FLAG_LINUX)
+	P_MLX	= $(P_MLX_LINUX)
+endif
+
 # Change the `..._MAC ` to `..._LINUX` depending on OS
-MLX_FLAG	?= $(MLX_FLAG_LINUX)
-P_MLX		?= $(P_MLX_LINUX)
+# MLX_FLAG	?= $(MLX_FLAG_LINUX)
+# P_MLX		?= $(P_MLX_LINUX)
+
+
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
 
@@ -101,12 +113,8 @@ SRC		=	$(MAIN)		\
 			src/matrans/modmatrix.c	\
 			src/matrans/rotate_point.c \
 			src/matrans/key_func_one.c \
-
-IMAGE_SRC =	src/map_perser/file_size.c		\
-			src/map_perser/get_map.c		\
-			src/map_perser/is_dir.c			\
-			src/map_perser/is_file.c		\
-			src/root_init.c		\
+			src/matrans/key_func_two.c \
+			src/matrans/key_func_three.c \
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))
@@ -163,20 +171,6 @@ library:	object $(P_OBJ) $(OBJ_P)
 	printf "$(WARN)[!][$(PROJECT)] Generating index in $(LIB_A)$(C_DEF)\n"
 	@ranlib $(LIB_A)
 	printf "$(OK)[+][$(PROJECT)] The $(LIB_A) library was made$(C_DEF)\n"
-
-
-
-image_creator: $(LIBFT_A)  $(IMAGE_CREATOR) $(IMAGE_SRC) $(P_BIN)
-	printf "$(WARN)[!][$(PROJECT)] Creating image_creator in $(P_BIN)$(C_DEF)\n"
-	$(CC) $(IMAGE_CREATOR)  $(CC_FLAG_ASAN) $(IMAGE_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
-	-o image_creator
-	printf "$(OK)[+][$(PROJECT)] image_creator compiled in $(P_BIN)$(C_DEF)\n"
-
-button_test: $(LIBFT_A) $(P_BIN)
-	printf "$(WARN)[!][$(PROJECT)] Creating button_test in $(P_BIN)$(C_DEF)\n"
-	$(CC) button_test.c  $(CC_FLAG_ASAN) $(IMAGE_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
-	-o button_test
-	printf "$(OK)[+][$(PROJECT)] button_test compiled in $(P_BIN)$(C_DEF)\n"
 
 ## This rule is called when a difference in operating sistem has been
 ## detected. You can put your prerequisite to be changed if a different

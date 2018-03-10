@@ -41,113 +41,29 @@ int pmotion(int x, int y, t_root *root)
 // 	a->origine_y += -v;
 // }
 
+
+int key_in_set(int key, t_root *root)
+{
+	int i;
+
+	i = 0;
+	while(i != MAX_EVENT_KEY)
+	{
+		printf("INSIDE KEY_IN_SET  i[%d]\n", i);
+		if ((root->key_set)[i] == key)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 int kpress(int key, t_root *root)
 {
-	CLEAR(root->prev);
-	if(key == BTN_ESC || key == BTN_Q)
+	if(key_in_set(key, root) != -1)
 	{
-		// mlx_destroy_image(root->mlx, root->menu.img_ptr);
-		mlx_destroy_image(root->mlx, root->prev.img_ptr);
-		// mlx_destroy_image(root->mlx, root->foot.img_ptr);
-		mlx_destroy_window(root->mlx,root->win);
-		free_map(root->map);
-		printf("Key pressed %d\n", key);
-		printf("[!] Exiting the programme\n");
-		exit(EXIT_SUCCESS);
+		CLEAR(root->prev);
+		(root->kevent)[key_in_set(key, root)](root);
 	}
-	else if (key == BTN_UP)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		// modmatrix(root->map, trans_y, -3.0);
-		trans_y(root->map, -10.0);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	} // --
-	else if (key == BTN_DOWN)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		// modmatrix(root->map, trans_y, 3.0);
-		trans_y(root->map, 10.0);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	} // --
-	else if (key == BTN_RIGT)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		// modmatrix(root->map, trans_x, 3.0);
-		trans_x(root->map, 10.0);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	} // --
-	else if (key == BTN_LEFT)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		// modmatrix(root->map, trans_x, -3.0);
-		trans_x(root->map, -10.0);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	} // --
-	else if (key == BTN_PLUS)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		// modmatrix(root->map, zoom, 1.1);
-		zoom(root->map, 5);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
-	else if (key == BTN_MINUS)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		// modmatrix(root->map, zoom, -1.1);
-		zoom(root->map, -5);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	} // --
-	else if (key == BTN_X)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modmatrix(root->map, rotate_x, 0.10);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	} // --
-	else if (key == BTN_S)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modmatrix(root->map, rotate_x, -0.10);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	} // --
-	else if (key == BTN_Y)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modmatrix(root->map, rotate_y, 0.10);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	} //  --
-	else if (key == BTN_U)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modmatrix(root->map, rotate_y, -0.10);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
-	else if (key == BTN_Z)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modmatrix(root->map, rotate_z, 0.10);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
-	else if (key == BTN_A)
-	{
-	// void modmatrix(t_map *map, void *(f(t_point *a, double val)), double rot);
-		modmatrix(root->map, rotate_z, -0.10);
-		draw_map(root->mlx, root->map);
-		mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, root->prev.o_x, root->prev.o_y);
-	}
-	// else
-	// 	printf("Came in PRESS BUTTON [%d]\n", key);
-
 	return 1;
 }
 
@@ -169,26 +85,12 @@ int button_press(int x, int y, t_root *root)
 
 void click_menu(t_root *root, int key, int x, int y)
 {
-	// if ( button_press(x, y, root->men.opt[0]) == 1)
-	// 	printf("Print The first button\n");
-	// else if ( button_press(x, y, root->men.opt[1]) == 1)
-	// 	printf("Print The Second button\n");
-	// else if ( button_press(x, y, root->men.opt[2]) == 1)
-	// 	printf("Print The Third button\n");
+
 }
 
 int bpress(int key, int x, int y, t_root *root)
 {
-	// if(x > root->menu.o_x && x < root->menu.o_x + root->menu.x && y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
-	// {
-	// 	click_menu(root, key, x, y);
-	// 	printf("Clicked in Menu\n");
-	// }
-	// else if(x > root->prev.o_x && x < root->prev.o_x + root->prev.x && y > root->prev.o_y && y < root->prev.o_y + root->prev.y)
-	// 	printf("Clicked in Prev\n");
-	// else
-	// 	printf("Came in B_PRESS\n");
-
+	
 	return (1);
 }
 

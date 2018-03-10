@@ -30,7 +30,41 @@ void kevent_init(t_root *root)
 	root->kevent[9]		= k_u;
 	root->kevent[10]	= k_z;
 	root->kevent[11]	= k_a;
+	root->kevent[12]	= k_esc;
+	root->kevent[13]	= k_esc;
 }
+
+// void k_up(t_root *root);
+// void k_down(t_root *root);
+// void k_right(t_root *root);
+// void k_left(t_root *root);
+// void k_plus(t_root *root);
+// void k_minus(t_root *root);
+// void k_x(t_root *root);
+// void k_s(t_root *root);
+// void k_y(t_root *root);
+// void k_u(t_root *root);
+// void k_z(t_root *root);
+// void k_a(t_root *root);
+
+void key_set_init(int *set)
+{
+	set[0] = BTN_UP;
+	set[1] = BTN_DOWN;
+	set[2] = BTN_RIGT;
+	set[3] = BTN_LEFT;
+	set[4] = BTN_PLUS;
+	set[5] = BTN_MINUS;
+	set[6] = BTN_X;
+	set[7] = BTN_S;
+	set[8] = BTN_Y;
+	set[9] = BTN_U;
+	set[10] = BTN_Z;
+	set[11] = BTN_A;
+	set[12] = BTN_Q;
+	set[13] = BTN_ESC;
+}
+
 void root_init(t_root *root, char **argv)
 {
 	root->mlx = mlx_init();
@@ -41,5 +75,5 @@ void root_init(t_root *root, char **argv)
 	ft_putstr(root->name);
 	root->win = mlx_new_window(root->mlx, root->sz_x, root->sz_y, root->name);
 	kevent_init(root);
-
+	key_set_init(root->key_set);
 }
