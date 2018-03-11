@@ -26,27 +26,27 @@ void draw_button(t_button button, t_image *img, int color)
 	}
 }
 
-void draw_button2(t_button button, t_image *img)
+void draw_button2(t_button button, t_image *img, int stat)
 {
 	int x;
 	int y;
 	int k;
 
-	x = button.o_x;
+	x = button.o_x * 4;
 	y = button.o_y;
 	k = 0;
 	while (y < button.o_y + button.y)
 	{
-		x = button.o_x;
+		x = button.o_x * 4;
 		while (x < (button.o_x + button.x) * 4)
 		{
 			// We multiply img->x by 4 because the real size of img is 4 times bigger then it seems
-			if(x > 0 && y > 0 && (x + (y * img->x)) < img->x * img->y)
+			if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4)
 			{
-				(img->img)[x + 0 + (y * img->x * 4)]  = (button.view[2])[k + 0];
-				(img->img)[x + 1 + (y * img->x * 4)]  = (button.view[2])[k + 1];
-				(img->img)[x + 2 + (y * img->x * 4)]  = (button.view[2])[k + 2];
-				(img->img)[x + 3 + (y * img->x * 4)]  = (button.view[2])[k + 3];
+				(img->img)[x + 0 + (y * (img->x * 4))]  = (button.view[stat])[k + 0];
+				(img->img)[x + 1 + (y * (img->x * 4))]  = (button.view[stat])[k + 1];
+				(img->img)[x + 2 + (y * (img->x * 4))]  = (button.view[stat])[k + 2];
+				(img->img)[x + 3 + (y * (img->x * 4))]  = (button.view[stat])[k + 3];
 			}
 			k += 4;
 			x += 4;
@@ -100,9 +100,27 @@ void init_menu(t_root *root, t_image *m)
 	draw_button(root->men.opt[1], m, COLOR(root->mlx, 0xff6f69));
 	draw_button(root->men.opt[2], m, COLOR(root->mlx, 0xffeead));
 
+
+
 	fd = open(BUTTON_STRUCT_PATH, O_RDONLY);
 	read(fd, root->men.button, sizeof(t_button) * BUTTON_MAX);
-	draw_button2((root->men.button)[0], m);
+
+	int tmp_ox = root->men.button[0].o_x;
+	int tmp_oy = root->men.button[0].o_y;
+
+	draw_button2((root->men.button)[0], m, 0);
+
+	root->men.button[0].o_x = tmp_ox;
+	root->men.button[0].o_y = tmp_oy - 102;
+	draw_button2((root->men.button)[0], m, 2);
+
+	root->men.button[0].o_x = tmp_ox - 102;
+	root->men.button[0].o_y = tmp_oy;
+	draw_button2((root->men.button)[0], m, 0);
+
+	root->men.button[0].o_x = tmp_ox + 102;
+	root->men.button[0].o_y = tmp_oy;
+	draw_button2((root->men.button)[0], m, 0);
 	// show_image(root->men.button[0].view[2], root->men.button[0].x, root->men.button[0].y);
 
 

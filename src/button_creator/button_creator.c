@@ -1,4 +1,6 @@
 #include "main.h"
+#include "button_creator.h"
+
 
 int file_check(int argc, char ***argv)
 {
@@ -31,7 +33,6 @@ void clear_button(t_button *button)
 	button->o_y		= 0;
 	button->value	= NULL;
 	button->f		= NULL;
-
 }
 
 int create_name(char ****file, int argc, char **argv)
@@ -55,11 +56,9 @@ int create_name(char ****file, int argc, char **argv)
 			return (-1);											 // Extention and the extra number befor
 		if (((*file)[jim][2] = ft_strnew(ft_strlen(argv[lim]) + 7)) == NULL) // The +6 is for the
 			return (-1);											 // Extention and the extra number befor
-
 		ft_strcpy((*file)[jim][0], argv[lim]);
 		ft_strcpy((*file)[jim][1], argv[lim]);
 		ft_strcpy((*file)[jim][2], argv[lim]);
-
 		ft_strcat((*file)[jim][0], "_0.xpm");
 		ft_strcat((*file)[jim][1], "_1.xpm");
 		ft_strcat((*file)[jim][2], "_2.xpm");
@@ -67,7 +66,6 @@ int create_name(char ****file, int argc, char **argv)
 		jim++;
 		lim++;
 	}
-	// printf("I AFTER MALLOCS [%d]\n", jim);
 	(*file)[jim] = 0;
 	return (1);
 }
@@ -150,6 +148,7 @@ void show_image(char *img, int x, int y)
 }
 
 
+
 int main(int argc, char **argv)
 {
 
@@ -162,6 +161,24 @@ int main(int argc, char **argv)
 	int file_error;
 	t_button b[BUTTON_MAX];
 	t_root root;
+
+	/* hierarchy */
+	t_b_create_data button_data[BUTTON_MAX]; // has information about buttons
+	init_bname(button_data);
+	init_bid  (button_data);
+	init_btype(button_data);
+	init_bstat(button_data);
+	init_bo_x (button_data);
+	init_bo_y (button_data);
+
+	printf("** button_ data **\n");
+	printf("button_data[0].name [%s]\n", (button_data[2]).name);
+	printf("button_data[0].id   [%d]\n", (button_data[2]).id);
+	printf("button_data[0].name [%d]\n", (button_data[2]).type);
+	printf("button_data[0].stat [%d]\n", (button_data[2]).stat);
+	printf("button_data[0].o_x  [%d]\n", (button_data[2]).o_x);
+	printf("button_data[0].o_y  [%d]\n", (button_data[2]).o_y);
+	printf("** ************ **\n");
 
 
 	if (argc < 2)
@@ -217,12 +234,10 @@ int main(int argc, char **argv)
 		b[i].type = 1;
 		b[i].stat = 3;
 		b[i].id   = 69;
-		b[i].o_x  = 0;
-		b[i].o_y  = 200;
-
 		b[i].x  = (ig[0]).x;
 		b[i].y  = (ig[0]).y;
-
+		b[i].o_x  = (MENU_X / 2) - (b[i].x / 2);
+		b[i].o_y  = MENU_Y - (b[i].y + 60);
 
 
 		ft_memcpy((b[i].view)[0], (ig[0]).img, ((ig[0]).x * (ig[0]).y) * 4);
@@ -230,11 +245,8 @@ int main(int argc, char **argv)
 		ft_memcpy((b[i].view)[2], (ig[2]).img, ((ig[2]).x * (ig[2]).y) * 4);
 		name_copy ((b[i]).name, file[i][0]);
 
-		show_image((b[i].view)[0], b[i].x, b[i].y);
+		// show_image((b[i].view)[0], b[i].x, b[i].y);
 		// show_image((ig[2]).img, (ig[2]).x , (ig[2]).y);
-
-
-
 
 		mlx_destroy_image(root.mlx, (ig[0]).img_ptr);
 		mlx_destroy_image(root.mlx, (ig[1]).img_ptr);

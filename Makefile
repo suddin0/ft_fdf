@@ -76,7 +76,7 @@ MLX_FLAG_LINUX ?= -lXext -lX11 -lmlx
 MLX_FLAG_MAC ?= -lmlx -framework OpenGL -framework AppKit
 
 ## Variables are set deending on the OS
-ifeq ($(MY_OS_NAME),Darwin)
+ifeq ($(shell uname -s),Darwin)
 	MLX_FLAG = $(MLX_FLAG_MAC)
 	P_MLX	= $(P_MLX_MAC)
 else
@@ -91,7 +91,6 @@ endif
 ## sources and objects where path names are removed.
 ## Add all your source files to this variable
 
-IMAGE_CREATOR = src/image_creator/image_creator.c
 
 SRC		=	$(MAIN)		\
 			src/map_perser/file_size.c		\
@@ -111,11 +110,22 @@ SRC		=	$(MAIN)		\
 			src/matrans/modmatrix.c	\
 			src/matrans/rotate_point.c \
 
-IMAGE_SRC =	src/map_perser/file_size.c		\
-			src/map_perser/get_map.c		\
-			src/map_perser/is_dir.c			\
-			src/map_perser/is_file.c		\
-			src/root_init.c		\
+
+
+BUTTON_CREATOR = $(P_BIN)/button_creator
+P_BUTTON_CREATOR = src/button_creator/button_creator.c
+
+## Button creator source
+BUTTON_SRC =	src/map_perser/file_size.c		\
+				src/map_perser/get_map.c		\
+				src/map_perser/is_dir.c			\
+				src/map_perser/is_file.c		\
+				src/root_init.c					\
+
+## Where buttons are found
+XPM_BUTTON_PATH := res/__buttons__/xpm
+BUTTON_STRUCT 	:= res/__buttons__/button.struct
+BUTTON_NAME 	:= $(XPM_BUTTON_PATH)/arrow \
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))
@@ -135,17 +145,20 @@ $(NAME):	$(SRC)
 		-o $(NAME)
 
 ## Clean objects and others
-clean:
+clean: button_clean
 	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed all objects from ./$(P_OBJ)$(C_DEF)\n"
 	printf	"$(OK)[+][$(PROJECT)] Cleaned$(C_DEF)\n"
 
 ## Cleans everything
-fclean:		clean
+fclean:		clean button_fclean
 	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed $(NAME)$(C_DEF)\n"
 	@make -C lib/libft fclean --no-print-directory
+	@rm -rf $(P_BIN)
 	printf	"$(OK)[+][$(PROJECT)] Fully cleaned$(C_DEF)\n"
+
+
 
 $(LIBFT_A):
 	@make -C lib/libft lib/libft.a ft_printf --no-print-directory
@@ -175,17 +188,31 @@ library:	object $(P_OBJ) $(OBJ_P)
 
 
 
-image_creator: $(LIBFT_A)  $(IMAGE_CREATOR) $(IMAGE_SRC) $(P_BIN)
-	printf "$(WARN)[!][$(PROJECT)] Creating image_creator in $(P_BIN)$(C_DEF)\n"
-	$(CC) $(IMAGE_CREATOR)  $(CC_FLAG_ASAN) $(IMAGE_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
-	-o image_creator
-	printf "$(OK)[+][$(PROJECT)] image_creator compiled in $(P_BIN)$(C_DEF)\n"
+$(BUTTON_CREATOR): $(LIBFT_A)  $(P_BUTTON_CREATOR) $(IMAGE_SRC) $(P_BIN)
+	@printf "$(WARN)[!][$(PROJECT)] Creating button_creator in $(P_BIN)$(C_DEF)\n"
+	@$(CC) $(P_BUTTON_CREATOR)  $(CC_FLAG_ASAN) $(BUTTON_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
+	-o $(P_BIN)/button_creator
+	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
+
+# BUTTON_PATH := res/__buttons__/xpm
+# BUTTON_NAME := $(BUTTON_PATH)/arrow
+button_make: $(P_BIN) $(BUTTON_CREATOR) $(XPM_BUTTON_PATH)
+	@./$(BUTTON_CREATOR) $(BUTTON_NAME)
+
+button_clean:
+	@printf	"$(WARN)[!][$(PROJECT)] Removed $(BUTTON_STRUCT)$(C_DEF)\n"
+	@rm -f $(BUTTON_STRUCT)
+button_fclean: button_clean
+	@printf	"$(WARN)[!][$(PROJECT)] button_creator in $(P_BIN)$(C_DEF)\n"
+	@rm -f $(P_BIN)/button_creator
+
+button_re: button_fclean button_make
 
 button_test: $(LIBFT_A) $(P_BIN)
-	printf "$(WARN)[!][$(PROJECT)] Creating button_test in $(P_BIN)$(C_DEF)\n"
+	@printf "$(WARN)[!][$(PROJECT)] Creating button_test in $(P_BIN)$(C_DEF)\n"
 	$(CC) button_test.c  $(CC_FLAG_ASAN) $(IMAGE_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
 	-o button_test
-	printf "$(OK)[+][$(PROJECT)] button_test compiled in $(P_BIN)$(C_DEF)\n"
+	@printf "$(OK)[+][$(PROJECT)] button_test compiled in $(P_BIN)$(C_DEF)\n"
 
 ## This rule is called when a difference in operating sistem has been
 ## detected. You can put your prerequisite to be changed if a different
