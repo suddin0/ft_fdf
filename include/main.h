@@ -42,7 +42,10 @@
 # define BUTTON_MAX 16 // Maximum numer of buttons we will use in button creator or in our first menu
 # define BUTTON_STRUCT_PATH "res/__buttons__/button.struct"
 
+// # define MENU_BG_COLOR	0x1b2d3b
+// # define PREV_BG_COLOR	0x021626
 # define MENU_BG_COLOR	0x1b2d3b
+# define FOOT_BG_COLOR	0x1b2d3b
 # define PREV_BG_COLOR	0x021626
 # define MAP_COLOR		0xe0e0bd
 

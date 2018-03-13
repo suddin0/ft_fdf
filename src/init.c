@@ -44,7 +44,7 @@ void init_menu(t_root *root, t_image *m)
 	m->o_y = 0;
 	m->x = MENU_X;
 	m->y = MENU_Y;
-	m->bg = COLOR(root->mlx, 0x1b2d3b);
+	m->bg = COLOR(root->mlx, MENU_BG_COLOR);
 
 	m->img_ptr = mlx_new_image(root->mlx, m->x , m->y);
 	m->img = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->sl), &(m->end));
@@ -60,7 +60,7 @@ void init_prev(t_root *root, t_image *p)
 	p->o_y = 0;
 	p->x = PREV_X;
 	p->y = PREV_Y;
-	p->bg = COLOR(root->mlx, 0x021626);
+	p->bg = COLOR(root->mlx, PREV_BG_COLOR);
 
 	p->img_ptr = mlx_new_image(root->mlx, p->x, p->y);
 	p->img = mlx_get_data_addr(p->img_ptr, &(p->bpp), &(p->sl), &(p->end));
@@ -78,7 +78,7 @@ void init_foot(t_root *root, t_image *f)
 	f->o_y = PREV_Y;
 	f->x = FOOT_X;
 	f->y = FOOT_Y;
-	f->bg = COLOR(root->mlx, 0x1b2d3b);
+	f->bg = COLOR(root->mlx, FOOT_BG_COLOR);
 
 	f->img_ptr = mlx_new_image(root->mlx, f->x, f->y);
 	f->img = mlx_get_data_addr(f->img_ptr, &(f->bpp), &(f->sl), &(f->end));
