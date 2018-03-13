@@ -5,9 +5,16 @@
 
 
 menu:	 400px 950px 0x1b2d3bff
-arrow normal: 100px 100px 0xffffff3d
-arrow hover : 100px 100px 0xffffff73
-arrow hover : 100px 100px 0xff6f57ff
+arrow normal: 100px 100px 0xffffff90
+arrow hover : 100px 100px 0xffffffde
+arrow active: 100px 100px 0xb8b8b8ff
+
 zoom normal: 58px 58px 0xffffff3d
 zoom normal: 58px 58px 0xffffff73
 zoom normal: 58px 58px 0xff6f57ff
+
+radio normal: 135 43 0xffffff90
+radio normal: 135 43 0xffffffde
+radio normal: 135 43 0xb8b8b8ff
+
+controle normal: 133 111 0xb8b8b8ff

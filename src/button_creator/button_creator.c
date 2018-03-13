@@ -2,38 +2,20 @@
 #include "button_creator.h"
 
 
-int file_check(int argc, char ***argv)
-{
-	int i;
-
-	i = 0;
-	while (i != argc - 1)
-	{
-		printf("CAME IIN FILE_CHECK [%d] [%s] - [%s] - [%s]\n", i, argv[i][0], argv[i][1], argv[i][2]);
-		if(is_file(argv[i][0]) <= 0 || is_file(argv[i][1]) <= 0 || is_file(argv[i][2]) <= 0)
-			return (i + 1);
-		i++;
-	}
-	return (0);
-}
-
-void clear_button(t_button *button)
-{
-	button->id = 0;
-	button->type = 0;
-	button->stat = 0;
-	memset(button->view[0], 0, BUTTON_SIZE);
-	memset(button->view[1], 0, BUTTON_SIZE);
-	memset(button->view[2], 0, BUTTON_SIZE);
-	memset(button->view[2], 0, BUTTON_SIZE);
-	memset(button->name	  , 0, 100);
-	button->x		= 0;
-	button->y		= 0;
-	button->o_x		= 0;
-	button->o_y		= 0;
-	button->value	= NULL;
-	button->f		= NULL;
-}
+// int file_check(int argc, char ***argv)
+// {
+// 	int i;
+//
+// 	i = 0;
+// 	while (i != argc - 1)
+// 	{
+// 		printf("CAME IIN FILE_CHECK [%d] [%s] - [%s] - [%s]\n", i, argv[i][0], argv[i][1], argv[i][2]);
+// 		if(is_file(argv[i][0]) <= 0 || is_file(argv[i][1]) <= 0 || is_file(argv[i][2]) <= 0)
+// 			return (i + 1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int create_name(char ****file, int argc, char **argv)
 {
@@ -62,40 +44,11 @@ int create_name(char ****file, int argc, char **argv)
 		ft_strcat((*file)[jim][0], "_0.xpm");
 		ft_strcat((*file)[jim][1], "_1.xpm");
 		ft_strcat((*file)[jim][2], "_2.xpm");
-
 		jim++;
 		lim++;
 	}
 	(*file)[jim] = 0;
 	return (1);
-}
-
-// static void r_init(t_root *root, char **argv)
-// {
-// 	root->mlx = mlx_init();
-// 	root->sz_x = DEF_ROOT_X;
-// 	root->sz_y = DEF_ROOT_Y;
-// 	ft_memset(root->name, 0, NAME_MAX + 5);
-// 	ft_strncpy(root->name, argv[1], strlen(argv[1]) - 4);
-// 	// ft_putstr(root->name);
-// 	// root->win = mlx_new_window(root->mlx, root->sz_x, root->sz_y, root->name);
-// }
-
-static void free_file(char ***file, int argc)
-{
-	int i;
-
-	i = 0;
-	while(i != argc && file[i])
-	{
-		printf("i[%d]\n", i);
-		free((file[i])[0]);
-		free((file[i])[1]);
-		free((file[i])[2]);
-		free(file[i]);
-		i++;
-	}
-	free(file);
 }
 
 
@@ -104,30 +57,31 @@ void name_copy(char *dest, char *src)
 	int len;
 	int start;
 	int end;
+	int i;
 
 	if(!dest || !src)
 		return;
 	start = 0;
+	i = 0;
 	len = ft_strlen(src);
-
 	while(len-- && src[len] != '/');
 	start = (len == 0) ? len : len + 1;
 	end =  ft_strlen(&(src[start])) - 6;
+	while (i != end && src[start])
+		dest[i++] = src[start++];
+	dest[i] = 0;
 
-	printf("INSIDE COPY_NAME start[%d] - end[%d] [%.*s]\n", start, end, end, &(src[start]) );
-
-	ft_strncpy(dest, &(src[start]), end);
 }
 
-
-void size_check(char *name, int a, int  b)
-{
-	if ((a * b) > BUTTON_SIZE)
-	{
-		ft_printf("[-] Error size: %s is too larg to hold in stake %dmb, max size %dmb\n", name, a * b, BUTTON_SIZE);
-		exit(-1);
-	}
-}
+//
+// void size_check(char *name, int a, int  b)
+// {
+// 	if ((a * b) > BUTTON_SIZE)
+// 	{
+// 		ft_printf("[-] Error size: %s is too larg to hold in stake %dmb, max size %dmb\n", name, a * b, BUTTON_SIZE);
+// 		exit(-1);
+// 	}
+// }
 
 
 void write_struct(t_button b[], char *path)
@@ -151,76 +105,48 @@ void show_image(char *img, int x, int y)
 
 int main(int argc, char **argv)
 {
-
-	// void *img_ptr[3];
-	// char *img[3];
-
 	t_image ig[3]; // image
 	char ***file;
 	int i;
-	int file_error;
 	t_button b[BUTTON_MAX];
 	t_root root;
+	t_b_create_data button_data[BUTTON_MAX]; // has information about buttons
 
 	/* hierarchy */
-	t_b_create_data button_data[BUTTON_MAX]; // has information about buttons
-	init_bname(button_data);
-	init_bid  (button_data);
-	init_btype(button_data);
-	init_bstat(button_data);
-	init_bo_x (button_data);
-	init_bo_y (button_data);
+	button_data_init(button_data);
 
-	printf("** button_ data **\n");
-	printf("button_data[0].name [%s]\n", (button_data[2]).name);
-	printf("button_data[0].id   [%d]\n", (button_data[2]).id);
-	printf("button_data[0].name [%d]\n", (button_data[2]).type);
-	printf("button_data[0].stat [%d]\n", (button_data[2]).stat);
-	printf("button_data[0].o_x  [%d]\n", (button_data[2]).o_x);
-	printf("button_data[0].o_y  [%d]\n", (button_data[2]).o_y);
-	printf("** ************ **\n");
-
-
-	if (argc < 2)
-	{
-		ft_printf("[!] No file was given as arguments\n");
+	if(file_verif(argc, argv, &file) == -1)
 		return (-1);
-	}
 
-	if((argc - 1) > BUTTON_MAX)
-	{
-		ft_printf("[-] Error MAX_BUTTON: Too much muttons, maximum limit is %d", BUTTON_MAX);
-		return(-1);
-	}
-	if (create_name(&file, argc, argv) != 1)
-	{
-		ft_printf("[-] Error setting file name in create_name(...) function");
-		return (-1);
-	}
-	if((file_error = file_check(argc, file)) != 0)
-	{
-		ft_printf("[-] Error files: %s\n", argv[file_error]);
-		free_file(file, argc);
-		return (-1);
-	}
-	file_error = -1;
+	// file_error = -1;
 	root.mlx = mlx_init();
 	i = 0;
-	int ll = 0;
-	while(file[ll] && ll != argc)
-	{
+	for (int ll = 0; file[ll] && ll != argc; ll++)
 		printf("[%3d] : [0][%40s] - [1][%40s] - [2][%40s]\n", ll, file[ll][0], file[ll][1], file[ll][2]);
-		ll++;
-	}
 	i = 0;
 
 	while (i != argc - 1)
 	{
-		printf("CAME HERE WHINE in MAIN\n");
-		clear_button(&(b[i]));
+		printf("CAME HERE WHILE in MAIN\n");
+		// clear_button(&(b[i]));
+		printf("FILE NAME [%d][%s]\n", 0, file[i][0]);
+		printf("FILE NAME [%d][%s]\n", 1, file[i][1]);
+		printf("FILE NAME [%d][%s]\n", 2, file[i][2]);
+		// if(!((ig[0]).img_ptr) || !((ig[1]).img_ptr) || !((ig[2]).img_ptr))
+		// {
+		// 	printf("Error getting mlx image pointer\n");
+		// 	return (-1);
+		// }
+
 		(ig[0]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][0], &((ig[0]).x), &((ig[0]).y));
 		(ig[1]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][1], &((ig[1]).x), &((ig[1]).y));
 		(ig[2]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][2], &((ig[2]).x), &((ig[2]).y));
+		if(!((ig[0]).img_ptr) || !((ig[1]).img_ptr) || !((ig[2]).img_ptr))
+		{
+			printf("Error getting mlx image pointer\n");
+			free_file(file, argc);
+			return (-1);
+		}
 
 		(ig[0]).img = mlx_get_data_addr((ig[0]).img_ptr, &((ig[0]).bpp), &((ig[0]).sl), &((ig[0]).end));
 		(ig[1]).img = mlx_get_data_addr((ig[1]).img_ptr, &((ig[1]).bpp), &((ig[1]).sl), &((ig[1]).end));
@@ -230,27 +156,29 @@ int main(int argc, char **argv)
 		size_check(file[i][1], (ig[1]).x, (ig[1]).x);
 		size_check(file[i][2], (ig[2]).x, (ig[2]).x);
 
+		struct_manage(ig, b, button_data, file[i][2]);
 
-		b[i].type = 1;
-		b[i].stat = 3;
-		b[i].id   = 69;
-		b[i].x  = (ig[0]).x;
-		b[i].y  = (ig[0]).y;
-		b[i].o_x  = (MENU_X / 2) - (b[i].x / 2);
-		b[i].o_y  = MENU_Y - (b[i].y + 60);
-
-
-		ft_memcpy((b[i].view)[0], (ig[0]).img, ((ig[0]).x * (ig[0]).y) * 4);
-		ft_memcpy((b[i].view)[1], (ig[1]).img, ((ig[1]).x * (ig[1]).y) * 4);
-		ft_memcpy((b[i].view)[2], (ig[2]).img, ((ig[2]).x * (ig[2]).y) * 4);
-		name_copy ((b[i]).name, file[i][0]);
-
-		// show_image((b[i].view)[0], b[i].x, b[i].y);
-		// show_image((ig[2]).img, (ig[2]).x , (ig[2]).y);
-
+		// b[i].type = 1;
+		// b[i].stat = 3;
+		// b[i].id   = 69;
+		// b[i].x  = (ig[0]).x;
+		// b[i].y  = (ig[0]).y;
+		// b[i].o_x  = (MENU_X / 2) - (b[i].x / 2);
+		// b[i].o_y  = MENU_Y - (b[i].y + 60);
+		//
+		//
+		// ft_memcpy((b[i].view)[0], (ig[0]).img, ((ig[0]).x * (ig[0]).y) * 4);
+		// ft_memcpy((b[i].view)[1], (ig[1]).img, ((ig[1]).x * (ig[1]).y) * 4);
+		// ft_memcpy((b[i].view)[2], (ig[2]).img, ((ig[2]).x * (ig[2]).y) * 4);
+		// name_copy ((b[i]).name, file[i][0]);
+		//
+		// // show_image((b[i].view)[0], b[i].x, b[i].y);
+		// // show_image((ig[2]).img, (ig[2]).x , (ig[2]).y);
+		//
 		mlx_destroy_image(root.mlx, (ig[0]).img_ptr);
 		mlx_destroy_image(root.mlx, (ig[1]).img_ptr);
 		mlx_destroy_image(root.mlx, (ig[2]).img_ptr);
+
 		printf("NAME [%s]\n", b[i].name);
 		i++;
 	}

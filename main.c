@@ -59,6 +59,8 @@ int main(int argc, char **argv)
 	// modmatrix(map, rotate_y, 120);
 	draw_map(root.mlx, root.map);
 
+	printf("HEY, INSIDE MAIN AGAIN map.file_size[%d] map.lines[%d]\n", map->file_sz, map->lines);
+
 	/* ------ Using an xpm image ----- */
 	int ppp = 0;
 	void *nn = NULL;

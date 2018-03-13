@@ -92,23 +92,29 @@ endif
 ## Add all your source files to this variable
 
 
-SRC		=	$(MAIN)		\
+SRC		=	$(MAIN)							\
 			src/map_perser/file_size.c		\
 			src/map_perser/get_map.c		\
 			src/map_perser/is_dir.c			\
 			src/map_perser/is_file.c		\
-			src/free_map.c		\
-			src/print_map.c		\
-			src/pre_check.c		\
-			src/root_init.c		\
-			src/init.c			\
-			src/color.c			\
-			src/event_handler.c	\
-			src/draw_line.c	\
-			src/draw_dot.c	\
-			src/draw_map.c	\
-			src/matrans/modmatrix.c	\
-			src/matrans/rotate_point.c \
+			src/free_map.c					\
+			src/print_map.c					\
+			src/pre_check.c					\
+			src/root_init.c					\
+			src/init.c						\
+			src/color.c						\
+			src/event_handler.c				\
+			src/draw_line.c					\
+			src/draw_dot.c					\
+			src/draw_map.c					\
+			src/matrans/modmatrix.c			\
+			src/matrans/rotate_point.c 		\
+			src/matrans/key_func_one.c 		\
+			src/matrans/key_func_two.c 		\
+			src/matrans/key_func_three.c 	\
+			src/button_res/button_init.c 	\
+			src/button_res/draw_button.c 	\
+			src/button_res/button_func.c 	\
 
 
 
@@ -116,16 +122,28 @@ BUTTON_CREATOR = $(P_BIN)/button_creator
 P_BUTTON_CREATOR = src/button_creator/button_creator.c
 
 ## Button creator source
-BUTTON_SRC =	src/map_perser/file_size.c		\
-				src/map_perser/get_map.c		\
-				src/map_perser/is_dir.c			\
-				src/map_perser/is_file.c		\
-				src/root_init.c					\
+BUTTON_SRC =	src/map_perser/file_size.c				\
+				src/map_perser/get_map.c				\
+				src/map_perser/is_dir.c					\
+				src/map_perser/is_file.c				\
+				src/root_init.c							\
+				src/button_creator/button_data_init.c	\
+				src/button_creator/struct_manage.c		\
+				src/button_creator/free_file.c			\
+				src/button_creator/file_verif.c			\
 
 ## Where buttons are found
 XPM_BUTTON_PATH := res/__buttons__/xpm
 BUTTON_STRUCT 	:= res/__buttons__/button.struct
-BUTTON_NAME 	:= $(XPM_BUTTON_PATH)/arrow \
+BUTTON_NAME 	:= $(XPM_BUTTON_PATH)/right 	\
+					$(XPM_BUTTON_PATH)/left 	\
+					$(XPM_BUTTON_PATH)/down 	\
+					$(XPM_BUTTON_PATH)/up		\
+					$(XPM_BUTTON_PATH)/trans	\
+					$(XPM_BUTTON_PATH)/rotate	\
+					$(XPM_BUTTON_PATH)/controle	\
+					$(XPM_BUTTON_PATH)/maps		\
+					$(XPM_BUTTON_PATH)/info		\
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))
@@ -200,11 +218,11 @@ button_make: $(P_BIN) $(BUTTON_CREATOR) $(XPM_BUTTON_PATH)
 	@./$(BUTTON_CREATOR) $(BUTTON_NAME)
 
 button_clean:
-	@printf	"$(WARN)[!][$(PROJECT)] Removed $(BUTTON_STRUCT)$(C_DEF)\n"
-	@rm -f $(BUTTON_STRUCT)
-button_fclean: button_clean
 	@printf	"$(WARN)[!][$(PROJECT)] button_creator in $(P_BIN)$(C_DEF)\n"
 	@rm -f $(P_BIN)/button_creator
+button_fclean: button_clean
+	@printf	"$(WARN)[!][$(PROJECT)] Removed $(BUTTON_STRUCT)$(C_DEF)\n"
+	@rm -f $(BUTTON_STRUCT)
 
 button_re: button_fclean button_make
 

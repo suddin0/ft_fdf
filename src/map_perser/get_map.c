@@ -42,6 +42,8 @@ static long line_pnt(char *str, long line)
 	return (i);
 }
 
+
+
 static int count_num(char *str, long o_line, long n_line)
 {
 	int i;
@@ -53,27 +55,76 @@ static int count_num(char *str, long o_line, long n_line)
 	count = 0;
 	while (str[o_line] && (o_line != n_line))
 	{
+		printf("CAME INSIDE THE EHILE STR[%d][%d]\n", o_line, str[o_line]);
 		//printf("str[%d][%c] \n",str[o_line], str[o_line]  );
 		if (is_space(str[o_line]) && !signe)
 			i = 0;
-		else if (is_num_hex(str[o_line]))
+		else if (ft_isdigit(str[o_line]))
 		{
 			if (i == 0)
 				count++;
 			i = 1;
 			signe = 0;
 		}
-		else if(((str[o_line] == '+') || (str[o_line] == '-') || \
-		 		(str[o_line] == ',')) && ((o_line + 1) != n_line))
+		else if(((str[o_line] == '+') || (str[o_line] == '-')) && ((o_line + 1) != n_line))
 			signe = 1;
-		//else if(str[o_line])
-		//	printf("str[%ld][%d][%c]  n_line[%ld] \n", o_line, str[o_line], str[o_line], n_line);
+		else if ((str[o_line] == ',') && ((o_line + 1) < n_line))
+		{
+			o_line++;
+			while(str[o_line] && is_num_hex(str[o_line]) && o_line < n_line)
+				o_line++;
+			continue;
+		}
 		else
+		{
+			printf("[-] Error: unsupported value at %d\n", o_line);
 			return (-1);
+		}
 		o_line++;
 	}
 	return (count);
 }
+
+
+
+
+
+//
+// static int count_num(char *str, long o_line, long n_line)
+// {
+// 	int i;
+// 	int signe;
+// 	int count;
+//
+// 	i = 0;
+// 	signe = 0;
+// 	count = 0;
+// 	while (str[o_line] && (o_line != n_line))
+// 	{
+// 		//printf("str[%d][%c] \n",str[o_line], str[o_line]  );
+// 		if (is_space(str[o_line]) && !signe)
+// 			i = 0;
+// 		else if (is_num_hex(str[o_line]))
+// 		{
+// 			if (i == 0)
+// 				count++;
+// 			i = 1;
+// 			signe = 0;
+// 		}
+// 		else if(((str[o_line] == '+') || (str[o_line] == '-') || \
+// 		 		(str[o_line] == ',')) && ((o_line + 1) != n_line))
+// 			signe = 1;
+// 		//else if(str[o_line])
+// 		//	printf("str[%ld][%d][%c]  n_line[%ld] \n", o_line, str[o_line], str[o_line], n_line);
+// 		else
+// 		{
+// 			printf("[-] Error: unsupported value at %d\n", o_line);
+// 			return (-1);
+// 		}
+// 		o_line++;
+// 	}
+// 	return (count);
+// }
 
 
 
@@ -85,11 +136,11 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 
 	i = 0;
 	neg = 0;
-
 	num = (long *) malloc(sizeof(long) * (dig + 1)); // maybe the +1 is not necessary ...
 
 	while(str[o_line] && (o_line < n_line))
 	{
+		printf("o_line[%3d] - n_line[%3d] dig[%3d]\n", o_line, n_line, dig);
 		num[i] = 0;
 		while(is_space(str[o_line]) &&( o_line != n_line))
 			o_line += 1;
@@ -120,23 +171,6 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 	return num;
 }
 
-//long **data_to_array(t_map *map)
-//{
-//	t_m_data *data;
-//
-//	data = map->data;
-//	map->line_sz = (long *) malloc(sizeof(long) * map->lines);
-//	map->map = (long **) malloc(sizeof(long *) * map->lines);
-//
-//	while(data)
-//	{
-//		map->line_sz[data->col] = data->row;
-//		map->map[data->col] = data->data;
-//		data = data->next;
-//	}
-//
-//	return (map->map);
-//}
 
 t_point  **data_to_array(t_map *map)
 {
@@ -147,60 +181,32 @@ t_point  **data_to_array(t_map *map)
 
 	if(!map)
 		return (NULL);
-
 	data = map->data;
 	map->line_sz = (long *) malloc(sizeof(long) * map->lines);
-	//map->map = (long **) malloc(sizeof(long *) * map->lines);
 	map->map = (t_point **) malloc(sizeof(t_point *) * (map->lines + 1));
 	ft_memset(map->map, 0, map->lines + 1);
 	i = 0;
-
-	// x = map->origine_x; // --
-	// y = map->origine_y;	// --
-
 	x = 0;
 	y = 0;
-
-	// Go tho the end of the list
-	while(data->next)
+	while(data && data->next)
 		data = data->next;
-
-	// Start from the end of the list and rewind
 	while(data)
 	{
-
 		i = 0;
 		map->line_sz[data->col] = data->row;
 		map->map[data->col] = (t_point *) malloc(sizeof(t_point) * data->row);
 		while (i != data->row)
 		{
-			//printf("DATA_TO_ARRAY i[%d] x[%lf] y[%lf] z[%ld]\n", i, x, y, (data->data)[i]);
-
-			(map->map)[data->col][i].x = x; // --
-			(map->map)[data->col][i].y = y; // --
-
-			// (map->map)[data->col][i].x = x;
-			// (map->map)[data->col][i].y = y;
-
-			//(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.60;
-			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 0.091; // The 0.91 determines the height (z) step. It's a controle mecanisme
-			// (map->map)[data->col][i].z = ((data->data)[i] == 0) ? 1 : (data->data)[i] * 1; // The 0.91 determines the height (z) step. It's a controle mecanisme
+			(map->map)[data->col][i].x = x;
+			(map->map)[data->col][i].y = y;
 			(map->map)[data->col][i].z = ((data->data)[i] == 0) ? 0.10 : (data->data)[i]; // The 0.91 determines the height (z) step. It's a controle mecanisme
 			i++;
-			// x += map->step; // --
 			x ++;
 		}
-		// y += map->step;		// --
-		// x =  map->origine_x;	// --
-
 		y++;
 		x = 0;
-
-
-		//data = data->next;
-		data = data->prev; // Go to the start of the list
+		data = data->prev;
 	}
-
 	return (map->map);
 }
 
@@ -264,7 +270,7 @@ t_map *get_map(char *name, t_image *img)
 			ft_printf("[-] Error : %s is a directory and not a file\n", name);
 		else
 			ft_printf("[-] Error : not a valid file\n");
-		return (NULL);
+		exit(-1);
 	}
 
 	if ((fd = open(name, O_RDONLY)) == -1)
@@ -315,6 +321,11 @@ t_map *get_map(char *name, t_image *img)
 		o_line = n_line + 1;
 	}
 	close(fd);
+	if(map->lines <= 0)
+	{
+		printf("[-] Error: map contains %d lines\n", map->lines);
+		exit(-1);
+	}
 	data_to_array(map);
 	free(mp);
 	return (map);

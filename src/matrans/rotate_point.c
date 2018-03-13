@@ -53,3 +53,26 @@ void rotate_z(t_point *a, double v)
 	a->y = (x * sin(v))  + (y *  cos(v)) + (z * 0);
 	a->z = (x *      0)  + (y *       0) + (z * 1);
 }
+
+
+void trans_x(t_map *a, double v)
+{
+	a->origine_x += v;
+}
+
+void trans_y(t_map *a, double v)
+{
+	a->origine_y += v;
+}
+
+void zoom(t_map *a, int v)
+{
+	if ((a->origine_x <= 0 || a->origine_y <= 0 || a->step <= 0) && v <= 0)
+	{
+		ft_printf("[!] Reached minimum zoom, cannot unzoom %d\n", v);
+		return ;
+	}
+	a->step += v;
+	a->origine_x += -v;
+	a->origine_y += -v;
+}

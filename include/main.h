@@ -53,17 +53,27 @@
 # define PMOTION	NN_MotionNotify
 # define KPRESS		NN_KeyPress
 # define BPRESS		NN_ButtonPress
+# define BRELEASE	NN_ButtonRelease
 # define KRELEASE	NN_KeyRelease
 # define VISIBL		NN_VisibilityNotify
+# define ST_DEFAULT	0 // Button stat default
+# define ST_HOVER	1 // Button stat hover
+# define ST_ACTIVE	2 // Button stat active
+# define TP_NORMAL	0 // Button type normal
+# define TP_RADIO	1 // Button type radio
+# define MV_TRANS	0 // Mouvement: translation
+# define MV_ROTAT	1 // Mouvement: translation
 
 // Masks
 # define PMOTION_M	NN_PointerMotionMask
 # define KPRESS_M	NN_KeyPressMask
 # define BPRESS_M	NN_ButtonPressMask
+# define BRELEASE_M	NN_ButtonReleaseMask
 # define KRELEASE_M	NN_KeyReleaseMask
 # define VISIBL_M	NN_VisibilityChangeMask
 # define COLOR(MLX_PTR, H_COLOR) mlx_get_color_value(MLX_PTR, H_COLOR)
 # define CLEAR(I) set_color(I.img, I.x * I.y, I.bg);
+# define MAX_EVENT_KEY 15
 
 typedef struct s_point
 {
@@ -144,14 +154,14 @@ typedef struct s_menu
 	void	(*hover_f)(void *root);	// Function to execute on click
 	void	(*click_f)(void *root);	// Function to execute on click
 
-	t_button	opt[4]; // temp
+	// t_button	opt[4]; // temp
 	t_button	button[BUTTON_MAX];	// All graphical Buttons in the default menu including the top 3
 	// t_button	ctl[12];	// Controle buttons for the first option
 	t_button	*maps;		// Maps as buttons as they might have undefined numbers for second option
-	char	c_opt;			// define at what options it is in 0 (default) 1 (chose map) 3 (info)
-
-	// t_button	opt2;
-	// t_button	opt3;
+	int 	mvment;			// Mouvements: 0[translation] 1[rotation]
+	// char	c_opt;			// define at what options it is in 0 (default) 1 (chose map) 3 (info)
+	int 	btn_hover;		// The button that was hovered
+	int 	btn_clicked;	// The button was clicked
 
 } t_menu;
 
@@ -169,6 +179,8 @@ typedef struct	s_root
 	t_image	foot; 	// Footer section
 	// char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
 	t_menu 	men;
+	int 	(*(kevent[MAX_EVENT_KEY]))(struct s_root *root); // Functions executed in key press
+	int		key_set[MAX_EVENT_KEY];
 } t_root;
 
 
@@ -206,8 +218,35 @@ void modmatrix(t_map *map, void f(t_point *a, double val), double rot);
 void rotate_x(t_point *a, double v);
 void rotate_y(t_point *a, double v);
 void rotate_z(t_point *a, double v);
+void trans_x(t_map *a, double v);
+void trans_y(t_map *a, double v);
+void zoom(t_map *a, int v);
 
+int k_up(t_root *root);
+int k_down(t_root *root);
+int k_right(t_root *root);
+int k_left(t_root *root);
+int k_plus(t_root *root);
+int k_minus(t_root *root);
+int k_x(t_root *root);
+int k_s(t_root *root);
+int k_y(t_root *root);
+int k_u(t_root *root);
+int k_z(t_root *root);
+int k_a(t_root *root);
+int k_esc(t_root *root);
 
+void draw_button(t_button button, t_image *img, int stat);
+void button_init(t_root *root, t_image *m);
+
+int b3(t_root *root);
+int b4(t_root *root);
+int b5(t_root *root);
+int b6(t_root *root);
+int b7(t_root *root);
+int b8(t_root *root);
+int b12(t_root *root);
+int b13(t_root *root);
 
 
 #endif
