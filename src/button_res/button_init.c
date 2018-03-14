@@ -3,13 +3,13 @@
 
 void show_button(t_root *root, t_image *m)
 {
-	// draw_button((root->men.button)[0 ], m, (root->men.button)[0 ].stat);
+	draw_button((root->men.button)[0 ], m, (root->men.button)[0 ].stat);
 	draw_button((root->men.button)[1 ], m, (root->men.button)[1 ].stat);
 	draw_button((root->men.button)[2 ], m, (root->men.button)[2 ].stat);
 	draw_button((root->men.button)[3 ], m, (root->men.button)[3 ].stat);
+	// draw_button((root->men.button)[3 ], m, (root->men.button)[3 ].stat);
 	draw_button((root->men.button)[4 ], m, (root->men.button)[4 ].stat);
 	draw_button((root->men.button)[5 ], m, (root->men.button)[5 ].stat);
-	draw_button((root->men.button)[6 ], m, (root->men.button)[6 ].stat);
 	draw_button((root->men.button)[6 ], m, (root->men.button)[6 ].stat);
 	draw_button((root->men.button)[7 ], m, (root->men.button)[7 ].stat);
 	draw_button((root->men.button)[8 ], m, (root->men.button)[8 ].stat);

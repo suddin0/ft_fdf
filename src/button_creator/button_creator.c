@@ -29,7 +29,7 @@ int create_name(char ****file, int argc, char **argv)
 	memset(*file, 0, argc);
 	while(lim != argc)
 	{
-		printf("INSIDE WHILE [jim][%d]\n", jim);
+		// printf("INSIDE WHILE [jim][%d]\n", jim);
 		if (((*file)[jim] = (char **) malloc(sizeof(char *) * 3)) == NULL)
 			return (-1);
 		if (((*file)[jim][0] = ft_strnew(ft_strlen(argv[lim]) + 7)) == NULL) // The +6 is for the
@@ -121,29 +121,19 @@ int main(int argc, char **argv)
 	// file_error = -1;
 	root.mlx = mlx_init();
 	i = 0;
-	for (int ll = 0; file[ll] && ll != argc; ll++)
-		printf("[%3d] : [0][%40s] - [1][%40s] - [2][%40s]\n", ll, file[ll][0], file[ll][1], file[ll][2]);
+	// for (int ll = 0; file[ll] && ll != argc; ll++)
+	// 	printf("[%3d] : [0][%40s] - [1][%40s] - [2][%40s]\n", ll, file[ll][0], file[ll][1], file[ll][2]);
 	i = 0;
 
 	while (i != argc - 1)
 	{
-		printf("CAME HERE WHILE in MAIN\n");
-		// clear_button(&(b[i]));
-		printf("FILE NAME [%d][%s]\n", 0, file[i][0]);
-		printf("FILE NAME [%d][%s]\n", 1, file[i][1]);
-		printf("FILE NAME [%d][%s]\n", 2, file[i][2]);
-		// if(!((ig[0]).img_ptr) || !((ig[1]).img_ptr) || !((ig[2]).img_ptr))
-		// {
-		// 	printf("Error getting mlx image pointer\n");
-		// 	return (-1);
-		// }
-
 		(ig[0]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][0], &((ig[0]).x), &((ig[0]).y));
 		(ig[1]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][1], &((ig[1]).x), &((ig[1]).y));
 		(ig[2]).img_ptr = mlx_xpm_file_to_image(root.mlx, file[i][2], &((ig[2]).x), &((ig[2]).y));
 		if(!((ig[0]).img_ptr) || !((ig[1]).img_ptr) || !((ig[2]).img_ptr))
 		{
-			printf("Error getting mlx image pointer\n");
+			printf("[-] Error: getting mlx image pointer\n");
+			perror("[!] Reason");
 			free_file(file, argc);
 			return (-1);
 		}
@@ -158,28 +148,11 @@ int main(int argc, char **argv)
 
 		struct_manage(ig, b, button_data, file[i][2]);
 
-		// b[i].type = 1;
-		// b[i].stat = 3;
-		// b[i].id   = 69;
-		// b[i].x  = (ig[0]).x;
-		// b[i].y  = (ig[0]).y;
-		// b[i].o_x  = (MENU_X / 2) - (b[i].x / 2);
-		// b[i].o_y  = MENU_Y - (b[i].y + 60);
-		//
-		//
-		// ft_memcpy((b[i].view)[0], (ig[0]).img, ((ig[0]).x * (ig[0]).y) * 4);
-		// ft_memcpy((b[i].view)[1], (ig[1]).img, ((ig[1]).x * (ig[1]).y) * 4);
-		// ft_memcpy((b[i].view)[2], (ig[2]).img, ((ig[2]).x * (ig[2]).y) * 4);
-		// name_copy ((b[i]).name, file[i][0]);
-		//
-		// // show_image((b[i].view)[0], b[i].x, b[i].y);
-		// // show_image((ig[2]).img, (ig[2]).x , (ig[2]).y);
-		//
 		mlx_destroy_image(root.mlx, (ig[0]).img_ptr);
 		mlx_destroy_image(root.mlx, (ig[1]).img_ptr);
 		mlx_destroy_image(root.mlx, (ig[2]).img_ptr);
 
-		printf("NAME [%s]\n", b[i].name);
+		// printf("NAME [%s]\n", b[i].name);
 		i++;
 	}
 

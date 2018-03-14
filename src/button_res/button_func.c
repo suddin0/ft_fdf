@@ -71,7 +71,7 @@ int b7(t_root *root)
 {
 	CLEAR(root->prev);
 	if(root->men.mvment == MV_TRANS)
-		k_plus(root);
+		k_minus(root);
 	else if(root->men.mvment == MV_ROTAT)
 		k_z(root);
 	return (0);
@@ -81,7 +81,7 @@ int b8(t_root *root)
 {
 	CLEAR(root->prev);
 	if(root->men.mvment == MV_TRANS)
-		k_minus(root);
+		k_plus(root);
 	else if(root->men.mvment == MV_ROTAT)
 		k_a(root);
 	return (0);

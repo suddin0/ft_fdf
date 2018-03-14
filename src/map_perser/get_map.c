@@ -55,7 +55,7 @@ static int count_num(char *str, long o_line, long n_line)
 	count = 0;
 	while (str[o_line] && (o_line != n_line))
 	{
-		printf("CAME INSIDE THE EHILE STR[%d][%d]\n", o_line, str[o_line]);
+		// printf("CAME INSIDE THE EHILE STR[%d][%d]\n", o_line, str[o_line]);
 		//printf("str[%d][%c] \n",str[o_line], str[o_line]  );
 		if (is_space(str[o_line]) && !signe)
 			i = 0;
@@ -140,7 +140,7 @@ static long *get_num(char *str, long o_line, int n_line, int dig)
 
 	while(str[o_line] && (o_line < n_line))
 	{
-		printf("o_line[%3d] - n_line[%3d] dig[%3d]\n", o_line, n_line, dig);
+		// printf("o_line[%3d] - n_line[%3d] dig[%3d]\n", o_line, n_line, dig);
 		num[i] = 0;
 		while(is_space(str[o_line]) &&( o_line != n_line))
 			o_line += 1;
@@ -299,7 +299,7 @@ t_map *get_map(char *name, t_image *img)
 
 	while((n_line = line_pnt(mp, o_line)) > 0)
 	{
-		printf("CAME HERE WHILE GET_MAP\n");
+		// printf("CAME HERE WHILE GET_MAP\n");
 		data = (t_m_data *) malloc(sizeof(t_m_data));
 		data->next = NULL;
 		data->prev = NULL;

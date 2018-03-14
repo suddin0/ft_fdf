@@ -6,27 +6,27 @@
 # define X_MAIN		133
 # define X_MAP		133
 # define X_INFO		133
-# define X_LEFT		100
-# define X_DOWN		100
-# define X_RIGHT	100
-# define X_UP		100
-# define X_UZOOM	0
-# define X_ZOOM		0
+# define X_LEFT		101
+# define X_DOWN		101
+# define X_RIGHT	101
+# define X_UP		101
+# define X_UZOOM	58
+# define X_ZOOM		58
 # define X_DEFAULT	0
 # define X_FACE		0
 # define X_SIDE		0
 # define X_TRANS	135
 # define X_ROTATE	135
 
-# define Y_MAIN		111
-# define Y_MAP		111
-# define Y_INFO		111
-# define Y_LEFT		100
-# define Y_DOWN		100
-# define Y_RIGHT	100
-# define Y_UP		100
-# define Y_UZOOM	0
-# define Y_ZOOM		0
+# define Y_MAIN		60
+# define Y_MAP		60
+# define Y_INFO		60
+# define Y_LEFT		101
+# define Y_DOWN		101
+# define Y_RIGHT	101
+# define Y_UP		101
+# define Y_UZOOM	88
+# define Y_ZOOM		58
 # define Y_DEFAULT	0
 # define Y_FACE		0
 # define Y_SIDE		0
@@ -41,8 +41,8 @@
 # define OX_LEFT	OX_DOWN - X_LEFT
 # define OX_RIGHT	OX_DOWN + X_RIGHT
 # define OX_UP		OX_DOWN
-# define OX_UZOOM	0
-# define OX_ZOOM	0
+# define OX_UZOOM	OX_UP + (X_DOWN + (X_ZOOM / 3))
+# define OX_ZOOM	OX_UP - (X_ZOOM + (X_ZOOM / 3))
 # define OX_DEFAULT	0
 # define OX_FACE	0
 # define OX_SIDE	0
@@ -56,8 +56,8 @@
 # define OY_LEFT	OY_DOWN
 # define OY_RIGHT	OY_DOWN
 # define OY_UP		OY_DOWN - Y_UP
-# define OY_UZOOM	0
-# define OY_ZOOM	0
+# define OY_UZOOM	OY_UP + (Y_ZOOM / 3)//+ (Y_UZOOM + (Y_UZOOM  / 2))
+# define OY_ZOOM	OY_UP + (Y_ZOOM / 3)//- (Y_ZOOM  + (Y_ZOOM   / 2))
 # define OY_DEFAULT	0
 # define OY_FACE	0
 # define OY_SIDE	0

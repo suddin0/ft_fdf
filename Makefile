@@ -144,6 +144,8 @@ BUTTON_NAME 	:= $(XPM_BUTTON_PATH)/right 	\
 					$(XPM_BUTTON_PATH)/controle	\
 					$(XPM_BUTTON_PATH)/maps		\
 					$(XPM_BUTTON_PATH)/info		\
+					$(XPM_BUTTON_PATH)/zoom		\
+					$(XPM_BUTTON_PATH)/uzoom	\
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))

@@ -9,6 +9,7 @@ void draw_button(t_button button, t_image *img, int stat)
 	x = button.o_x * 4;
 	y = button.o_y;
 	k = 0;
+	printf("Draw_Button- [%3d][%9s] X[%3d] Y[%3d]\n", button.id, button.name, button.x, button.y);
 	while (y < button.o_y + button.y)
 	{
 		x = button.o_x * 4;

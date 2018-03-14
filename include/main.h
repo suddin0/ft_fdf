@@ -44,9 +44,9 @@
 
 // # define MENU_BG_COLOR	0x1b2d3b
 // # define PREV_BG_COLOR	0x021626
-# define MENU_BG_COLOR	0x1b2d3b
-# define FOOT_BG_COLOR	0x1b2d3b
-# define PREV_BG_COLOR	0x021626
+# define MENU_BG_COLOR	0x383f49
+# define FOOT_BG_COLOR	0x383f49
+# define PREV_BG_COLOR	0x323842
 # define MAP_COLOR		0xe0e0bd
 
 // -------------------
