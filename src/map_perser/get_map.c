@@ -77,7 +77,7 @@ static int count_num(char *str, long o_line, long n_line)
 		}
 		else
 		{
-			printf("[-] Error: unsupported value at %d\n", o_line);
+			printf("[-] Error: unsupported value at %ld\n", o_line);
 			return (-1);
 		}
 		o_line++;

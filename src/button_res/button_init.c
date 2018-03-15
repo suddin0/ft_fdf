@@ -23,6 +23,9 @@ void show_button(t_root *root, t_image *m)
 
 void button_func_init(t_button *button)
 {
+	button[0 ].f = (void *) &b0;
+	button[1 ].f = (void *) &b1;
+	button[2 ].f = (void *) &b2;
 	button[3 ].f = (void *) &b3;
 	button[4 ].f = (void *) &b4;
 	button[5 ].f = (void *) &b5;

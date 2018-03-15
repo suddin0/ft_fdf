@@ -34,8 +34,8 @@ int pmotion(int x, int y, t_root *root)
 
 	btn = -1;
 	hvr = root->men.btn_hover;
-	hst = (hvr != -1) ? root->men.button[hvr].stat : 0;
-	if(hvr != -1)
+	hst = (hvr != -1 && hvr > 0 && hvr < 3) ? root->men.button[hvr].stat : 0;
+	if(hvr != -1 && hvr < 3 &&  root->men.button[hvr].type != TP_RADIO)
 	{
 		draw_button(root->men.button[hvr], &(root->menu), hst);
 		mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
@@ -44,7 +44,8 @@ int pmotion(int x, int y, t_root *root)
 	}
 	if(x > root->menu.o_x && x < root->menu.o_x + root->menu.x && \
 	   y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
-		if((btn = is_button_area(root->men.button, x, y)) != -1)
+	{
+		if((btn = is_button_area(root->men.button, x, y)) != -1 && btn < 3)
 		{
 			if (root->men.button[btn].stat == ST_ACTIVE)
 				return (0);
@@ -53,8 +54,14 @@ int pmotion(int x, int y, t_root *root)
 				root->menu.o_x, root->menu.o_y);
 			root->men.btn_hover = btn;
 			return (1);
+			printf("INSIDE HIVER LIL\n");
 		}
+		else
+			root->evnt.pmotion[root->men.curr_opt](x, y, root);
+	}
+
 	return (0);
+
 }
 
 
@@ -145,7 +152,8 @@ int bpress(int key, int x, int y, t_root *root)
 	//
 		if(x > root->menu.o_x && x < root->menu.o_x + root->menu.x && \
 		   y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
-			if((btn = is_button_area(root->men.button, x, y)) != -1)
+		  {
+			if((btn = is_button_area(root->men.button, x, y)) != -1 && btn < 3)
 			{
 				if (root->men.button[btn].stat == ST_ACTIVE)
 					return (0);
@@ -157,6 +165,9 @@ int bpress(int key, int x, int y, t_root *root)
 				root->men.button[btn].stat = ST_ACTIVE;
 				printf("CAME INSIDE BPRESS X[%d] Y[%d] KEY[%d] BTN[%d]\n", x, y, key, btn);
 				return (1);
+			}
+			else
+				root->evnt.bpress[root->men.curr_opt](key, x, y, root);
 			}
 
 	return (0);
@@ -190,6 +201,7 @@ int brelease(int key, int x, int y, t_root *root)
 void event_handler(t_root *root)
 {
 	mlx_hook(root->win, PMOTION, PMOTION_M, &pmotion, root); // Mouse motion
+	// mlx_hook(root->win, PMOTION, PMOTION_M, &((root->evnt).pmotion[root->men.curr_opt]), root); // Mouse motion
 	mlx_hook(root->win, KPRESS, KPRESS_M, &kpress, root); // key press
 	mlx_hook(root->win, KRELEASE, KRELEASE_M, &krelease, root); // key release
 	mlx_hook(root->win, VISIBL, VISIBL_M, &draw_win, root); // expose

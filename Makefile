@@ -84,6 +84,8 @@ else
 	P_MLX	= $(P_MLX_LINUX)
 endif
 
+BUTTON_STRUCT = $(P_RES)/__buttons__/button.struct
+
 
 # Change the `..._MAC ` to `..._LINUX` depending on OS
 # MLX_FLAG	?= $(MLX_FLAG_MAC)
@@ -103,7 +105,10 @@ SRC		=	$(MAIN)							\
 			src/root_init.c					\
 			src/init.c						\
 			src/color.c						\
-			src/event_handler.c				\
+			src/event/event_handler.c		\
+			src/event/event_func_init.c		\
+			src/event/event_pmotion.c		\
+			src/event/event_bpress.c		\
 			src/draw_line.c					\
 			src/draw_dot.c					\
 			src/draw_map.c					\
@@ -158,7 +163,7 @@ __START: all
 	 printf "$(OK)[+][$(PROJECT)] Done$(C_DEF)\n"
 
 ## For multiple Binarys
-all : $(LIBFT_A) $(NAME)
+all : $(LIBFT_A) $(NAME) $(BUTTON_STRUCT)
 
 $(NAME):	$(SRC)
 	@$(CC) $(CC_FLAG_ASAN) $(SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT)  \
@@ -216,6 +221,8 @@ $(BUTTON_CREATOR): $(LIBFT_A)  $(P_BUTTON_CREATOR) $(IMAGE_SRC) $(P_BIN)
 
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
+$(BUTTON_STRUCT) :
+	@make button_make
 button_make: $(P_BIN) $(BUTTON_CREATOR) $(XPM_BUTTON_PATH)
 	@./$(BUTTON_CREATOR) $(BUTTON_NAME)
 

@@ -148,6 +148,16 @@ typedef struct s_button
 	void 	(*f)(void *root);	// A function to execute with a certain parameter
 } t_button;
 
+typedef struct s_event_func
+{
+	int 	(*pmotion[3])(int x, int y, void *rot);	// A function to execut when an event occurs on a specific menu
+	int 	(*kpress [3])(int key, void *rot);	// A function to execut when an event occurs on a specific menu
+	int 	(*kreleas[3])(int key, void *rot);	// A function to execut when an event occurs on a specific menu
+	int 	(*bpress [3])(int key, int x, int y, void *rot);	// A function to execut when an event occurs on a specific menu
+	int 	(*breleas[3])(int key, int x, int y, void *rot);	// A function to execut when an event occurs on a specific menu
+
+} t_event_func;
+
 
 typedef struct s_menu
 {
@@ -159,6 +169,7 @@ typedef struct s_menu
 
 	// t_button	opt[4]; // temp
 	t_button	button[BUTTON_MAX];	// All graphical Buttons in the default menu including the top 3
+	char 		curr_opt; // current selected option (controle / maps / information)
 	// t_button	ctl[12];	// Controle buttons for the first option
 	t_button	*maps;		// Maps as buttons as they might have undefined numbers for second option
 	int 	mvment;			// Mouvements: 0[translation] 1[rotation]
@@ -183,6 +194,7 @@ typedef struct	s_root
 	// char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
 	t_menu 	men;
 	int 	(*(kevent[MAX_EVENT_KEY]))(struct s_root *root); // Functions executed in key press
+	t_event_func	evnt;
 	int		key_set[MAX_EVENT_KEY];
 } t_root;
 
@@ -242,6 +254,9 @@ int k_esc(t_root *root);
 void draw_button(t_button button, t_image *img, int stat);
 void button_init(t_root *root, t_image *m);
 
+int b0(t_root *root);
+int b1(t_root *root);
+int b2(t_root *root);
 int b3(t_root *root);
 int b4(t_root *root);
 int b5(t_root *root);
@@ -250,6 +265,16 @@ int b7(t_root *root);
 int b8(t_root *root);
 int b12(t_root *root);
 int b13(t_root *root);
+
+int pmotion_func_0(int x, int y, void *root);
+int pmotion_func_1(int x, int y, void *root);
+int pmotion_func_2(int x, int y, void *root);
+
+int bpress_func_0(int key, int x, int y, void *rot);
+int bpress_func_1(int key, int x, int y, void *rot);
+int bpress_func_2(int key, int x, int y, void *rot);
+
+void event_func_init(t_root *root);
 
 
 #endif
