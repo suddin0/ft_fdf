@@ -5,32 +5,66 @@
 # include <unistd.h>		// For read
 
 
+//
+// //void  draw_line_img_iso(t_root *r, int Xo, int Yo, int  Xn, int Yn, t_color color)
+// void  draw_line_iso(t_image *img, double Xo, double Yo, double  Xn, double Yn, int color)
+// {
+// 	int	steps;
+// 	double	x;
+// 	double	y;
+// 	double Xincrement;
+// 	double	Yincrement;
+//
+// 	steps = (fabs(Xn - Xo) > fabs(Yn - Yo)) ? fabs(Xn - Xo) : fabs(Yn - Yo);
+//
+// 	x = Xo;
+// 	y = Yo;
+// 	Xincrement = (Xn - Xo) / (float) steps; // X or Y increment by this ration
+// 	Yincrement = (Yn - Yo) / (float) steps;
+//
+// 	for(int v = 0; v < steps; v++)
+// 	{
+// 		x += Xincrement;
+// 		y += Yincrement;
+// 		put_color(img, (x - y) , ((y + x) / 2), color); // Iso view
+// 		//put_color(r, x, y, color); // Normal view
+// 	}
+// }
+//
 
-//void  draw_line_img_iso(t_root *r, int Xo, int Yo, int  Xn, int Yn, t_color color)
-void  draw_line_iso(t_image *img, double Xo, double Yo, double  Xn, double Yn, int color)
+
+void draw_font(t_char chr, t_image *img, int o_x, int o_y)
 {
-	int	steps;
-	double	x;
-	double	y;
-	double Xincrement;
-	double	Yincrement;
+	int x;
+	int y;
+	int k;
 
-	steps = (fabs(Xn - Xo) > fabs(Yn - Yo)) ? fabs(Xn - Xo) : fabs(Yn - Yo);
-
-	x = Xo;
-	y = Yo;
-	Xincrement = (Xn - Xo) / (float) steps; // X or Y increment by this ration
-	Yincrement = (Yn - Yo) / (float) steps;
-
-	for(int v = 0; v < steps; v++)
+	x = o_x * 4;
+	y = o_y;
+	k = 0;
+	printf("font_Button- [%3d][%9s] X[%3d] Y[%3d]\n", chr.ascii, chr.name, chr.x, chr.y);
+	while (y < o_y + chr.y)
 	{
-		x += Xincrement;
-		y += Yincrement;
-		put_color(img, (x - y) , ((y + x) / 2), color); // Iso view
-		//put_color(r, x, y, color); // Normal view
+		x = o_x * 4;
+		while (x < (o_x + chr.x) * 4)
+		{
+			if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4)
+			{
+				// If not transparent then show
+				if((chr.data)[k + 0] != 0 || (chr.data)[k + 1] != 0 || (chr.data)[k + 2] != 0 || (chr.data)[k + 3] != 0)
+				{
+					(img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];
+					(img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];
+					(img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];
+					(img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];
+				}
+			}
+			k += 4;
+			x += 4;
+		}
+		y++;
 	}
 }
-
 
 int main(int argc, char **argv)
 {
@@ -55,8 +89,8 @@ int main(int argc, char **argv)
 		return (-1);
 	root.map = map;
 
-	// modmatrix(map, rotate_x, 120);
-	// modmatrix(map, rotate_y, 120);
+	modmatrix(map, rotate_x, 120);
+	modmatrix(map, rotate_y, 120);
 	draw_map(root.mlx, root.map);
 
 	printf("HEY, INSIDE MAIN AGAIN map.file_size[%d] map.lines[%d]\n", map->file_sz, map->lines);
@@ -76,6 +110,18 @@ int main(int argc, char **argv)
 	int w = 0;
 
 	int fd;
+	t_char chr[FCHAR_MAX];
+
+	fd = open(FONT_STRUCT_PATH, O_RDONLY);
+	if(fd < 0)
+	{
+		printf("[-] Error: opening %s\n", FONT_STRUCT_PATH);
+		perror("Reason");
+	}
+	read(fd, chr, sizeof(t_char) * FCHAR_MAX);
+
+	// void draw_font(t_char chr, t_image *img, int stat, int o_x, int o_y)
+	draw_font(chr[0], &(root.menu), 10, 10);
 
 
 
@@ -91,13 +137,14 @@ int main(int argc, char **argv)
 
 
 
-	// mlx_put_image_to_window(root.mlx, root.win, root.menu.img_ptr, root.menu.o_x, root.menu.o_y);
-	// mlx_put_image_to_window(root.mlx, root.win, root.prev.img_ptr, root.prev.o_x, root.prev.o_y);
-	// mlx_put_image_to_window(root.mlx, root.win, root.foot.img_ptr, root.foot.o_x, root.foot.o_y);
+	mlx_put_image_to_window(root.mlx, root.win, root.menu.img_ptr, root.menu.o_x, root.menu.o_y);
+	mlx_put_image_to_window(root.mlx, root.win, root.prev.img_ptr, root.prev.o_x, root.prev.o_y);
+	mlx_put_image_to_window(root.mlx, root.win, root.foot.img_ptr, root.foot.o_x, root.foot.o_y);
 
 
 
 	// mlx_put_image_to_window(root.mlx, root.win, rr, 0,0);
+
 	event_func_init(&root);
 	event_handler(&root);
 

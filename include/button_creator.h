@@ -76,13 +76,22 @@ typedef struct s_button_create_data
 	int o_y;
 } t_b_create_data;
 
+typedef struct s_character_create_data
+{
+	char name[100];
+	int ascii;
+	int x;
+	int y;
+} t_c_create_data;
+
 int file_check(int argc, char ***argv);
 void clear_button(t_button *button);
 int create_name(char ****file, int argc, char **argv);
 void free_file(char ***file, int argc);
 void name_copy(char *dest, char *src);
-void size_check(char *name, int a, int  b);
+void size_check(char *name, int a, int  b, int size);
 void write_struct(t_button b[], char *path);
+void write_struct_font(t_char b[], char *path);
 void show_image(char *img, int x, int y);
 
 
@@ -94,6 +103,7 @@ void button_data_init(t_b_create_data *b);
 void struct_manage(t_image *ig, t_button *b, t_b_create_data *bdata, char *fn);
 int file_verif(int argc, char **argv, char ****file);
 // void init_bo_y (t_b_create_data *b);
+int name_to_num(char *name);
 
 
 # endif

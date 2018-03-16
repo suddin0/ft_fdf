@@ -8,23 +8,6 @@ int draw_win(t_root *root)
 	return 1;
 }
 
-int is_button_area(t_button *b, int x, int y)
-{
-	int i;
-
-	i = 0;
-	while(i < BUTTON_MAX)
-	{
-		if(x > (b[i]).o_x && x < (b[i]).o_x + (b[i]).x && y > (b[i]).o_y && y < (b[i]).o_y + (b[i]).y)
-			return (i);
-		i++;
-	}
-	return(-1);
-
-}
-
-
-
 
 int pmotion(int x, int y, t_root *root)
 {
@@ -59,9 +42,7 @@ int pmotion(int x, int y, t_root *root)
 		else
 			root->evnt.pmotion[root->men.curr_opt](x, y, root);
 	}
-
 	return (0);
-
 }
 
 
@@ -201,7 +182,6 @@ int brelease(int key, int x, int y, t_root *root)
 void event_handler(t_root *root)
 {
 	mlx_hook(root->win, PMOTION, PMOTION_M, &pmotion, root); // Mouse motion
-	// mlx_hook(root->win, PMOTION, PMOTION_M, &((root->evnt).pmotion[root->men.curr_opt]), root); // Mouse motion
 	mlx_hook(root->win, KPRESS, KPRESS_M, &kpress, root); // key press
 	mlx_hook(root->win, KRELEASE, KRELEASE_M, &krelease, root); // key release
 	mlx_hook(root->win, VISIBL, VISIBL_M, &draw_win, root); // expose

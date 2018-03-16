@@ -96,6 +96,10 @@ BUTTON_STRUCT = $(P_RES)/__buttons__/button.struct
 
 SRC		=	$(MAIN)							\
 			src/map_perser/file_size.c		\
+			src/map_perser/map_malloc.c		\
+			src/map_perser/data_to_array.c	\
+			src/map_perser/get_num.c		\
+			src/map_perser/count_num.c		\
 			src/map_perser/get_map.c		\
 			src/map_perser/is_dir.c			\
 			src/map_perser/is_file.c		\
@@ -106,6 +110,7 @@ SRC		=	$(MAIN)							\
 			src/init.c						\
 			src/color.c						\
 			src/event/event_handler.c		\
+			src/event/is_button_area.c		\
 			src/event/event_func_init.c		\
 			src/event/event_pmotion.c		\
 			src/event/event_bpress.c		\
@@ -123,24 +128,40 @@ SRC		=	$(MAIN)							\
 
 
 
-BUTTON_CREATOR = $(P_BIN)/button_creator
+BUTTON_CREATOR 	= $(P_BIN)/button_creator
+FONT_CREATOR 	= $(P_BIN)/font_creator
+
 P_BUTTON_CREATOR = src/button_creator/button_creator.c
+P_FONT_CREATOR	 = src/button_creator/font_creator.c
 
 ## Button creator source
 BUTTON_SRC =	src/map_perser/file_size.c				\
-				src/map_perser/get_map.c				\
 				src/map_perser/is_dir.c					\
 				src/map_perser/is_file.c				\
 				src/root_init.c							\
 				src/button_creator/button_data_init.c	\
 				src/button_creator/struct_manage.c		\
 				src/button_creator/free_file.c			\
+				src/button_creator/size_check.c			\
 				src/button_creator/file_verif.c			\
+				src/button_creator/name_copy.c			\
+				src/button_creator/write_struct.c		\
+
+
+
+FONT_SRC =		src/button_creator/size_check.c			\
+				src/button_creator/write_struct.c		\
+				src/button_creator/name_copy.c			\
+
 
 ## Where buttons are found
 XPM_BUTTON_PATH := res/__buttons__/xpm
+XPM_FONT_PATH := res/__font__/xpm
+
 BUTTON_STRUCT 	:= res/__buttons__/button.struct
-BUTTON_NAME 	:= $(XPM_BUTTON_PATH)/right 	\
+FONT_STRUCT 	:= res/__font__/button.struct
+
+BUTTON_NAME 	:=	$(XPM_BUTTON_PATH)/right 	\
 					$(XPM_BUTTON_PATH)/left 	\
 					$(XPM_BUTTON_PATH)/down 	\
 					$(XPM_BUTTON_PATH)/up		\
@@ -151,6 +172,10 @@ BUTTON_NAME 	:= $(XPM_BUTTON_PATH)/right 	\
 					$(XPM_BUTTON_PATH)/info		\
 					$(XPM_BUTTON_PATH)/zoom		\
 					$(XPM_BUTTON_PATH)/uzoom	\
+
+FONT_NAME		:=	$(XPM_FONT_PATH)/L.xpm	\
+
+					# $(XPM_BUTTON_PATH)/b.xpm\
 
 ## Objects without path names
 OBJ		:=	$(notdir $(SRC:.c=.o))
@@ -212,7 +237,7 @@ library:	object $(P_OBJ) $(OBJ_P)
 	printf "$(OK)[+][$(PROJECT)] The $(LIB_A) library was made$(C_DEF)\n"
 
 
-
+## --------------- BUTTON Creator --------------- ##
 $(BUTTON_CREATOR): $(LIBFT_A)  $(P_BUTTON_CREATOR) $(IMAGE_SRC) $(P_BIN)
 	@printf "$(WARN)[!][$(PROJECT)] Creating button_creator in $(P_BIN)$(C_DEF)\n"
 	@$(CC) $(P_BUTTON_CREATOR)  $(CC_FLAG_ASAN) $(BUTTON_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
@@ -222,24 +247,57 @@ $(BUTTON_CREATOR): $(LIBFT_A)  $(P_BUTTON_CREATOR) $(IMAGE_SRC) $(P_BIN)
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
 $(BUTTON_STRUCT) :
-	@make button_make
+	@make button_make --no-print-directory
 button_make: $(P_BIN) $(BUTTON_CREATOR) $(XPM_BUTTON_PATH)
 	@./$(BUTTON_CREATOR) $(BUTTON_NAME)
 
 button_clean:
-	@printf	"$(WARN)[!][$(PROJECT)] button_creator in $(P_BIN)$(C_DEF)\n"
-	@rm -f $(P_BIN)/button_creator
+	@printf	"$(WARN)[!][$(PROJECT)] Removed $(BUTTON_CREATOR)$(C_DEF)\n"
+	@rm -f $(BUTTON_CREATOR)
+
 button_fclean: button_clean
 	@printf	"$(WARN)[!][$(PROJECT)] Removed $(BUTTON_STRUCT)$(C_DEF)\n"
 	@rm -f $(BUTTON_STRUCT)
 
 button_re: button_fclean button_make
 
-button_test: $(LIBFT_A) $(P_BIN)
-	@printf "$(WARN)[!][$(PROJECT)] Creating button_test in $(P_BIN)$(C_DEF)\n"
-	$(CC) button_test.c  $(CC_FLAG_ASAN) $(IMAGE_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
-	-o button_test
-	@printf "$(OK)[+][$(PROJECT)] button_test compiled in $(P_BIN)$(C_DEF)\n"
+# button_test: $(LIBFT_A) $(P_BIN)
+# 	@printf "$(WARN)[!][$(PROJECT)] Creating button_test in $(P_BIN)$(C_DEF)\n"
+# 	$(CC) button_test.c  $(CC_FLAG_ASAN) $(IMAGE_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
+# 	-o button_test
+# 	@printf "$(OK)[+][$(PROJECT)] button_test compiled in $(P_BIN)$(C_DEF)\n"
+
+## ----------------- FONT Creator --------------- ##
+$(FONT_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
+	@printf "$(WARN)[!][$(PROJECT)] Creating font_creator in $(P_BIN)$(C_DEF)\n"
+	@$(CC) $(P_FONT_CREATOR)  $(CC_FLAG_ASAN) $(FONT_SRC) -I ./$(P_INCLUDE) \
+		-I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) -o $(FONT_CREATOR)
+	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
+# BUTTON_PATH := res/__buttons__/xpm
+# BUTTON_NAME := $(BUTTON_PATH)/arrow
+$(FONT_STRUCT) :
+	@make button_make --no-print-directory
+
+font_make: $(P_BIN) $(FONT_CREATOR) $(XPM_FONT_PATH)
+	@./$(FONT_CREATOR) $(FONT_NAME)
+
+font_clean:
+	@printf	"$(WARN)[!][$(PROJECT)] font_creator in $(P_BIN)$(C_DEF)\n"
+	@rm -f $(FONT_CREATOR)
+
+font_fclean: font_clean
+	@printf	"$(WARN)[!][$(PROJECT)] Removed $(FONT_STRUCT)$(C_DEF)\n"
+	@rm -f $(FONT_STRUCT)
+
+font_re: font_fclean font_make
+
+# font_test: $(LIBFT_A) $(P_BIN)
+# 	@printf "$(WARN)[!][$(PROJECT)] Creating font_test in $(P_BIN)$(C_DEF)\n"
+# 	$(CC) button_test.c  $(CC_FLAG_ASAN) $(FONT_NAME) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
+# 	-o button_test
+# 	@printf "$(OK)[+][$(PROJECT)] button_test compiled in $(P_BIN)$(C_DEF)\n"
+#
+#
 
 ## This rule is called when a difference in operating sistem has been
 ## detected. You can put your prerequisite to be changed if a different

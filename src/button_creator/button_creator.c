@@ -29,7 +29,6 @@ int create_name(char ****file, int argc, char **argv)
 	memset(*file, 0, argc);
 	while(lim != argc)
 	{
-		// printf("INSIDE WHILE [jim][%d]\n", jim);
 		if (((*file)[jim] = (char **) malloc(sizeof(char *) * 3)) == NULL)
 			return (-1);
 		if (((*file)[jim][0] = ft_strnew(ft_strlen(argv[lim]) + 7)) == NULL) // The +6 is for the
@@ -52,26 +51,25 @@ int create_name(char ****file, int argc, char **argv)
 }
 
 
-void name_copy(char *dest, char *src)
-{
-	int len;
-	int start;
-	int end;
-	int i;
-
-	if(!dest || !src)
-		return;
-	start = 0;
-	i = 0;
-	len = ft_strlen(src);
-	while(len-- && src[len] != '/');
-	start = (len == 0) ? len : len + 1;
-	end =  ft_strlen(&(src[start])) - 6;
-	while (i != end && src[start])
-		dest[i++] = src[start++];
-	dest[i] = 0;
-
-}
+// void name_copy(char *dest, char *src)
+// {
+// 	int len;
+// 	int start;
+// 	int end;
+// 	int i;
+//
+// 	if(!dest || !src)
+// 		return;
+// 	start = 0;
+// 	i = 0;
+// 	len = ft_strlen(src);
+// 	while(len-- && src[len] != '/');
+// 	start = (len == 0) ? len : len + 1;
+// 	end =  ft_strlen(&(src[start])) - 6;
+// 	while (i != end && src[start])
+// 		dest[i++] = src[start++];
+// 	dest[i] = 0;
+// }
 
 //
 // void size_check(char *name, int a, int  b)
@@ -84,14 +82,14 @@ void name_copy(char *dest, char *src)
 // }
 
 
-void write_struct(t_button b[], char *path)
-{
-	int fd;
-
-	fd = open(path, O_WRONLY | O_CREAT, 0644);
-	write(fd, b, sizeof(t_button) * BUTTON_MAX);
-	close(fd);
-}
+// void write_struct(t_button b[], char *path)
+// {
+// 	int fd;
+//
+// 	fd = open(path, O_WRONLY | O_CREAT, 0644);
+// 	write(fd, b, sizeof(t_button) * BUTTON_MAX);
+// 	close(fd);
+// }
 
 void show_image(char *img, int x, int y)
 {
@@ -112,17 +110,10 @@ int main(int argc, char **argv)
 	t_root root;
 	t_b_create_data button_data[BUTTON_MAX]; // has information about buttons
 
-	/* hierarchy */
 	button_data_init(button_data);
-
 	if(file_verif(argc, argv, &file) == -1)
 		return (-1);
-
-	// file_error = -1;
 	root.mlx = mlx_init();
-	i = 0;
-	// for (int ll = 0; file[ll] && ll != argc; ll++)
-	// 	printf("[%3d] : [0][%40s] - [1][%40s] - [2][%40s]\n", ll, file[ll][0], file[ll][1], file[ll][2]);
 	i = 0;
 
 	while (i != argc - 1)
@@ -142,9 +133,9 @@ int main(int argc, char **argv)
 		(ig[1]).img = mlx_get_data_addr((ig[1]).img_ptr, &((ig[1]).bpp), &((ig[1]).sl), &((ig[1]).end));
 		(ig[2]).img = mlx_get_data_addr((ig[2]).img_ptr, &((ig[2]).bpp), &((ig[2]).sl), &((ig[2]).end));
 
-		size_check(file[i][0], (ig[0]).x, (ig[0]).x);
-		size_check(file[i][1], (ig[1]).x, (ig[1]).x);
-		size_check(file[i][2], (ig[2]).x, (ig[2]).x);
+		size_check(file[i][0], (ig[0]).x, (ig[0]).x, BUTTON_SIZE);
+		size_check(file[i][1], (ig[1]).x, (ig[1]).x, BUTTON_SIZE);
+		size_check(file[i][2], (ig[2]).x, (ig[2]).x, BUTTON_SIZE);
 
 		struct_manage(ig, b, button_data, file[i][2]);
 
@@ -155,7 +146,6 @@ int main(int argc, char **argv)
 		// printf("NAME [%s]\n", b[i].name);
 		i++;
 	}
-
 	write_struct(b, BUTTON_STRUCT_PATH);
 
 	free_file(file, argc);

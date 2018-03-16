@@ -38,9 +38,13 @@
 # define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
 
-# define BUTTON_SIZE 14140 * 4 // max button size 8mb [8388608]
-# define BUTTON_MAX 16 // Maximum numer of buttons we will use in button creator or in our first menu
-# define BUTTON_STRUCT_PATH "res/__buttons__/button.struct"
+# define BUTTON_SIZE	14140 * 4 // max button size 8mb [8388608]
+# define CHAR_SIZE		14140 * 4 // max character size size 8mb [8388608]
+# define MAX_CHAR		2 // Maximum characters in the pile
+# define FCHAR_MAX		2 // Maximum characters in the pile
+# define BUTTON_MAX		16 // Maximum numer of buttons we will use in button creator or in our first menu
+# define BUTTON_STRUCT_PATH	"res/__buttons__/button.struct"
+# define FONT_STRUCT_PATH	"res/__font__/font.struct"
 
 // # define MENU_BG_COLOR	0x1b2d3b
 // # define PREV_BG_COLOR	0x021626
@@ -78,6 +82,9 @@
 # define CLEAR(I) set_color(I.img, I.x * I.y, I.bg);
 # define MAX_EVENT_KEY 15
 
+
+
+
 typedef struct s_point
 {
 	double x;
@@ -93,7 +100,6 @@ typedef struct s_map_data
 	long int 	*data;	// the data (the information about the `Z` axis from each line of the map)
 	struct s_map_data	*next;
 	struct s_map_data	*prev;
-
 }	t_m_data;
 
 
@@ -147,6 +153,20 @@ typedef struct s_button
 	void 	*value;				// Contain some value
 	void 	(*f)(void *root);	// A function to execute with a certain parameter
 } t_button;
+
+typedef struct s_char
+{
+	unsigned	ascii; // The ascii value
+	char		data[CHAR_SIZE];
+	char		name[100]; // tmp
+	int			x;
+	int			y;
+} t_char;
+
+typedef struct s_alphabet
+{
+
+} t_alphabet;
 
 typedef struct s_event_func
 {
@@ -202,9 +222,14 @@ typedef struct	s_root
 
 
 int		file_size(const char *name);
-t_map	*get_map(char *name, t_image *img);
 int		is_dir(const char *name);
 int		is_file(const char *name);
+t_point **data_to_array(t_map *map);
+long 	*get_num(char *str, long o_line, int n_line, int dig);
+int 	count_num(char *str, long o_line, long n_line);
+t_map 	*map_malloc(t_image *img);
+t_map	*get_map(char *name, t_image *img);
+
 void	free_map(t_map *map);
 void	print_map(t_map *map, int space);
 int		pre_check(int argc, char **argv);
@@ -251,6 +276,9 @@ int k_z(t_root *root);
 int k_a(t_root *root);
 int k_esc(t_root *root);
 
+
+int is_button_area(t_button *b, int x, int y);
+void show_button(t_root *root, t_image *m);
 void draw_button(t_button button, t_image *img, int stat);
 void button_init(t_root *root, t_image *m);
 

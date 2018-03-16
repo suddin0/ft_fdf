@@ -18,9 +18,9 @@ void struct_manage(t_image *ig, t_button *b, t_b_create_data *bdata, char *fn)
 		{
 			// clear_button(b);
 			// printf("STRUCT_MANAGE IF-- I[%d] [%s] ******\n", i, bdata[i].name);
-			b[i].id = bdata[i].id;
-			b[i].type = bdata[i].type;
-			b[i].stat = bdata[i].stat;
+			b[i].id		= bdata[i].id;
+			b[i].type	= bdata[i].type;
+			b[i].stat	= bdata[i].stat;
 
 			ft_memcpy((b[i].view)[0], (ig[0]).img, ((ig[0]).x * (ig[0]).y) * 4);
 			ft_memcpy((b[i].view)[1], (ig[1]).img, ((ig[1]).x * (ig[1]).y) * 4);

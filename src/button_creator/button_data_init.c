@@ -77,22 +77,6 @@ void init_bstat(t_b_create_data *b)
 	(b[12]).stat = 2; // trans
 	(b[13]).stat = 0; // rotate
 }
-//
-// # define OX_MAIN
-// # define OX_MAP
-// # define OX_INFO
-// # define OX_LEFT
-// # define OX_DOWN
-// # define OX_RIGHT
-// # define OX_UP
-// # define OX_UZOOM
-// # define OX_ZOOM
-// # define OX_DEFAULT
-// # define OX_FACE
-// # define OX_SIDE
-// # define OX_TRANS
-// # define OX_ROTATE
-
 
 void init_borigine(t_b_create_data *b)
 {
