@@ -10,10 +10,10 @@ void struct_manage(t_image *ig, t_button *b, t_b_create_data *bdata, char *fn)
 	i = 0;
 	name_copy(name, fn);
 	// printf("CAME INSIDE STRUCT_MANAGE NAME[%s]\n", name);
-	printf("------------STRUCT MANAGE------------\n");
+	// printf("------------STRUCT MANAGE------------\n");
 	while (i < BUTTON_MAX)
 	{
-		printf("[%3d] bname[%9s] name[%9s] cmp[%3d]\n", i, bdata[i].name, name, ft_strcmp(name, bdata[i].name));
+		// printf("[%3d] bname[%9s] name[%9s] cmp[%3d]\n", i, bdata[i].name, name, ft_strcmp(name, bdata[i].name));
 		if(ft_strcmp(name, bdata[i].name) == 0)
 		{
 			// clear_button(b);
@@ -31,14 +31,14 @@ void struct_manage(t_image *ig, t_button *b, t_b_create_data *bdata, char *fn)
 
 			b[i].o_x = bdata[i].o_x;
 			b[i].o_y = bdata[i].o_y;
-			ft_printf("[OK][%-2d][%-8s]: b.stat[%-2d]  - bdata.stat[%-2d]\n",i, bdata[i].name, b[i].stat, bdata[i].stat);
-			ft_printf("[OK][%-2d][%-8s]: b.x   [%-2d]  - b.y   [%-2d]\n",i, bdata[i].name, b[i].x,b[i].y);
-			ft_printf("[OK][%-2d][%-8s]: b.o_x [%-2d]  - b.o_y [%-2d]\n",i, bdata[i].name, b[i].o_x, b[i].o_y);
+			// ft_printf("[OK][%-2d][%-8s]: b.stat[%-2d]  - bdata.stat[%-2d]\n",i, bdata[i].name, b[i].stat, bdata[i].stat);
+			// ft_printf("[OK][%-2d][%-8s]: b.x   [%-2d]  - b.y   [%-2d]\n",i, bdata[i].name, b[i].x,b[i].y);
+			// ft_printf("[OK][%-2d][%-8s]: b.o_x [%-2d]  - b.o_y [%-2d]\n",i, bdata[i].name, b[i].o_x, b[i].o_y);
 			break;
 		}
 		i++;
 	}
-	printf("------------STRUCT MANAGE END------------\n");
+	// printf("------------STRUCT MANAGE END------------\n");
 	// mlx_destroy_image(root.mlx, (ig[0]).img_ptr);
 	// mlx_destroy_image(root.mlx, (ig[1]).img_ptr);
 	// mlx_destroy_image(root.mlx, (ig[2]).img_ptr);

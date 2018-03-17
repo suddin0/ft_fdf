@@ -21,8 +21,6 @@ int file_verif(int argc, char **argv, char ****file)
 	int error;
 
 	error = 0;
-	printf("GETTING IN\n");
-
 	if (argc < 2)
 	{
 		ft_printf("[!] No file was given as arguments\n");
@@ -44,6 +42,5 @@ int file_verif(int argc, char **argv, char ****file)
 		free_file(*file, argc);
 		return (-1);
 	}
-	printf("GETTING OUT\n");
 	return (0);
 }

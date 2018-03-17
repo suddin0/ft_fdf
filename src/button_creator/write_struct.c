@@ -18,3 +18,4 @@ void write_struct_font(t_char b[], char *path)
 	write(fd, b, sizeof(t_char) * FCHAR_MAX);
 	close(fd);
 }
+// abwzp

@@ -42,7 +42,7 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y)
 	x = o_x * 4;
 	y = o_y;
 	k = 0;
-	printf("font_Button- [%3d][%9s] X[%3d] Y[%3d]\n", chr.ascii, chr.name, chr.x, chr.y);
+	printf("font_Button- [%3d] X[%3d] Y[%3d]\n", chr.ascii, chr.x, chr.y);
 	while (y < o_y + chr.y)
 	{
 		x = o_x * 4;
@@ -51,13 +51,30 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y)
 			if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4)
 			{
 				// If not transparent then show
-				if((chr.data)[k + 0] != 0 || (chr.data)[k + 1] != 0 || (chr.data)[k + 2] != 0 || (chr.data)[k + 3] != 0)
-				{
-					(img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];
-					(img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];
-					(img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];
-					(img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];
-				}
+				// if((chr.data)[k + 0] != 0 || (chr.data)[k + 1] != 0 || (chr.data)[k + 2] != 0 || (chr.data)[k + 3] != 0)
+				// {
+				// 	// (img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];
+				// 	// (img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];
+				// 	// (img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];
+				// 	// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];
+				// 	(img->img)[x + 0 + (y * (img->x * 4))]  = (char) 128;
+				// 	(img->img)[x + 1 + (y * (img->x * 4))]  = (char) 112;
+				// 	(img->img)[x + 2 + (y * (img->x * 4))]  = (char) 255;
+				// 	(img->img)[x + 3 + (y * (img->x * 4))]  = 50;
+				// }
+				// if((chr.data)[k + 3] == 0)
+				// {
+					// (img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];
+					// (img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];
+					// (img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];
+					// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];
+					(img->img)[x + 0 + (y * (img->x * 4))]  = 155; // B
+					(img->img)[x + 1 + (y * (img->x * 4))]  = 149; // G
+					(img->img)[x + 2 + (y * (img->x * 4))]  = 138; // R
+					// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3]; // A
+					(img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3]; // A
+					printf("[K][%4d] - [B][%3d] [G][%3d] [R][%3d] [A][%3d]\n", k, (chr.data)[k + 0], (chr.data)[k + 1], (chr.data)[k + 2], (chr.data)[k + 3]);
+				// }
 			}
 			k += 4;
 			x += 4;
@@ -78,7 +95,7 @@ int main(int argc, char **argv)
 
 
 
-	printf("******** END OF PERSING *********\n");
+	printf("******** END OF PARSING *********\n");
 	//print_map(map, 3);
 
 	init_menu(&root, &(root.menu));
@@ -117,13 +134,22 @@ int main(int argc, char **argv)
 	{
 		printf("[-] Error: opening %s\n", FONT_STRUCT_PATH);
 		perror("Reason");
+		exit(-1);
 	}
 	read(fd, chr, sizeof(t_char) * FCHAR_MAX);
+	if(read <= 0)
+	{
+		printf("[-] Error: read %s\n", FONT_STRUCT_PATH);
+		exit(-1);
+	}
 
 	// void draw_font(t_char chr, t_image *img, int stat, int o_x, int o_y)
-	draw_font(chr[0], &(root.menu), 10, 10);
+	draw_font(chr[0 ], &(root.menu), 10, 10);
+	// draw_font(chr[19], &(root.menu), 10, 10 + chr[0 ].y);
+	// draw_font(chr[25], &(root.menu), 10 + chr[0 ].x, 10);
+	// draw_font(chr[16], &(root.menu), 10 + chr[0 ].x, 10 + chr[0 ].y);
 
-
+	// mlx_put_image_to_window( root->mlx,root.window, t_img *img, int x, int y);
 
 
 

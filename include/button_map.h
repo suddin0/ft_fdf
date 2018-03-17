@@ -153,7 +153,7 @@
 	#define BTN_BAC_SPC	51
 	#define BTN_DELETE	117
 
-	#define BTN_UP	126
+	#define BTN_UP		126
 	#define BTN_DOWN	125
 	#define BTN_LEFT	123
 	#define BTN_RIGT	124

@@ -1,0 +1,11 @@
+[Error]
+-if zoomed too much can not unzoom.
+-if first line is a only a new line, map is considered an empty map
+
+
+
+[Letter Dimention]
+
+[Map list]
+	-Normal : 28
+	-small  : 16

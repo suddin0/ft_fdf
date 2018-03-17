@@ -136,6 +136,7 @@ int main(int argc, char **argv)
 		size_check(file[i][0], (ig[0]).x, (ig[0]).x, BUTTON_SIZE);
 		size_check(file[i][1], (ig[1]).x, (ig[1]).x, BUTTON_SIZE);
 		size_check(file[i][2], (ig[2]).x, (ig[2]).x, BUTTON_SIZE);
+		printf("[file][%-40s] x[%3d] y[%3d] TOTAL[%d]\n", file[i][0], (ig[0]).x, (ig[0]).x, ((ig[0]).x * (ig[0]).x) * 4);
 
 		struct_manage(ig, b, button_data, file[i][2]);
 
