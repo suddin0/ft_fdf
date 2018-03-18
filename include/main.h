@@ -39,7 +39,7 @@
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
 
 # define BUTTON_SIZE	14140 * 4	// max button size 8mb [8388608]
-# define CHAR_SIZE_28	650 * 4		// max character size size 8mb [8388608]
+# define CHAR_SIZE_28	1000 * 4		// max character size size 8mb [8388608]
 # define CHAR_SIZE_16	14140 * 4	// max character size size 8mb [8388608]
 # define FCHAR_MAX		26 * 2// Maximum characters in the pile
 # define BUTTON_MAX		16 // Maximum numer of buttons we will use in button creator or in our first menu
@@ -52,6 +52,15 @@
 # define FOOT_BG_COLOR	0x383f49
 # define PREV_BG_COLOR	0x323842
 # define MAP_COLOR		0xe0e0bd
+
+// # define COL_R(R)		(R >> 16)
+// # define COL_G(G)		((G >> 8) & 0xFF)
+// # define COL_B(B)		(B & 0xFF)
+
+# define COL_R(R)		((col >> 24) & 0xFF) 		// R
+# define COL_G(G)		((col >> 16) & 0xFF)	// G
+# define COL_B(B)		((col >> 8 ) & 0xFF)		// B
+# define COL_A(R)		(col & 0xFF);		// A
 
 // -------------------
 
@@ -157,10 +166,11 @@ typedef struct s_button
 typedef struct s_char
 {
 	unsigned	ascii; // The ascii value
-	char		data[CHAR_SIZE_28];
 	// char		name[100]; // tmp
 	int			x;
 	int			y;
+	char		data[CHAR_SIZE_28];
+
 } t_char;
 
 typedef struct s_alphabet

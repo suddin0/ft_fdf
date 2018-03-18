@@ -4,9 +4,10 @@
 
 void char_init(t_char *chr)
 {
-	chr->ascii	= 0;
-	chr->x		= 0;
-	chr->y		= 0;
+	chr->ascii		= 0;
+	chr->data[0]	= 0;
+	chr->x			= 0;
+	chr->y			= 0;
 }
 
 
@@ -46,9 +47,8 @@ int main(int argc, char **argv)
 
 		chr[ch_count].x = ig.x;
 		chr[ch_count].y = ig.y;
-
 		chr[ch_count].ascii = name_to_num(argv[i]);
-		printf("[FONT][%3d][%3d] IG.X[%3d] - IG.Y[%3d]  CHR.X[%3d] - CHR.Y[%3d] MAX[%3d] TOTAL[%d]\n", i, chr[ch_count].ascii, ig.x, ig.y, chr[0].x, chr[0].y, ig.x * ig.y, ( ig.x * ig.y) * 4);
+		printf("[FONT][%3d][%c] IG.X[%3d] - IG.Y[%3d]  CHR.X[%3d] - CHR.Y[%3d] MAX[%3d] TOTAL[%d]\n", i, chr[ch_count].ascii, ig.x, ig.y, chr[ch_count].x, chr[ch_count].y, ig.x * ig.y, ( ig.x * ig.y) * 4);
 
 		ft_memcpy(chr[ch_count].data, ig.img, (ig.x * ig.y) * 4);
 
