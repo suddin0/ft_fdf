@@ -173,58 +173,61 @@ BUTTON_NAME 	:=	$(XPM_BUTTON_PATH)/right 	\
 					$(XPM_BUTTON_PATH)/zoom		\
 					$(XPM_BUTTON_PATH)/uzoom	\
 
-FONT_NAME		:=	$(XPM_FONT_PATH)/65.xpm		\
-					$(XPM_FONT_PATH)/66.xpm		\
-					$(XPM_FONT_PATH)/67.xpm		\
-					$(XPM_FONT_PATH)/68.xpm		\
-					$(XPM_FONT_PATH)/69.xpm		\
-					$(XPM_FONT_PATH)/70.xpm		\
-					$(XPM_FONT_PATH)/71.xpm		\
-					$(XPM_FONT_PATH)/72.xpm		\
-					$(XPM_FONT_PATH)/73.xpm		\
-					$(XPM_FONT_PATH)/74.xpm		\
-					$(XPM_FONT_PATH)/75.xpm		\
-					$(XPM_FONT_PATH)/76.xpm		\
-					$(XPM_FONT_PATH)/77.xpm		\
-					$(XPM_FONT_PATH)/78.xpm		\
-					$(XPM_FONT_PATH)/79.xpm		\
-					$(XPM_FONT_PATH)/80.xpm		\
-					$(XPM_FONT_PATH)/81.xpm		\
-					$(XPM_FONT_PATH)/82.xpm		\
-					$(XPM_FONT_PATH)/83.xpm		\
-					$(XPM_FONT_PATH)/84.xpm		\
-					$(XPM_FONT_PATH)/85.xpm		\
-					$(XPM_FONT_PATH)/86.xpm		\
-					$(XPM_FONT_PATH)/87.xpm		\
-					$(XPM_FONT_PATH)/88.xpm		\
-					$(XPM_FONT_PATH)/89.xpm		\
-					$(XPM_FONT_PATH)/90.xpm		\
-					$(XPM_FONT_PATH)/97.xpm		\
-					$(XPM_FONT_PATH)/98.xpm		\
-					$(XPM_FONT_PATH)/99.xpm		\
-					$(XPM_FONT_PATH)/100.xpm	\
-					$(XPM_FONT_PATH)/101.xpm	\
-					$(XPM_FONT_PATH)/102.xpm	\
-					$(XPM_FONT_PATH)/103.xpm	\
-					$(XPM_FONT_PATH)/104.xpm	\
-					$(XPM_FONT_PATH)/105.xpm	\
-					$(XPM_FONT_PATH)/106.xpm	\
-					$(XPM_FONT_PATH)/107.xpm	\
-					$(XPM_FONT_PATH)/108.xpm	\
-					$(XPM_FONT_PATH)/109.xpm	\
-					$(XPM_FONT_PATH)/110.xpm	\
-					$(XPM_FONT_PATH)/111.xpm	\
-					$(XPM_FONT_PATH)/112.xpm	\
-					$(XPM_FONT_PATH)/113.xpm	\
-					$(XPM_FONT_PATH)/114.xpm	\
-					$(XPM_FONT_PATH)/115.xpm	\
-					$(XPM_FONT_PATH)/116.xpm	\
-					$(XPM_FONT_PATH)/117.xpm	\
-					$(XPM_FONT_PATH)/118.xpm	\
-					$(XPM_FONT_PATH)/119.xpm	\
-					$(XPM_FONT_PATH)/120.xpm	\
-					$(XPM_FONT_PATH)/121.xpm	\
-					$(XPM_FONT_PATH)/122.xpm	\
+# FONT_NAME		:=	$(XPM_FONT_PATH)/65.xpm		\
+# 					$(XPM_FONT_PATH)/66.xpm		\
+# 					$(XPM_FONT_PATH)/67.xpm		\
+# 					$(XPM_FONT_PATH)/68.xpm		\
+# 					$(XPM_FONT_PATH)/69.xpm		\
+# 					$(XPM_FONT_PATH)/70.xpm		\
+# 					$(XPM_FONT_PATH)/71.xpm		\
+# 					$(XPM_FONT_PATH)/72.xpm		\
+# 					$(XPM_FONT_PATH)/73.xpm		\
+# 					$(XPM_FONT_PATH)/74.xpm		\
+# 					$(XPM_FONT_PATH)/75.xpm		\
+# 					$(XPM_FONT_PATH)/76.xpm		\
+# 					$(XPM_FONT_PATH)/77.xpm		\
+# 					$(XPM_FONT_PATH)/78.xpm		\
+# 					$(XPM_FONT_PATH)/79.xpm		\
+# 					$(XPM_FONT_PATH)/80.xpm		\
+# 					$(XPM_FONT_PATH)/81.xpm		\
+# 					$(XPM_FONT_PATH)/82.xpm		\
+# 					$(XPM_FONT_PATH)/83.xpm		\
+# 					$(XPM_FONT_PATH)/84.xpm		\
+# 					$(XPM_FONT_PATH)/85.xpm		\
+# 					$(XPM_FONT_PATH)/86.xpm		\
+# 					$(XPM_FONT_PATH)/87.xpm		\
+# 					$(XPM_FONT_PATH)/88.xpm		\
+# 					$(XPM_FONT_PATH)/89.xpm		\
+# 					$(XPM_FONT_PATH)/90.xpm		\
+# 					$(XPM_FONT_PATH)/97.xpm		\
+# 					$(XPM_FONT_PATH)/98.xpm		\
+# 					$(XPM_FONT_PATH)/99.xpm		\
+# 					$(XPM_FONT_PATH)/100.xpm	\
+# 					$(XPM_FONT_PATH)/101.xpm	\
+# 					$(XPM_FONT_PATH)/102.xpm	\
+# 					$(XPM_FONT_PATH)/103.xpm	\
+# 					$(XPM_FONT_PATH)/104.xpm	\
+# 					$(XPM_FONT_PATH)/105.xpm	\
+# 					$(XPM_FONT_PATH)/106.xpm	\
+# 					$(XPM_FONT_PATH)/107.xpm	\
+# 					$(XPM_FONT_PATH)/108.xpm	\
+# 					$(XPM_FONT_PATH)/109.xpm	\
+# 					$(XPM_FONT_PATH)/110.xpm	\
+# 					$(XPM_FONT_PATH)/111.xpm	\
+# 					$(XPM_FONT_PATH)/112.xpm	\
+# 					$(XPM_FONT_PATH)/113.xpm	\
+# 					$(XPM_FONT_PATH)/114.xpm	\
+# 					$(XPM_FONT_PATH)/115.xpm	\
+# 					$(XPM_FONT_PATH)/116.xpm	\
+# 					$(XPM_FONT_PATH)/117.xpm	\
+# 					$(XPM_FONT_PATH)/118.xpm	\
+# 					$(XPM_FONT_PATH)/119.xpm	\
+# 					$(XPM_FONT_PATH)/120.xpm	\
+# 					$(XPM_FONT_PATH)/121.xpm	\
+# 					$(XPM_FONT_PATH)/122.xpm	\
+
+
+FONT_NAME		:=	$(XPM_FONT_PATH)/97.xpm		\
 
 					# $(XPM_BUTTON_PATH)/b.xpm\
 

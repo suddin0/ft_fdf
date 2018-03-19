@@ -6,6 +6,9 @@
 
 [Letter Dimention]
 
-[Map list]
+[Map list font size]
 	-Normal : 28
 	-small  : 16
+
+[map list font type]
+	-Open Noto
