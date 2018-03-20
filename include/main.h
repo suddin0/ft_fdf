@@ -38,12 +38,12 @@
 # define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
 
-# define BUTTON_SIZE	14140 * 4	// max button size 8mb [8388608]
+# define BUTTON_SIZE	19000 * 4	// max button size 8mb [8388608]
 // # define CHAR_SIZE_28	1000 * 4		// max character size size 8mb [8388608]
 # define CHAR_SIZE_28	20000 * 4		// max character size size 8mb [8388608]
 # define CHAR_SIZE_16	54140 * 4	// max character size size 8mb [8388608]
-# define FCHAR_MAX		2// Maximum characters in the pile
-# define BUTTON_MAX		16 // Maximum numer of buttons we will use in button creator or in our first menu
+# define FCHAR_MAX		96	// Maximum characters in the pile
+# define BUTTON_MAX		16	// Maximum numer of buttons we will use in button creator or in our first menu
 # define BUTTON_STRUCT_PATH	"res/__buttons__/button.struct"
 # define FONT_STRUCT_PATH	"res/__font__/font.struct"
 
@@ -227,6 +227,7 @@ typedef struct	s_root
 	int 	(*(kevent[MAX_EVENT_KEY]))(struct s_root *root); // Functions executed in key press
 	t_event_func	evnt;
 	int		key_set[MAX_EVENT_KEY];
+	t_char	*font;
 } t_root;
 
 

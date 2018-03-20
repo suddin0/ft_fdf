@@ -7,8 +7,9 @@
 [Letter Dimention]
 
 [Map list font size]
-	-Normal : 28
-	-small  : 16
+	-Normal : 24 / 23.99999857
+	-small  : 14
 
 [map list font type]
-	-Open Noto
+	-Noto Kufi Arabic
+	-[x]Open Noto

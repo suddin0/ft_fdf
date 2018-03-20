@@ -147,22 +147,33 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 
 
 
-				// if((unsigned char) (chr.data)[k + 0] != 255 || (unsigned char) (chr.data)[k + 1] != 255 || (unsigned char) (chr.data)[k + 2] != 255)
-				// {
+				if((unsigned char) (chr.data)[k + 0] != 2 || (unsigned char) (chr.data)[k + 1] != 2 || (unsigned char) (chr.data)[k + 2] != 2)
+				// if((unsigned char) (chr.data)[k + 2] == 255)
+				{
 					// NORMAL
 					// (img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];
 					// (img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];
 					// (img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];
 					// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];
-					o_opacity_r =   ((unsigned char) (chr.data)[k + 2] * 100) / 255; // original opacity
-					o_opacity_g =   ((unsigned char) (chr.data)[k + 1] * 100) / 255; // original opacity
-					o_opacity_b =   ((unsigned char) (chr.data)[k + 0] * 100) / 255; // original opacity
+					o_opacity_r =   (double) (((unsigned char) (chr.data)[k + 2] * 100) / 255); // original opacity
+					o_opacity_g =   (double) (((unsigned char) (chr.data)[k + 1] * 100) / 255); // original opacity
+					o_opacity_b =   (double) (((unsigned char) (chr.data)[k + 0] * 100) / 255); // original opacity
+					// printf("[R:2][%3hhu] - [OPR][%.2lf] - [oPR][%lf]\n", (chr.data)[k + 2], o_opacity_r, o_opacity_r * 0.01);
 
 					// (double) ((double) (A * 100) / 255) * 0.01
 
-					o_opacity_r =   (double) ((double) (o_opacity_r * 100) / 255) * 0.01; // original opacity
-					o_opacity_g =   (double) ((double) (o_opacity_g * 100) / 255) * 0.01; // original opacity
-					o_opacity_b =   (double) ((double) (o_opacity_b * 100) / 255) * 0.01; // original opacity
+					o_opacity_r = o_opacity_r * 0.01; // original opacity
+					o_opacity_g = o_opacity_g * 0.01; // original opacity
+					o_opacity_b = o_opacity_b * 0.01; // original opacity
+
+
+					printf("OPACITY [%lf] - O_OPACITY_R [%lf] | after: OPACITY [%lf] - O_OPACITY_R [%lf] \n", opacity, o_opacity_r, opacity - (opacity - o_opacity_r), opacity - o_opacity_r);
+					o_opacity_r = opacity - o_opacity_r;
+					o_opacity_r = (o_opacity_r > 0 && o_opacity_r < opacity) ? o_opacity_r : 0;
+
+					// o_opacity_r =   ((o_opacity_r - opacity) < 0) ? 0
+					// o_opacity_g =   ((o_opacity_g - opacity) < 0) ? 0
+					// o_opacity_b =   ((o_opacity_b - opacity) < 0) ? 0
 
 					BGA = (unsigned char) ((img->img)[x + 3 + (y * (img->x * 4))]);
 					BGR = (unsigned char) ((img->img)[x + 2 + (y * (img->x * 4))]);
@@ -175,7 +186,7 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 							(opacity * R + (1 - opacity) * BGR),\
 							(opacity * G + (1 - opacity) * BGG),\
 							(opacity * B + (1 - opacity) * BGB));
-					printf("O_OPACITY_R[%lf] - O_OPACITY_G[%lf] - O_OPACITY_B[%lf]\n", o_opacity_r, o_opacity_g, o_opacity_b);
+					// printf("O_OPACITY_R[%lf] - O_OPACITY_G[%lf] - O_OPACITY_B[%lf]\n", o_opacity_r, o_opacity_g, o_opacity_b);
 
 					// (img->img)[x + 3 + (y * (img->x * 4))]  = (unsigned char) (opacity * A + (1 - opacity) * BGA);	// A
 					// (img->img)[x + 2 + (y * (img->x * 4))]  = (unsigned char) (opacity * R + (1 - opacity) * BGR);	// R
@@ -188,11 +199,18 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 					// (img->img)[x + 1 + (y * (img->x * 4))]  = (o_opacity_g * G + (1 - o_opacity_g) * BGG);	// G
 					// (img->img)[x + 0 + (y * (img->x * 4))]  = (o_opacity_b * B + (1 - o_opacity_b) * BGB);	// B
 
-					/* Real Colors */
-					(img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];	// R
-					(img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];	// R
-					(img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];	// G
-					(img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];	// B
+
+
+					(img->img)[x + 3 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * A + (1 - (opacity - o_opacity_r)) * BGA);	// A
+					(img->img)[x + 2 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * R + (1 - (opacity - o_opacity_r)) * BGR);	// R
+					(img->img)[x + 1 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * G + (1 - (opacity - o_opacity_r)) * BGG);	// G
+					(img->img)[x + 0 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * B + (1 - (opacity - o_opacity_r)) * BGB);	// B
+
+					// /* Real Colors */
+					// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];	// R
+					// (img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];	// R
+					// (img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];	// G
+					// (img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];	// B
 
 					// (img->img)[x + 2 + (y * (img->x * 4))]  = (o_opacity_r * (chr.data)[k + 2] + (1 - o_opacity_r) * BGR);	// R
 					// (img->img)[x + 1 + (y * (img->x * 4))]  = (o_opacity_g * (chr.data)[k + 1] + (1 - o_opacity_g) * BGG);	// G
@@ -211,7 +229,7 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 					// printf("[K][%4d] - [B][%3d] [G][%3d] [R][%3d] [A][%3d]\n", k, (chr.data)[k + 0], (chr.data)[k + 1], (chr.data)[k + 2], (chr.data)[k + 3]);
 
 
-				// } /* End of if all white if */
+				} /* End of if all white if */
 
 			}
 			k += 4;
@@ -266,7 +284,10 @@ int main(int argc, char **argv)
 	int w = 0;
 
 	int fd;
-	t_char chr[FCHAR_MAX];
+	// t_char chr[FCHAR_MAX];
+	t_char *chr;
+
+	chr = (t_char *) malloc(sizeof(t_char) * (FCHAR_MAX + 1));
 
 	fd = open(FONT_STRUCT_PATH, O_RDONLY);
 	if(fd < 0)
@@ -310,7 +331,8 @@ int main(int argc, char **argv)
 	// printf("[FONT][%d][%c] - X[%9d]  - Y[%9d]\n", chr[25].ascii, chr[25].ascii, chr[25].x, chr[25].y);
 
 	// void draw_font(t_char chr, t_image *img, int stat, int o_x, int o_y)
-	draw_font(chr[0], &(root.menu), 10, 10, 0xff0000cc);
+
+	draw_font(chr[0], &(root.menu), 30, 10, 0xffffffff);
 	// draw_font(chr[28], &(root.menu), 10, 10, 0xE6E6FA00);
 	// draw_font(chr[29], &(root.menu), 10 + chr[19 ].x, 10, 0x00FF00DD);
 	// draw_font(chr[16], &(root.menu), 10 + chr[0 ].x, 10 + chr[0 ].y);
