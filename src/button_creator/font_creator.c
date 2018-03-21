@@ -8,6 +8,9 @@ void char_init(t_char *chr)
 	chr->data[0]	= 0;
 	chr->x			= 0;
 	chr->y			= 0;
+	chr->pad_top	= 0;
+	chr->pad_left	= 0;
+	chr->pad_right	= 0;
 }
 
 
@@ -15,13 +18,18 @@ int main(int argc, char **argv)
 {
 	t_root root;
 	t_char chr[FCHAR_MAX];
+	t_f_create_data fdata[FCHAR_MAX];
 	t_image ig;
 	int i;
 	int ch_count;
 
 	root.mlx = mlx_init();
+	font24_struct_init(fdata);
 	i = 1;
 	ch_count = 0;
+
+	char_init(&(chr[ch_count++]));
+	chr[0].ascii = 32;
 
 	while (i != argc)
 	{
@@ -59,6 +67,7 @@ int main(int argc, char **argv)
 		i++;
 		ch_count++;
 	}
+	font_struct_manage(chr, fdata);
 	write_struct_font(chr, FONT_STRUCT_PATH);
 
 	// free_file(file, argc);

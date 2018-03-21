@@ -5,32 +5,6 @@
 # include <unistd.h>		// For read
 
 
-//
-// //void  draw_line_img_iso(t_root *r, int Xo, int Yo, int  Xn, int Yn, t_color color)
-// void  draw_line_iso(t_image *img, double Xo, double Yo, double  Xn, double Yn, int color)
-// {
-// 	int	steps;
-// 	double	x;
-// 	double	y;
-// 	double Xincrement;
-// 	double	Yincrement;
-//
-// 	steps = (fabs(Xn - Xo) > fabs(Yn - Yo)) ? fabs(Xn - Xo) : fabs(Yn - Yo);
-//
-// 	x = Xo;
-// 	y = Yo;
-// 	Xincrement = (Xn - Xo) / (float) steps; // X or Y increment by this ration
-// 	Yincrement = (Yn - Yo) / (float) steps;
-//
-// 	for(int v = 0; v < steps; v++)
-// 	{
-// 		x += Xincrement;
-// 		y += Yincrement;
-// 		put_color(img, (x - y) , ((y + x) / 2), color); // Iso view
-// 		//put_color(r, x, y, color); // Normal view
-// 	}
-// }
-//
 
 
 void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
@@ -39,6 +13,8 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 	int y;
 	int k;
 
+	if (chr.x == 0 || chr.y == 0)
+		return;
 	x = o_x * 4;
 	y = o_y;
 	k = 0;
@@ -59,8 +35,8 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 	// double opacity = (double) ((double) (A * 100) / 255) * 0.01;
 	double opacity;
 	double o_opacity_r; // original opacity
-	double o_opacity_g; // original opacity
-	double o_opacity_b; // original opacity
+
+
 	opacity = (double) ((double) (A * 100) / 255) * 0.01;
 	printf("font- [%c] X[%3d] Y[%3d]\n", chr.ascii, chr.x, chr.y);
 	while (y < o_y + chr.y)
@@ -68,140 +44,24 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 		x = o_x * 4;
 		while (x < (o_x + chr.x) * 4)
 		{
-			// printf("font- ** X[%d] Y[%d] ox * chr.x[%d]    - oy * chr.y[%d]\n", y, x, (o_x + chr.x) * 4, o_y + chr.y);
-			// printf("O_OPACITY_R[%lf] - O_OPACITY_G[%lf] - O_OPACITY_B[%lf]\n", o_opacity_r, o_opacity_g, o_opacity_b);
-
-
-			if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4)
+			// if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4)
+			if((x > 0 && y > 0) && (x + (y * img->x)) < (img->x * img->y) && (x < (img->x * 4) &&  y * img->y))
 			{
-				// printf("[G][%3hhu] - [B][%3hhu] - [R][%3hhu] - [A][%3hhu]\n", (chr.data)[k + 0], (chr.data)[k + 1], (chr.data)[k + 2], (chr.data)[k + 3]);
-
-				// If not transparent then show
-				// if((chr.data)[k + 0] != 0 || (chr.data)[k + 1] != 0 || (chr.data)[k + 2] != 0 || (chr.data)[k + 3] != 0)s
-				// if((chr.data)[k + 3] == 0)
-				// {
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];
-
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (char) 210; // R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (char) 211; // G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (char) 212; // B
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = 255;  		  // A
-
-
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = col & 0xFF; 			// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (col >> 8 ) & 0xFF;	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (col >> 16) & 0xFF;	// B
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (col >> 24);			// A
-
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (col >> 16); 		// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (col >> 8) & 0xFF;	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (col) & 0xFF;		// B
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (col & 0xFF);		// A
-
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = COL_R(col); 		// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = COL_G(col);// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = COL_B(col);	// B
-					// // (img->img)[x + 3 + (y * (img->x * 4))]  = (col & 0xFF);			// A
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (char)(255);			// A
-
-
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = R;	// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = G;	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = B;	// B
-					// // (img->img)[x + 3 + (y * (img->x * 4))]  = (col & 0xFF);			// A
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = A;			// A
-
-
-					/* Working Bit is here */
-
-					// BGA = (unsigned) ((img->img)[x + 3 + (y * (img->x * 4))]);
-					// BGR = (unsigned) ((img->img)[x + 2 + (y * (img->x * 4))]);
-					// BGG = (unsigned) ((img->img)[x + 1 + (y * (img->x * 4))]);
-					// BGB = (unsigned) ((img->img)[x + 0 + (y * (img->x * 4))]);
-                    //
-					// // opacity = (double) ((double) ((chr.data)[k + 3] * 100) / 255) * 0.01;
-                    //
-					//  // printf("BR[%3d] - BG[%3d] BB[%3d] | OP[%.3f] : R[%3d] - G[%3d] - B[%3d] | NR[%3d] RB[%3d] NG[%3d]\n",\
-				 	// 		BGR, BGG, BGB,\
-					// 		opacity, R  , G,   B,\
-					// 		(opacity * R + (1 - opacity) * BGR),\
-					// 		(opacity * G + (1 - opacity) * BGG),\
-					// 		(opacity * A + (1 - opacity) * BGA));
-					// // printf("[G][%3hhu] - [B][%3hhu] - [R][%3hhu] - [A][%3hhu]\n", (chr.data)[k + 0], (chr.data)[k + 1], (chr.data)[k + 2], (chr.data)[k + 3]);
-                    //
-					// // target = opacity * overlay + (1 - opacity) * background
-                    //
-                    //
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (opacity * A + (1 - opacity) * BGA);	// A
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (opacity * R + (1 - opacity) * BGR);	// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (opacity * G + (1 - opacity) * BGG);	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (opacity * B + (1 - opacity) * BGB);	// B
-
-					/* End here working bit */
-				// }
-				// printf("O_OPACITY_R[%lf] - O_OPACITY_G[%lf] - O_OPACITY_B[%lf]\n", o_opacity_r, o_opacity_g, o_opacity_b);
-				printf("[G:0][%3hhu] - [B:1][%3hhu] - [R:2][%3hhu] - [A:3][%3hhu]\n", (chr.data)[k + 0], (chr.data)[k + 1], (chr.data)[k + 2], (chr.data)[k + 3]);
-
-
-
 				if((unsigned char) (chr.data)[k + 0] != 2 || (unsigned char) (chr.data)[k + 1] != 2 || (unsigned char) (chr.data)[k + 2] != 2)
-				// if((unsigned char) (chr.data)[k + 2] == 255)
 				{
-					// NORMAL
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];
 					o_opacity_r =   (double) (((unsigned char) (chr.data)[k + 2] * 100) / 255); // original opacity
-					o_opacity_g =   (double) (((unsigned char) (chr.data)[k + 1] * 100) / 255); // original opacity
-					o_opacity_b =   (double) (((unsigned char) (chr.data)[k + 0] * 100) / 255); // original opacity
-					// printf("[R:2][%3hhu] - [OPR][%.2lf] - [oPR][%lf]\n", (chr.data)[k + 2], o_opacity_r, o_opacity_r * 0.01);
-
-					// (double) ((double) (A * 100) / 255) * 0.01
 
 					o_opacity_r = o_opacity_r * 0.01; // original opacity
-					o_opacity_g = o_opacity_g * 0.01; // original opacity
-					o_opacity_b = o_opacity_b * 0.01; // original opacity
 
-
-					printf("OPACITY [%lf] - O_OPACITY_R [%lf] | after: OPACITY [%lf] - O_OPACITY_R [%lf] \n", opacity, o_opacity_r, opacity - (opacity - o_opacity_r), opacity - o_opacity_r);
 					o_opacity_r = opacity - o_opacity_r;
 					o_opacity_r = (o_opacity_r > 0 && o_opacity_r < opacity) ? o_opacity_r : 0;
-
-					// o_opacity_r =   ((o_opacity_r - opacity) < 0) ? 0
-					// o_opacity_g =   ((o_opacity_g - opacity) < 0) ? 0
-					// o_opacity_b =   ((o_opacity_b - opacity) < 0) ? 0
 
 					BGA = (unsigned char) ((img->img)[x + 3 + (y * (img->x * 4))]);
 					BGR = (unsigned char) ((img->img)[x + 2 + (y * (img->x * 4))]);
 					BGG = (unsigned char) ((img->img)[x + 1 + (y * (img->x * 4))]);
 					BGB = (unsigned char) ((img->img)[x + 0 + (y * (img->x * 4))]);
 
-					//printf("BR[%3d] - BG[%3d] BB[%3d] | OP[%.3f] : R[%3d] - G[%3d] - B[%3d] | NR[%3lf] RG[%3lf] NB[%3lf]\n",\
-							BGR, BGG, BGB,\
-							opacity, R  , G,   B,\
-							(opacity * R + (1 - opacity) * BGR),\
-							(opacity * G + (1 - opacity) * BGG),\
-							(opacity * B + (1 - opacity) * BGB));
-					// printf("O_OPACITY_R[%lf] - O_OPACITY_G[%lf] - O_OPACITY_B[%lf]\n", o_opacity_r, o_opacity_g, o_opacity_b);
-
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (unsigned char) (opacity * A + (1 - opacity) * BGA);	// A
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (unsigned char) (opacity * R + (1 - opacity) * BGR);	// R
-					// // (img->img)[x + 2 + (y * (img->x * 4))]  = (unsigned char) (o_opacity_r * R + (1 - o_opacity_r) * BGR);	// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (unsigned char) (opacity * G + (1 - opacity) * BGG);	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (unsigned char) (opacity * B + (1 - opacity) * BGB);	// B
-
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (opacity * A + (1 - opacity) * BGA);	// A
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (o_opacity_r * R + (1 - o_opacity_r) * BGR);	// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (o_opacity_g * G + (1 - o_opacity_g) * BGG);	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (o_opacity_b * B + (1 - o_opacity_b) * BGB);	// B
-
-
-
-					(img->img)[x + 3 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * A + (1 - (opacity - o_opacity_r)) * BGA);	// A
+					// (img->img)[x + 3 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * A + (1 - (opacity - o_opacity_r)) * BGA);	// A
 					(img->img)[x + 2 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * R + (1 - (opacity - o_opacity_r)) * BGR);	// R
 					(img->img)[x + 1 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * G + (1 - (opacity - o_opacity_r)) * BGG);	// G
 					(img->img)[x + 0 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * B + (1 - (opacity - o_opacity_r)) * BGB);	// B
@@ -211,33 +71,35 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 					// (img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];	// R
 					// (img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];	// G
 					// (img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];	// B
-
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (o_opacity_r * (chr.data)[k + 2] + (1 - o_opacity_r) * BGR);	// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (o_opacity_g * (chr.data)[k + 1] + (1 - o_opacity_g) * BGG);	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (o_opacity_b * (chr.data)[k + 0] + (1 - o_opacity_b) * BGB);	// B
-
-                    //
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (o_opacity_r * R + (1 - o_opacity_r) * BGR);	// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (o_opacity_r * G + (1 - o_opacity_r) * BGG);	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (o_opacity_r * B + (1 - o_opacity_r) * BGB);	// B
-
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = 155; // B
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = 149; // G
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = 138; // R
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3]; // A
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = 0; // A
-					// printf("[K][%4d] - [B][%3d] [G][%3d] [R][%3d] [A][%3d]\n", k, (chr.data)[k + 0], (chr.data)[k + 1], (chr.data)[k + 2], (chr.data)[k + 3]);
-
-
 				} /* End of if all white if */
-
 			}
 			k += 4;
 			x += 4;
 		}
 		y++;
 	}
-	printf("---- END COLOR ----\n");
+}
+
+void put_text(char *str, t_root *root, int o_x, int o_y)
+{
+	int i;
+	int o_width; // origine to width;
+	t_font *font;
+
+
+	i = 0;
+	o_width = 0;
+	font = root->font_24;
+
+	while (str[i])
+	{
+		printf("came there [%d]\n", str[i] - 32);
+		// void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
+		// draw_font(font[str[i] - 33], &(root->prev), o_x + o_width, o_y, 0xffffffff);
+		draw_font(font[str[i] - 32], &(root->prev), o_x + o_width + font[str[i] - 32].pad_left,  o_y + font[str[i] - 32].pad_top, 0x99aab5ff);
+		o_width += font[str[i] - 32].x + font[str[i] - 32].pad_right;
+		i++;
+	}
 }
 
 int main(int argc, char **argv)
@@ -285,9 +147,9 @@ int main(int argc, char **argv)
 
 	int fd;
 	// t_char chr[FCHAR_MAX];
-	t_char *chr;
+	t_font *font;
 
-	chr = (t_char *) malloc(sizeof(t_char) * (FCHAR_MAX + 1));
+	root.font_24 = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1));
 
 	fd = open(FONT_STRUCT_PATH, O_RDONLY);
 	if(fd < 0)
@@ -296,14 +158,15 @@ int main(int argc, char **argv)
 		perror("Reason");
 		exit(-1);
 	}
-	read(fd, chr, sizeof(t_char) * FCHAR_MAX);
+	read(fd, root.font_24, sizeof(t_font) * FCHAR_MAX);
 	if(read <= 0)
 	{
 		printf("[-] Error: read %s\n", FONT_STRUCT_PATH);
 		exit(-1);
 	}
+	font = root.font_24;
 
-	printf("[FONT][%d][%c] - X[%9d]  - Y[%9d]\n", chr[0].ascii, chr[0].ascii, chr[0].x, chr[0].y);
+	printf("[FONT][%d][%c] - X[%9d]  - Y[%9d]\n", font[0].ascii, font[0].ascii, font[0].x, font[0].y);
 	// printf("[FONT][%d][%c] - X[%9d]  - Y[%9d]\n", chr[1].ascii, chr[1].ascii, chr[1].x, chr[1].y);
 	// printf("[FONT][%d][%c] - X[%9d]  - Y[%9d]\n", chr[2].ascii, chr[2].ascii, chr[2].x, chr[2].y);
 	// printf("[FONT][%d][%c] - X[%9d]  - Y[%9d]\n", chr[3].ascii, chr[3].ascii, chr[3].x, chr[3].y);
@@ -332,12 +195,19 @@ int main(int argc, char **argv)
 
 	// void draw_font(t_char chr, t_image *img, int stat, int o_x, int o_y)
 
-	draw_font(chr[0], &(root.menu), 30, 10, 0xffffffff);
+	draw_font(font['A' - 32], &(root.menu), 50, 20, 0x7289da2a);
 	// draw_font(chr[28], &(root.menu), 10, 10, 0xE6E6FA00);
 	// draw_font(chr[29], &(root.menu), 10 + chr[19 ].x, 10, 0x00FF00DD);
 	// draw_font(chr[16], &(root.menu), 10 + chr[0 ].x, 10 + chr[0 ].y);
 
 	// mlx_put_image_to_window( root->mlx,root.window, t_img *img, int x, int y);
+
+
+	// put_text("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]", &root, 10, 70);
+	// put_text("^_`abcdefghijklmnopqrstuvwxyz{|}~", &root, 10, 200);
+	put_text("Are Th-e~r-=e_ A@ny Lo,cal Host_.+ 1 + 1 10023 X = 10", &root, 10, 200);
+	// put_text("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", &root, 10, 70);
+
 
 
 
@@ -364,6 +234,7 @@ int main(int argc, char **argv)
 
 
 	// mlx_key_hook (root.win , exit_esc, &root);
+	mlx_loop_hook(root.mlx, NULL, NULL);
 	mlx_loop(root.mlx);
 	return (0);
 }

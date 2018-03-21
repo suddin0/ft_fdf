@@ -42,7 +42,7 @@
 // # define CHAR_SIZE_28	1000 * 4		// max character size size 8mb [8388608]
 # define CHAR_SIZE_28	20000 * 4		// max character size size 8mb [8388608]
 # define CHAR_SIZE_16	54140 * 4	// max character size size 8mb [8388608]
-# define FCHAR_MAX		96	// Maximum characters in the pile
+# define FCHAR_MAX		97	// Maximum characters in the pile + space
 # define BUTTON_MAX		16	// Maximum numer of buttons we will use in button creator or in our first menu
 # define BUTTON_STRUCT_PATH	"res/__buttons__/button.struct"
 # define FONT_STRUCT_PATH	"res/__font__/font.struct"
@@ -58,10 +58,10 @@
 // # define COL_G(G)		((G >> 8) & 0xFF)
 // # define COL_B(B)		(B & 0xFF)
 
-# define COL_R(R)		((col >> 24) & 0xFF) 		// R
+# define COL_R(R)		((col >> 24) & 0xFF)	// R
 # define COL_G(G)		((col >> 16) & 0xFF)	// G
-# define COL_B(B)		((col >> 8 ) & 0xFF)		// B
-# define COL_A(R)		(col & 0xFF);		// A
+# define COL_B(B)		((col >> 8 ) & 0xFF)	// B
+# define COL_A(R)		(col & 0xFF);			// A
 
 // -------------------
 
@@ -168,11 +168,16 @@ typedef struct s_char
 {
 	unsigned	ascii; // The ascii value
 	// char		name[100]; // tmp
-	int			x;
-	int			y;
-	char		data[CHAR_SIZE_28];
-
+	int			x;	// width
+	int			y;	// height
+	char		data[CHAR_SIZE_28];	// Contain the image data
+	int			pad_top;	// Top padding
+	int			pad_left;	// Left paddin
+	int			pad_right;	// Right padding
 } t_char;
+
+typedef t_char t_font;
+
 
 typedef struct s_alphabet
 {
@@ -210,6 +215,8 @@ typedef struct s_menu
 
 } t_menu;
 
+
+
 // THe Main structure with window and all
 typedef struct	s_root
 {
@@ -227,7 +234,8 @@ typedef struct	s_root
 	int 	(*(kevent[MAX_EVENT_KEY]))(struct s_root *root); // Functions executed in key press
 	t_event_func	evnt;
 	int		key_set[MAX_EVENT_KEY];
-	t_char	*font;
+	t_font	*font_24;
+	t_font	*font_14;
 } t_root;
 
 
@@ -263,7 +271,6 @@ void	draw_line(t_map  *map, t_point o, t_point n, int color);
 void  	draw_dot(t_map *img, t_point o, t_point n, int color);
 // void	draw_map(void *v, t_map *map, t_image *img);
 void draw_map(void *img_ptr, t_map *map);
-
 
 
 void modmatrix(t_map *map, void f(t_point *a, double val), double rot);

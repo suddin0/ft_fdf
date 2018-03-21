@@ -64,6 +64,13 @@
 # define OY_TRANS	(MENU_Y / 2) - (Y_TRANS		+ 20)
 # define OY_ROTATE	(MENU_Y / 2) - (Y_ROTATE	+ 20)
 
+# define FONT_24_SMALL_PAD_TOP			6
+# define FONT_24_SMALL_SMALL_PAD_TOP 	20	// , .
+# define FONT_24_SMALL_MIDLE_PAD_TOP 	14	// - ~
+# define FONT_24_SMALL_UNDER_PAD_TOP 	24	// _
+# define FONT_24_SMALL_EQUAL_PAD_TOP 	11	// =
+# define FONT_24_SMALL_AT_PAD_TOP		2	// @
+
 
 
 typedef struct s_button_create_data
@@ -76,13 +83,17 @@ typedef struct s_button_create_data
 	int o_y;
 } t_b_create_data;
 
-typedef struct s_character_create_data
+typedef struct s_font_create_data
 {
-	char name[100];
-	int ascii;
-	int x;
-	int y;
-} t_c_create_data;
+	// char name[100];
+	// int ascii;
+	// int x;
+	// int y;
+
+	int pad_top;
+	int pad_left;
+	int pad_right;
+} t_f_create_data;
 
 int file_check(int argc, char ***argv);
 void clear_button(t_button *button);
@@ -104,6 +115,11 @@ void struct_manage(t_image *ig, t_button *b, t_b_create_data *bdata, char *fn);
 int file_verif(int argc, char **argv, char ****file);
 // void init_bo_y (t_b_create_data *b);
 int name_to_num(char *name);
+
+/* font */
+void font24_struct_init(t_f_create_data *fdata);
+void font_struct_manage(t_font *font, t_f_create_data *fdata);
+
 
 
 # endif

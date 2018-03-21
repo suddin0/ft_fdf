@@ -152,6 +152,9 @@ BUTTON_SRC =	src/map_perser/file_size.c				\
 FONT_SRC =		src/button_creator/size_check.c			\
 				src/button_creator/write_struct.c		\
 				src/button_creator/name_copy.c			\
+				src/button_creator/font24_struct_init.c	\
+				src/button_creator/font_struct_manage.c	\
+
 
 
 ## Where buttons are found

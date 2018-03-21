@@ -20,7 +20,7 @@ void draw_button(t_button button, t_image *img, int stat)
 			// printf("x[%3d] - y[%3d] b.x[%3d] b,y[%3d]\n", x + 1, y, button.x, button.y);
 			// printf("x[%3d] - y[%3d] b.x[%3d] b,y[%3d]\n", x + 2, y, button.x, button.y);
 			// printf("x[%3d] - y[%3d] b.x[%3d] b,y[%3d]\n", x + 3, y, button.x, button.y);
-			if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4)
+			if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4 && ( x < (img->x * 4) &&  y * img->y))
 			{
 				(img->img)[x + 0 + (y * (img->x * 4))]  = (button.view[stat])[k + 0];
 				(img->img)[x + 1 + (y * (img->x * 4))]  = (button.view[stat])[k + 1];
