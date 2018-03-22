@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-static inline int is_dot_fdf(char *str)
+int is_dot_fdf(char *str)
 {
 	int i;
 

@@ -125,6 +125,8 @@ SRC		=	$(MAIN)							\
 			src/button_res/button_init.c 	\
 			src/button_res/draw_button.c 	\
 			src/button_res/button_func.c 	\
+			src/font_res/printf_text.c 		\
+			src/font_res/draw_font.c 		\
 
 
 

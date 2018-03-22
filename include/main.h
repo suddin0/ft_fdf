@@ -9,6 +9,10 @@
 # include <errno.h>			// For read
 # include <math.h>			// For read
 
+#include <sys/types.h>
+#include <dirent.h>
+# include <stdarg.h>
+
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx.h"
@@ -17,7 +21,7 @@
 // # include "mlx_int.h" 	// If included many errors appears
 
 /* Main Winsow */
-# define DEF_ROOT_X 1600		// Window width
+# define DEF_ROOT_X 1600	// Window width
 # define DEF_ROOT_Y 950		// Window Height
 
 # define ORIGINE_X  270.0f
@@ -39,13 +43,16 @@
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
 
 # define BUTTON_SIZE	19000 * 4	// max button size 8mb [8388608]
-// # define CHAR_SIZE_28	1000 * 4		// max character size size 8mb [8388608]
+// # define CHAR_SIZE_28	1000 * 4	// max character size size 8mb [8388608]
 # define CHAR_SIZE_28	20000 * 4		// max character size size 8mb [8388608]
 # define CHAR_SIZE_16	54140 * 4	// max character size size 8mb [8388608]
 # define FCHAR_MAX		97	// Maximum characters in the pile + space
 # define BUTTON_MAX		16	// Maximum numer of buttons we will use in button creator or in our first menu
 # define BUTTON_STRUCT_PATH	"res/__buttons__/button.struct"
 # define FONT_STRUCT_PATH	"res/__font__/font.struct"
+# define MAP_PATH			"maps"
+
+# define MAX_ERROR_MSG 250 // Max error message size
 
 // # define MENU_BG_COLOR	0x1b2d3b
 // # define PREV_BG_COLOR	0x021626
@@ -179,10 +186,23 @@ typedef struct s_char
 typedef t_char t_font;
 
 
-typedef struct s_alphabet
-{
+// typedef struct s_alphabet
+// {
+//
+// } t_alphabet;
 
-} t_alphabet;
+typedef struct s_map_list
+{
+	int 	total_map;	// Total valide map files found
+	char 	**map_name;	// Name of all files found
+	int		curr_map; 	// current active map (-1) on error
+	char	error;		// Set positive value on error else 0
+	char	error_msg[MAX_ERROR_MSG + NAME_MAX];	// Error Message
+	int		o_x;		// origine x
+	int		o_y;		// origine y
+	int		x;			// width
+	int		y;			// heidth
+} t_map_list;
 
 typedef struct s_event_func
 {
@@ -240,7 +260,7 @@ typedef struct	s_root
 
 
 
-
+int is_dot_fdf(char *str);
 int		file_size(const char *name);
 int		is_dir(const char *name);
 int		is_file(const char *name);
@@ -322,6 +342,10 @@ int bpress_func_1(int key, int x, int y, void *rot);
 int bpress_func_2(int key, int x, int y, void *rot);
 
 void event_func_init(t_root *root);
+
+/* font */
+void printf_text(t_root *root, t_image *img, char *str, ...);
+void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col);
 
 
 #endif
