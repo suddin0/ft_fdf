@@ -1,8 +1,9 @@
 #include "main.h"
 
 
-static char *text_itoa(long long int num)
+static char *text_itoa(long int num)
 {
+	printf("CAME IN TEXT_ITOA [%d] ------ ¨¨¨\n", num);
 	static char str[22];
 	int k;
 	unsigned long long n;
@@ -15,13 +16,16 @@ static char *text_itoa(long long int num)
 		return str;
 	}
 	else if(num < 0)
-		str[k++] = '-';
+		str[0] = '-';
 	n = (num < 0) ? -num : num;
 	while(n != 0)
 	{
-		str[k++] = (n % 10) + 48;
+		str[k] = (n % 10) + 48;
 		n /= 10;
+		k++;
 	}
+	ft_strrev(str);
+	printf("%s\n", str);
 	return (str);
 }
 
@@ -33,7 +37,7 @@ static char *text_itoa(long long int num)
 // void put_text(char *str, t_root *root, int o_x, int o_y)
 
 // put_text(t_root *root, t_image *image, char *str, int x, int y, t_font font)
-int put_text(t_root *root, t_image *image, char *str, ...)
+int put_text(t_root *root, t_image *img, char *str, ...)
 {
 	int i;
 	// int o_width; // origine to width;
@@ -42,33 +46,19 @@ int put_text(t_root *root, t_image *image, char *str, ...)
 	va_list args;
 	int RGBA;
 
-
 	va_start(args, str);
 	ft_memset(o_, 0, 4);
-
 	i = 0;
-	o_[0] = 0; // o_width
-	o_[1] = va_arg(args, int); // o_x
-	o_[2] = va_arg(args, int); // o_y
-	// o_[3] = va_arg(args, int); // font
+	o_[0] = va_arg(args, int); // o_x
+	o_[1] = va_arg(args, int); // o_y
 	font  = va_arg(args, t_font *); // Get tje font;
-	// RGBA  = va_arg(args, int);	// het the RGBA color`
-	RGBA = 0x00ff0000;
-
-
-	// o_width = 0;
-	// font = root->font_24;
+	RGBA = va_arg(args, int);
 	if(!str)
-	{
-		printf ("[-] Error: getting string pointer");
 		return 0;
-	}
-
 	while (str[i])
 	{
-		printf("came there [%d]\n", str[i] - 32);
-		draw_font(font[str[i] - 32], image, o_[1] + o_[0] + font[str[i] - 32].pad_left,  o_[2] + font[str[i] - 32].pad_top, RGBA);
-		o_[0] += font[str[i] - 32].x + font[str[i] - 32].pad_right;
+		draw_font(font[str[i] - 32], img, o_[0] + font[str[i] - 32].pad_left, o_[1] + font[str[i] - 32].pad_top, RGBA);
+		o_[0] +=  font[str[i] - 32].x + font[str[i] - 32].pad_right;
 		i++;
 	}
 	va_end(args);
@@ -78,7 +68,6 @@ int put_text(t_root *root, t_image *image, char *str, ...)
 void printf_text(t_root *root, t_image *img, char *str, ...)
 {
 	int i;
-	// int o_width; // origine to width;
 	int RGBA;
 	int o_[5]; // exta variables
 	t_font *font;
@@ -87,65 +76,65 @@ void printf_text(t_root *root, t_image *img, char *str, ...)
 	va_start(args, str);
 	ft_memset(o_, 0, 5);
 	i = 0;
-	// o_width = 0;
 	font = root->font_24;
 	RGBA = 0xffffffff;
-	o_[0] = img->o_y; // o_width
-	o_[1] = 0; // o_x
-	o_[2] = 0; // o_y
+	o_[0] = 10; // o_x
+	o_[1] = 10; // o_y
 
 	while (str[i])
 	{
 		printf("came there [%d]i[%c]\n", str[i] - 32, str[i]);
 		if(str[i] == '%')
 		{
-			// put_text(t_root *root, t_image *image, char *str, int x, int y, t_font font)
-
-			if(str[i + 1] && str[i + 1] == 's')
-			{
-				o_[0] += put_text(root, img, va_arg(args, char *), o_[1], o_[2], font, RGBA);
-				i++;
-			}
-			else if(str[i + 1] && str[i + 1] == 'd')
-			{
-				o_[0] += put_text(root, img, text_itoa(va_arg(args, int)), o_[1], o_[2], font, RGBA);
-				i++;
-			}
-			else if(str[i + 1] && str[i + 1] == 'f')
-			{
-				font = va_arg(args, t_font *);
-				i++;}
-			else if(str[i + 1] && str[i + 1] == 'C')
+			if(str[i + 1] && str[i + 1] == 'C')
 			{
 				RGBA = va_arg(args, int);
-				i++;
-				printf("CAME IN RGBA [%x]---+++\n", RGBA);
-
+				i += 2;
+				continue;
 			}
-			else if(str[i + 1] && str[i + 1] == 'x')
+			if(str[i + 1] && str[i + 1] == 's')
+			{
+				o_[0] = put_text(root, img, va_arg(args, char *), o_[0], o_[1], font, RGBA);
+				i += 2;
+				continue;
+			}
+			if(str[i + 1] && str[i + 1] == 'd')
+			{
+				o_[0] = put_text(root, img, text_itoa(va_arg(args, int)), o_[0], o_[1], font, RGBA);
+				i += 2;
+				continue;
+			}
+			if(str[i + 1] && str[i + 1] == 'x')
+			{
+				o_[0] = va_arg(args, int);
+				i += 2;
+				continue;
+			}
+			if(str[i + 1] && str[i + 1] == 'y')
 			{
 				o_[1] = va_arg(args, int);
-				i++;
+				i += 2;
+				continue;
 			}
-			else if(str[i + 1] && str[i + 1] == 'y')
+			if(str[i + 1] && str[i + 1] == 'f')
 			{
-				o_[2] = va_arg(args, int);
-				i++;
+				font  = va_arg(args, t_font *);
+				i += 2;
+				continue;
 			}
 			else
 			{
-				draw_font(font[str[i] - 32], &(root->menu), o_[1] + o_[0] + font[str[i] - 32].pad_left,  o_[2] + font[str[i] - 32].pad_top, RGBA);
+				draw_font(font[str[i] - 32], img, o_[0] + font[str[i] - 32].pad_left,  o_[1] + font[str[i] - 32].pad_top, RGBA);
 				o_[0] += font[str[i] - 32].x + font[str[i] - 32].pad_right;
-				i++;
 			}
+
 		}
 		else
 		{
-			draw_font(font[str[i] - 32], &(root->menu), o_[1] + o_[0] + font[str[i] - 32].pad_left,  o_[2] + font[str[i] - 32].pad_top, RGBA);
+			draw_font(font[str[i] - 32], img, o_[0] + font[str[i] - 32].pad_left,  o_[1] + font[str[i] - 32].pad_top, RGBA);
 			o_[0] += font[str[i] - 32].x + font[str[i] - 32].pad_right;
-			i++;
-
 		}
+		i++;
 	}
 	va_end(args);
 }

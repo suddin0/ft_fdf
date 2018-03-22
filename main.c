@@ -305,7 +305,7 @@ int main(int argc, char **argv)
 
 	// printf("%s\n", );
 
-	printf_text(&root, &(root.prev), "%CHello there [%123 %s]", 0xff0000ff, "ost");
+	printf_text(&root, &(root.menu), "%C%x%yHello there [%s] [%d]%", 0x99aab5aa, 10, 90, "Lol", 334);
 
 	// ft_printf("-------------------ROTATION_START---------------");
 	// rotat(root.map, rot);
