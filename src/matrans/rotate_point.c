@@ -67,11 +67,18 @@ void trans_y(t_map *a, double v)
 
 void zoom(t_map *a, int v)
 {
-	if ((a->origine_x <= 0 || a->origine_y <= 0 || a->step <= 0) && v <= 0)
+	if ((a->origine_x <= 0 || a->origine_y <= 0 || a->step <= 0) && v < 0)
 	{
-		ft_printf("[!] Reached minimum zoom, cannot unzoom %d\n", v);
+		ft_printf("[!] Reached minimum zoom, cannot unzoom %d o_x[%d] o_y[%d] step[%d]\n", v, a->origine_x, a->origine_y, a->step);
 		return ;
 	}
+	// if((a->step + v) <= 0)
+	// {
+	// 	a->step = 0;
+	// 	return;
+	// }
+	ft_printf("[!++++] Reached minimum zoom, cannot unzoom %d o_x[%d] o_y[%d] step[%d]\n", v, a->origine_x, a->origine_y, a->step);
+
 	a->step += v;
 	a->origine_x += -v;
 	a->origine_y += -v;

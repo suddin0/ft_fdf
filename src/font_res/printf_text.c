@@ -126,7 +126,7 @@ void printf_text(t_root *root, t_image *img, char *str, ...)
 			{
 				draw_font(font[str[i] - 32], img, o_[0] + font[str[i] - 32].pad_left,  o_[1] + font[str[i] - 32].pad_top, RGBA);
 				o_[0] += font[str[i] - 32].x + font[str[i] - 32].pad_right;
-				
+
 			}
 
 		}

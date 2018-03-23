@@ -202,6 +202,9 @@ typedef struct s_map_list
 	int		o_y;		// origine y
 	int		x;			// width
 	int		y;			// heidth
+	int		height;		// Height of each content
+	int		border;		// height of each border
+	int		border_active;	// height of each border
 } t_map_list;
 
 typedef struct s_event_func
@@ -232,6 +235,7 @@ typedef struct s_menu
 	// char	c_opt;			// define at what options it is in 0 (default) 1 (chose map) 3 (info)
 	int 	btn_hover;		// The button that was hovered
 	int 	btn_clicked;	// The button was clicked
+	t_map_list list;
 
 } t_menu;
 
@@ -347,5 +351,8 @@ void event_func_init(t_root *root);
 void printf_text(t_root *root, t_image *img, char *str, ...);
 void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col);
 
+/* list */
+void init_list(char *map_dir, t_map_list *list);
+int is_list_area(t_map_list list, int x, int y);
 
 #endif

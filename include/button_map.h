@@ -111,8 +111,10 @@
 	#define MOUSE_LEFT	1
 	#define MOUSE_MIDLE	3
 	#define MOUSE_RIGHT	2
-	#define MOUSE_GOUP	5	// Scrole up (far from you)
-	#define MOUSE_GODWN	7	// scrole down (tword you)
+	// #define MOUSE_GOUP	5	// Scrole up (far from you) (Was not working with gaming mouse)
+	#define MOUSE_GOUP	4	// Scrole up (far from you)
+	// #define MOUSE_GODWN	7	// scrole down (tword you)
+	#define MOUSE_GODWN	5	// scrole down (tword you) (Was not working with gaming mouse)
 
 	#define BTN_ESC		53
 

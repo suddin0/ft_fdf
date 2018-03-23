@@ -20,9 +20,15 @@ int k_a(t_root *root)
 
 int k_esc(t_root *root)
 {
+	int i;
+
+	i = 0;
 	mlx_destroy_image(root->mlx, root->prev.img_ptr);
 	mlx_destroy_window(root->mlx,root->win);
 	free_map(root->map);
+	while(i != root->men.list.total_map)
+		free(root->men.list.map_name[i++]);
+	free(root->men.list.map_name);
 	printf("[!] Exiting the programme\n");
 	exit(EXIT_SUCCESS);
 	return (0);

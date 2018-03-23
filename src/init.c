@@ -37,6 +37,20 @@ void key_set_init(int *set)
 	set[13] = BTN_ESC;
 }
 
+inline static void init_var(t_map_list *list)
+{
+	list->total_map = 0;
+	list->curr_map = -1;
+	list->error = 0; // no rror
+	list->o_x = 0;
+	list->o_y = 60;
+	list->x = MENU_X;
+	list->y = MENU_Y + list->o_y;
+	list->height = 90;
+	list->border = 1;
+	list->border_active = 2;
+}
+
 void init_menu(t_root *root, t_image *m)
 {
 	int fd;
@@ -50,6 +64,7 @@ void init_menu(t_root *root, t_image *m)
 	m->img = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->sl), &(m->end));
 	set_color(m->img, m->x * m->y, m->bg);
 	button_init(root, m);
+	init_var(&(root->men.list));
 	mlx_put_image_to_window(root->mlx, root->win, m->img_ptr, m->o_x, m->o_y);
 }
 

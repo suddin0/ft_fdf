@@ -3,7 +3,7 @@
 
 int k_minus(t_root *root)
 {
-	zoom(root->map, -5);
+	zoom(root->map, -2);
 	draw_map(root->mlx, root->map);
 	mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, \
 		root->prev.o_x, root->prev.o_y);
