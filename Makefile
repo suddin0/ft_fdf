@@ -129,6 +129,7 @@ SRC		=	$(MAIN)							\
 			src/font_res/draw_font.c 		\
 			src/map_list/init_list.c 		\
 			src/map_list/show_list.c 		\
+			src/map_list/free_list.c 		\
 
 
 

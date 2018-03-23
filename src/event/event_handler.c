@@ -15,13 +15,10 @@ int pmotion(int x, int y, t_root *root)
 	int hvr;
 	int hst;
 
+	printf("~~~~~~~~~~~~~~~~~CURRENT OPT[%d]  - X[%d] - Y[%d]\n", root->men.curr_opt, x, y);
 	btn = -1;
 	hvr = root->men.btn_hover;
 	hst = (hvr != -1 && hvr > 0 && hvr < 3) ? root->men.button[hvr].stat : 0;
-
-	// tmp
-	// void printf_text(t_root *root, t_image *img, char *str, ...)
-	printf("PMOTION[x - %d  __  y - %d]\n", x, y);
 	if(hvr != -1 && hvr < 3 &&  root->men.button[hvr].type != TP_RADIO)
 	{
 		draw_button(root->men.button[hvr], &(root->menu), hst);
@@ -135,22 +132,21 @@ void click_menu(t_root *root, int key, int x, int y)
 // 	return (-1);
 // }
 
-void load_map(t_root *root, t_map_list *list, int btn)
-{
+// void load_map(t_root *root, t_map_list *list, int btn)
+// {
+//
+// 	printf("A MAP WAS CLICKED -------------------------> [%d]\n", btn);
+// 	free_map(root->map);
+// 	root->map = get_map(list->map_name[btn], &(root->prev));
+// 	CLEAR(root->prev);
+// 	modmatrix(root->map, rotate_x, 120);
+// 	modmatrix(root->map, rotate_y, 120);
+// 	draw_map(root->mlx, root->map);
+// 	mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, \
+// 	root->prev.o_x, root->prev.o_y);
+// }
 
-	printf("A MAP WAS CLICKED -------------------------> [%d]\n", btn);
-	free_map(root->map);
-	root->map = get_map(list->map_name[btn], &(root->prev));
-	CLEAR(root->prev);
-	modmatrix(root->map, rotate_x, 120);
-	modmatrix(root->map, rotate_y, 120);
-	draw_map(root->mlx, root->map);
 
-
-	mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, \
-	root->prev.o_x, root->prev.o_y);
-
-}
 int bpress(int key, int x, int y, t_root *root)
 {
 	int btn;

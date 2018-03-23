@@ -42,6 +42,8 @@
 # define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
 # define PREV_Y DEF_ROOT_Y - FOOT_Y
 
+# define MAP_LIST_OY 60
+
 # define BUTTON_SIZE	19000 * 4	// max button size 8mb [8388608]
 // # define CHAR_SIZE_28	1000 * 4	// max character size size 8mb [8388608]
 # define CHAR_SIZE_28	20000 * 4		// max character size size 8mb [8388608]
@@ -354,5 +356,8 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col);
 /* list */
 void init_list(char *map_dir, t_map_list *list);
 int is_list_area(t_map_list list, int x, int y);
+void show_list(t_map_list *list, t_root *root);
+void load_map(t_root *root, t_map_list *list, int btn);
+void free_list(t_map_list *list);
 
 #endif

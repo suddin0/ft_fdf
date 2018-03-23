@@ -43,7 +43,7 @@ inline static void init_var(t_map_list *list)
 	list->curr_map = -1;
 	list->error = 0; // no rror
 	list->o_x = 0;
-	list->o_y = 60;
+	list->o_y = MAP_LIST_OY;
 	list->x = MENU_X;
 	list->y = MENU_Y + list->o_y;
 	list->height = 90;
@@ -63,6 +63,7 @@ void init_menu(t_root *root, t_image *m)
 	m->img_ptr = mlx_new_image(root->mlx, m->x , m->y);
 	m->img = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->sl), &(m->end));
 	set_color(m->img, m->x * m->y, m->bg);
+	root->men.curr_opt = 0;
 	button_init(root, m);
 	init_var(&(root->men.list));
 	mlx_put_image_to_window(root->mlx, root->win, m->img_ptr, m->o_x, m->o_y);

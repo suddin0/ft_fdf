@@ -1,6 +1,22 @@
 #include "main.h"
 
 
+void load_map(t_root *root, t_map_list *list, int btn)
+{
+
+	printf("A MAP WAS CLICKED -------------------------> [%d]\n", btn);
+	free_map(root->map);
+	root->map = get_map(list->map_name[btn], &(root->prev));
+	CLEAR(root->prev);
+	modmatrix(root->map, rotate_x, 120);
+	modmatrix(root->map, rotate_y, 120);
+	draw_map(root->mlx, root->map);
+	mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, \
+	root->prev.o_x, root->prev.o_y);
+}
+
+
+
 void draw_border(t_image *img, int start, int height, int col)
 {
 	int x;

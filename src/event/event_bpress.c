@@ -74,8 +74,9 @@ int bpress_func_1(int key, int x, int y, void *rot)
 		}
 		else if(key == MOUSE_GOUP)
 		{
-			init_list(MAP_PATH, &(root->men.list));
-			root->men.list.o_y -= 30;
+			// init_list(MAP_PATH, &(root->men.list));
+			if(root->men.list.o_y < MAP_LIST_OY)
+				root->men.list.o_y += 40;
 			CLEAR(root->menu);
 			show_list(&(root->men.list), root);
 			mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
@@ -84,8 +85,9 @@ int bpress_func_1(int key, int x, int y, void *rot)
 		}
 		else if(key == MOUSE_GODWN)
 		{
-			init_list(MAP_PATH, &(root->men.list));
-			root->men.list.o_y += 30;
+			// init_list(MAP_PATH, &(root->men.list));
+			if(root->men.list.o_y > -((root->men.list.height * (root->men.list.total_map - 10) ) - MAP_LIST_OY) )
+				root->men.list.o_y -= 40;
 			CLEAR(root->menu);
 			show_list(&(root->men.list), root);
 			mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
@@ -93,6 +95,9 @@ int bpress_func_1(int key, int x, int y, void *rot)
 
 		}
 	}
+	draw_button(root->men.button[0], &(root->menu), root->men.button[0].stat);
+	draw_button(root->men.button[1], &(root->menu), root->men.button[1].stat);
+	draw_button(root->men.button[2], &(root->menu), root->men.button[2].stat);
 	return (0);
 }
 
