@@ -114,37 +114,6 @@ void click_menu(t_root *root, int key, int x, int y)
 	// 	printf("Print The Third button\n");
 }
 
-// int is_list_area(t_map_list list, int x, int y)
-// {
-// 	int i;
-//
-// 	i = 1;
-// 	printf("CAME INSIDE IS_LIST_AREA\n");
-// 	while(i < list.total_map)
-// 	{
-// 		printf("CAME INSIDE WHILE IS_LIST_AREA i[%d] x[%d] - y[%d]\n", i, x, y);
-// 		if(x > (list.o_x *  i) && x < (list.o_x) + MENU_X && y > (list.o_y * i) && y < (list.o_y) + (list.height * i))
-// 		{
-// 			return (i - 1);
-// 		}
-// 		i++;
-// 	}
-// 	return (-1);
-// }
-
-// void load_map(t_root *root, t_map_list *list, int btn)
-// {
-//
-// 	printf("A MAP WAS CLICKED -------------------------> [%d]\n", btn);
-// 	free_map(root->map);
-// 	root->map = get_map(list->map_name[btn], &(root->prev));
-// 	CLEAR(root->prev);
-// 	modmatrix(root->map, rotate_x, 120);
-// 	modmatrix(root->map, rotate_y, 120);
-// 	draw_map(root->mlx, root->map);
-// 	mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, \
-// 	root->prev.o_x, root->prev.o_y);
-// }
 
 
 int bpress(int key, int x, int y, t_root *root)
@@ -176,15 +145,7 @@ int bpress(int key, int x, int y, t_root *root)
 				else
 					root->evnt.bpress[root->men.curr_opt](key, x, y, root);
 			}
-			// else if(root->men.curr_opt == 1)
-			// {
-			// 	if(key == MOUSE_LEFT && x < 0 (btn = is_list_area(root->men.list, x, y)) != -1)
-			// 	{
-			// 		load_map(root, &(root->men.list), btn);
-			// 	}
-			// 	else
-			// 		printf("AFTER ID ------ the button undettected is [%d]\n", btn);
-			// }
+
 	return (0);
 }
 

@@ -28,6 +28,8 @@ int b1(t_root *root)
 	draw_button(root->men.button[1], &(root->menu), root->men.button[1].stat);
 	draw_button(root->men.button[2], &(root->menu), root->men.button[2].stat);
 	root->men.curr_opt = 1;
+	if(root->men.list.map_name)
+		free_list(&(root->men.list));
 	init_list(MAP_PATH, &(root->men.list));
 	show_list(&(root->men.list), root);
 

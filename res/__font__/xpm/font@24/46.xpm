@@ -1,11 +1,9 @@
 /* XPM */
 static char *_6[] = {
 /* columns rows colors chars-per-pixel */
-"3 4 1 1 ",
+"2 2 1 1 ",
 "  c red",
 /* pixels */
-"   ",
-"   ",
-"   ",
-"   "
+"  ",
+"  "
 };

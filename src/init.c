@@ -41,6 +41,7 @@ inline static void init_var(t_map_list *list)
 {
 	list->total_map = 0;
 	list->curr_map = -1;
+	list->map_name = NULL;
 	list->error = 0; // no rror
 	list->o_x = 0;
 	list->o_y = MAP_LIST_OY;

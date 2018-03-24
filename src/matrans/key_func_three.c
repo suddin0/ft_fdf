@@ -29,6 +29,7 @@ int k_esc(t_root *root)
 	while(i != root->men.list.total_map)
 		free(root->men.list.map_name[i++]);
 	free(root->men.list.map_name);
+	free(root->font_24);
 	printf("[!] Exiting the programme\n");
 	exit(EXIT_SUCCESS);
 	return (0);

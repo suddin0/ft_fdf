@@ -117,6 +117,8 @@ int main(int argc, char **argv)
 
 	// show_list(&list, &root);
 
+	printf_text(&root, &(root.foot), "%x%y%CZOOM: %d", 2, 5, 0x777777ff, 50);
+
 	ft_printf("me [% 3zi] \n", 0);
 	   printf("vr [% 3zi] \n", 0);
 
