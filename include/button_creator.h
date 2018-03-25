@@ -65,11 +65,26 @@
 # define OY_ROTATE	(MENU_Y / 2) - (Y_ROTATE	+ 20)
 
 # define FONT_24_SMALL_PAD_TOP			6
-# define FONT_24_SMALL_SMALL_PAD_TOP 	20	// , .
-# define FONT_24_SMALL_MIDLE_PAD_TOP 	14	// - ~
+# define FONT_24_SMALL_SMALL_PAD_TOP 	21	// , .
+# define FONT_24_SMALL_MIDLE_PAD_TOP 	11	// - ~
 # define FONT_24_SMALL_UNDER_PAD_TOP 	24	// _
-# define FONT_24_SMALL_EQUAL_PAD_TOP 	11	// =
+# define FONT_24_SMALL_EQUAL_PAD_TOP 	10	// =
 # define FONT_24_SMALL_AT_PAD_TOP		2	// @
+
+# define FONT_18_SMALL_PAD_TOP			5
+# define FONT_18_SMALL_SMALL_PAD_TOP 	16	// , .
+# define FONT_18_SMALL_MIDLE_PAD_TOP 	8	// - ~
+# define FONT_18_SMALL_UNDER_PAD_TOP 	20	// _
+# define FONT_18_SMALL_EQUAL_PAD_TOP 	6	// =
+# define FONT_18_SMALL_AT_PAD_TOP		2	// @
+
+# define FONT_11_SMALL_PAD_TOP			3
+# define FONT_11_SMALL_SMALL_PAD_TOP 	10	// , .
+# define FONT_11_SMALL_MIDLE_PAD_TOP 	6	// - ~
+# define FONT_11_SMALL_UNDER_PAD_TOP 	12	// _
+# define FONT_11_SMALL_EQUAL_PAD_TOP 	4	// =
+# define FONT_11_SMALL_AT_PAD_TOP		2	// @
+
 
 
 

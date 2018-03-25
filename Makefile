@@ -286,6 +286,7 @@ FONT_NAME	:=		33.xpm	\
 					123.xpm	\
 					124.xpm	\
 					125.xpm	\
+					126.xpm	\
 					127.xpm	\
 
 FONT@24_NAME = $(addprefix $(XPM_FONT@24_PATH)/, $(FONT_NAME))
@@ -391,8 +392,8 @@ $(FONT_24_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
-$(FONT_24_STRUCT) :
-	@make button_make --no-print-directory
+$(FONT_24_STRUCT) : $(P_FONT_24_CREATOR)
+	@make font_24_make --no-print-directory
 
 font_24_make: $(P_BIN) $(FONT_24_CREATOR) $(XPM_FONT_PATH)
 	@./$(FONT_24_CREATOR) $(FONT@24_NAME)
@@ -416,8 +417,8 @@ $(FONT_18_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
-$(FONT_18_STRUCT) :
-	@make button_make --no-print-directory
+$(FONT_18_STRUCT) : $(P_FONT_24_CREATOR)
+	@make font_18_make --no-print-directory
 
 font_18_make: $(P_BIN) $(FONT_18_CREATOR) $(XPM_FONT_PATH)
 	@./$(FONT_18_CREATOR) $(FONT@18_NAME)
@@ -440,8 +441,8 @@ $(FONT_11_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
-$(FONT_11_STRUCT) :
-	@make button_make --no-print-directory
+$(FONT_11_STRUCT) : $(P_FONT_24_CREATOR)
+	@make font_11_make --no-print-directory
 
 font_11_make: $(P_BIN) $(FONT_11_CREATOR) $(XPM_FONT_PATH)
 	@./$(FONT_11_CREATOR) $(FONT@11_NAME)

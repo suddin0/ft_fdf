@@ -15,7 +15,6 @@ int pmotion(int x, int y, t_root *root)
 	int hvr;
 	int hst;
 
-	printf("~~~~~~~~~~~~~~~~~CURRENT OPT[%d]  - X[%d] - Y[%d]\n", root->men.curr_opt, x, y);
 	btn = -1;
 	hvr = root->men.btn_hover;
 	hst = (hvr != -1 && hvr > 0 && hvr < 3) ? root->men.button[hvr].stat : 0;
@@ -38,7 +37,6 @@ int pmotion(int x, int y, t_root *root)
 				root->menu.o_x, root->menu.o_y);
 			root->men.btn_hover = btn;
 			return (1);
-			printf("INSIDE HIVER LIL\n");
 		}
 		else
 			root->evnt.pmotion[root->men.curr_opt](x, y, root);
@@ -62,12 +60,20 @@ int key_in_set(int key, t_root *root)
 	return (-1);
 }
 
+
+int kpress_exec(t_root *root)
+{
+	CLEAR(root->prev);
+	(root->kevent)[key_in_set(root->key, root)](root);
+	return 0;
+}
+
 int kpress(int key, t_root *root)
 {
 	if(key_in_set(key, root) != -1)
 	{
-		CLEAR(root->prev);
-		(root->kevent)[key_in_set(key, root)](root);
+		root->key = key;
+		mlx_loop_hook(root->mlx, kpress_exec, root);
 	}
 	return 1;
 }
@@ -80,41 +86,18 @@ int krelease(int key, t_root *root)
 	int clk;
 
 	clk = root->men.btn_clicked;
-	printf("Came in release BUTTON [%d] X[%d] int Y[%d]\n", key, root->sz_x, root->sz_y);
-
-	// if(clk != -1 && key == MOUSE_LEFT)
-	// {
-	// 	if(root->men.button[clk].type == TP_RADIO)
-	// 		return (0);
-	// 	draw_button(root->men.button[clk], &(root->menu), ST_DEFAULT);
-	// 	mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
-	// 		root->menu.o_x, root->menu.o_y);
-	// 	root->men.btn_clicked = -1;
-	// 	root->men.button[clk].stat = ST_DEFAULT;
-	// }
+	root->key = 0;
+	mlx_loop_hook(root->mlx, NULL, NULL);
 	return 1;
 }
 
 int button_press(int x, int y, t_button button)
 {
-	printf("CAME HERE TO CHECK LENGTH X[%d] - Y[%d]  BX[%d] - BY[%d] - BOX[%d] - BOY[%d]\n", x, y, button.x, button.y, button.o_x, button.o_y);
 	if(x > button.o_x && x < button.o_x + button.x && y > button.o_y && y < button.o_y + button.y)
 		return (1);
 	else
 		return (0);
 }
-
-void click_menu(t_root *root, int key, int x, int y)
-{
-	// if ( button_press(x, y, root->men.opt[0]) == 1)
-	// 	printf("Print The first button\n");
-	// else if ( button_press(x, y, root->men.opt[1]) == 1)
-	// 	printf("Print The Second button\n");
-	// else if ( button_press(x, y, root->men.opt[2]) == 1)
-	// 	printf("Print The Third button\n");
-}
-
-
 
 int bpress(int key, int x, int y, t_root *root)
 {
@@ -124,8 +107,6 @@ int bpress(int key, int x, int y, t_root *root)
 
 	btn = -1;
 	clk = root->men.btn_clicked;
-	printf("&&&&&&&&&&&&&&&&&&&&&&&&&&&&KEY PRESSED [%d]\n", key);
-
 		if(x > root->menu.o_x && x < root->menu.o_x + root->menu.x && \
 		   y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
 		  {
@@ -139,7 +120,6 @@ int bpress(int key, int x, int y, t_root *root)
 					root->men.button[btn].f(root);
 					root->men.btn_clicked = btn;
 					root->men.button[btn].stat = ST_ACTIVE;
-					printf("CAME INSIDE BPRESS X[%d] Y[%d] KEY[%d] BTN[%d]\n", x, y, key, btn);
 					return (1);
 				}
 				else
@@ -151,12 +131,9 @@ int bpress(int key, int x, int y, t_root *root)
 
 int brelease(int key, int x, int y, t_root *root)
 {
-	printf("___Button release key[%d] X[%d] Y[%d]___\n", key, x, y);
 	int clk;
 
 	clk = root->men.btn_clicked;
-	printf("Came in release BUTTON [%d] X[%d] int Y[%d]\n", key, x, y);
-
 	if(clk != -1 && key == MOUSE_LEFT)
 	{
 		if(root->men.button[clk].type == TP_RADIO)
@@ -168,12 +145,28 @@ int brelease(int key, int x, int y, t_root *root)
 		root->men.button[clk].stat = ST_DEFAULT;
 	}
 	mlx_loop_hook(root->mlx, NULL, NULL);
-	return 1;
-	// return 0;
+	return (1);
 
 }
 
+int destroy(t_root *root)
+{
+	int i;
 
+	i = 0;
+	mlx_destroy_image(root->mlx, root->prev.img_ptr);
+	mlx_destroy_window(root->mlx,root->win);
+	free_map(root->map);
+	while(i != root->men.list.total_map)
+		free(root->men.list.map_name[i++]);
+	free(root->men.list.map_name);
+	free(root->font_24);
+	free(root->font_18);
+	free(root->font_11);
+	ft_printf("[!] Exiting the programme\n");
+	exit(EXIT_SUCCESS);
+	return (0);
+}
 
 void event_handler(t_root *root)
 {
@@ -183,5 +176,6 @@ void event_handler(t_root *root)
 	mlx_hook(root->win, VISIBL, VISIBL_M, &draw_win, root); // expose
 	mlx_hook(root->win, BPRESS, BPRESS_M, &bpress, root); // button press (mouse)
 	mlx_hook(root->win, BRELEASE, BRELEASE_M, &brelease, root); // button release
+	mlx_hook(root->win, DESTROY, DESTROY_M, &destroy, root); // button release
 
 }

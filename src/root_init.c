@@ -6,17 +6,13 @@ t_font *get_font(char *font_path)
 	int rd;
 	t_font *font;
 
-	// root.font_24 = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1));
 	fd = -1;
-	rd = 0;
 	font = NULL;
-
-	if(!(font = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1)))) // free this space
+	if(!(font = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1))))
 	{
 		ft_printf("[-] Error: Could not allocat enough memory for %s", font_path);
 		exit(-1);
 	}
-
 	fd = open(font_path, O_RDONLY);
 	if(fd < 0)
 	{
@@ -24,8 +20,7 @@ t_font *get_font(char *font_path)
 		perror("Reason");
 		exit(-1);
 	}
-	// read(fd, font, sizeof(t_font) * FCHAR_MAX);
-	if((rd = read(fd, font, sizeof(t_font) * FCHAR_MAX)) <= 0)
+	if(read(fd, font, sizeof(t_font) * FCHAR_MAX) <= 0)
 	{
 		printf("[-] Error: read %s\n", font_path);
 		exit(-1);

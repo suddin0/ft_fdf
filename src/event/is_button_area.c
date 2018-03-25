@@ -18,13 +18,16 @@ int is_button_area(t_button *b, int x, int y)
 int is_list_area(t_map_list list, int x, int y)
 {
 	int i;
+	int j;
 
-	i = 1;
-	while(i < list.total_map)
+	i = 1; // it is multiplied to get the size, if mult by 0 then the result is 0
+	j = 0;
+	while(j < list.total_map)
 	{
 		if(x > (list.o_x *  i) && x < (list.o_x) + MENU_X && y > (list.o_y * i) && y < (list.o_y) + (list.height * i))
 			return (i - 1);
 		i++;
+		j++;
 	}
 	return (-1);
 }

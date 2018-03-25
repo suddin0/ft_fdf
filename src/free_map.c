@@ -37,12 +37,7 @@ void free_map(t_map *map)
 		return ;
 	while(tmp_map)
 	{
-		printf("FREE_MAP 1\n");
-
-		// if (tmp_map->map)
-		// 	free(tmp_map->map);
-		//if (tmp_map->map)
-			free_point(tmp_map, tmp_map->map);
+		free_point(tmp_map, tmp_map->map);
 		free(tmp_map->line_sz);
 		if(tmp_map->data)
 			free_data(tmp_map->data);

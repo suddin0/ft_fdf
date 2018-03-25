@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 
 	modmatrix(map, rotate_x, 120);
 	modmatrix(map, rotate_y, 120);
-	draw_map(root.mlx, root.map);
+	draw_map(&root, root.mlx, root.map);
 
 	printf("HEY, INSIDE MAIN AGAIN map.file_size[%d] map.lines[%d]\n", map->file_sz, map->lines);
 
@@ -106,7 +106,14 @@ int main(int argc, char **argv)
 	// put_text("Coucou", &root, 10, 70);
 	// put_text("^_`abcdefghijklmnopqrstuvwxyz{|}~", &root, 10, 200);
 	// put_text("%fAre Th-e~r-=e_ A@ny Lo,cal Host_.+ 1 + 1 10023 X = 10", &root, 10, 200);
-	printf_text(&root, &(root.prev), "%f!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", root.font_24);
+	// printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", root.font_24, 20, 20);
+	// printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", root.font_18, 20, 90);
+	// printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", root.font_11, 20, 160);
+
+
+	printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+~/E<-,F=-L.,_x./0:;<=>?@-37 CDE[\\]^_`mnopqrstuvwxyz{|}~", root.font_24, 20, 20);
+	printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+~/E<-,F=-L.,_x./0:;<=>?@-37 CDE[\\]^_`mnopqrstuvwxyz{|}~", root.font_18, 20, 60);
+	printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+~/E<-,F=-L.,_x./0:;<=>?@-37 CDE[\\]^_`mnopqrstuvwxyz{|}~", root.font_11, 20, 100);
 
 	// t_map_list list;
 	// init_list(MAP_PATH, &list);
@@ -120,7 +127,7 @@ int main(int argc, char **argv)
 
 	// show_list(&list, &root);
 
-	printf_text(&root, &(root.foot), "%x%y%CZOOM: %d", 2, 5, 0x777777ff, 50);
+	// printf_text(&root, &(root.foot), "%f%x%y%CZOOM: %d", root.font_11, 2, 5, 0x777777ff, 50);
 
 	ft_printf("me [% 3zi] \n", 0);
 	   printf("vr [% 3zi] \n", 0);

@@ -73,6 +73,7 @@
 
 /* Color set for font*/
 # define COL_ERROR 0xD24B4Bff
+# define COL_WHITE 0xffffffff
 
 // # define COL_R(R)		(R >> 16)
 // # define COL_G(G)		((G >> 8) & 0xFF)
@@ -93,6 +94,8 @@
 # define BRELEASE	NN_ButtonRelease
 # define KRELEASE	NN_KeyRelease
 # define VISIBL		NN_VisibilityNotify
+# define DESTROY	NN_DestroyNotify
+
 # define ST_DEFAULT	0 // Button stat default
 # define ST_HOVER	1 // Button stat hover
 # define ST_ACTIVE	2 // Button stat active
@@ -108,7 +111,10 @@
 # define BRELEASE_M	NN_ButtonReleaseMask
 # define KRELEASE_M	NN_KeyReleaseMask
 # define VISIBL_M	NN_VisibilityChangeMask
+# define DESTROY_M	NN_StructureNotifyMask
+
 # define COLOR(MLX_PTR, H_COLOR) mlx_get_color_value(MLX_PTR, H_COLOR)
+# define VIEW mlx_put_image_to_window
 # define CLEAR(I) set_color(I.img, I.x * I.y, I.bg);
 # define MAX_EVENT_KEY 15
 
@@ -268,6 +274,7 @@ typedef struct	s_root
 	t_image	foot; 	// Footer section
 	// char	opt;	// This store the option you are in (Controle_map / Select_Map/ Info_fdf)
 	t_menu 	men;
+	int 	key;
 	int 	(*(kevent[MAX_EVENT_KEY]))(struct s_root *root); // Functions executed in key press
 	t_event_func	evnt;
 	int		key_set[MAX_EVENT_KEY];
@@ -275,8 +282,6 @@ typedef struct	s_root
 	t_font	*font_18;
 	t_font	*font_11;
 } t_root;
-
-
 
 int is_dot_fdf(char *str);
 int		file_size(const char *name);
@@ -308,7 +313,7 @@ void	event_handler(t_root *root);
 void	draw_line(t_map  *map, t_point o, t_point n, int color);
 void  	draw_dot(t_map *img, t_point o, t_point n, int color);
 // void	draw_map(void *v, t_map *map, t_image *img);
-void draw_map(void *img_ptr, t_map *map);
+void draw_map(t_root *root, void *img_ptr, t_map *map);
 
 
 void modmatrix(t_map *map, void f(t_point *a, double val), double rot);

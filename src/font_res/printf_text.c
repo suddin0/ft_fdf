@@ -1,21 +1,20 @@
 #include "main.h"
 
 
-static char *text_itoa(long int num)
+static char *text_itoa(int num)
 {
 	static char str[22];
 	int k;
-	unsigned long long n;
+	long n;
+	char sign;
 
 	k = 0;
+	sign = 0;
 	memset(str, 0, 22);
-	if(num == 0)
-	{
-		str[k] = '0';
-		return str;
-	}
+	if(num == 0 && (str[k] = '0') > 0)
+		return (str);
 	else if(num < 0)
-		str[0] = '-';
+		sign = 1;
 	n = (num < 0) ? -num : num;
 	while(n != 0)
 	{
@@ -23,16 +22,13 @@ static char *text_itoa(long int num)
 		n /= 10;
 		k++;
 	}
+	if(sign == 1)
+		str[k] = '-';
 	ft_strrev(str);
-	printf("%s\n", str);
 	return (str);
 }
 
 
-
-// void put_text(char *str, t_root *root, int o_x, int o_y)
-
-// put_text(t_root *root, t_image *image, char *str, int x, int y, t_font font)
 int put_text(t_root *root, t_image *img, char *str, ...)
 {
 	int i;
@@ -54,7 +50,7 @@ int put_text(t_root *root, t_image *img, char *str, ...)
 	while (str[i])
 	{
 		if(!ft_isprint(str[i]))
-			str[i] = 125;
+			str[i] = 127;
 		draw_font(font[str[i] - 32], img, o_[0] + font[str[i] - 32].pad_left, o_[1] + font[str[i] - 32].pad_top, RGBA);
 		o_[0] +=  font[str[i] - 32].x + font[str[i] - 32].pad_right;
 		i++;
@@ -75,13 +71,12 @@ void printf_text(t_root *root, t_image *img, char *str, ...)
 	ft_memset(o_, 0, 5);
 	i = 0;
 	font = root->font_18;
-	RGBA = 0xffffffff;
+	RGBA = COL_WHITE;
 	o_[0] = 10; // o_x
 	o_[1] = 10; // o_y
 
 	while (str[i])
 	{
-		printf("came there [%d]i[%c]\n", str[i] - 32, str[i]);
 		if(!ft_isprint(str[i]))
 			str[i] = 127;
 		if(str[i] == '%')

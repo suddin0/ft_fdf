@@ -12,7 +12,8 @@ int pmotion_func_0(int x, int y, void *rot)
 	btn = -1;
 	hvr = root->men.btn_hover;
 	hst = (hvr != -1) ? root->men.button[hvr].stat : 0;
-	if(hvr != -1 &&  root->men.button[hvr].type != TP_RADIO)
+	// if(hvr != -1 &&  root->men.button[hvr].type != TP_RADIO)
+	if(hvr != -1)
 	{
 		draw_button(root->men.button[hvr], &(root->menu), hst);
 		mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \

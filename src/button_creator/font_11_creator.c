@@ -26,15 +26,12 @@ int main(int argc, char **argv)
 
 	if(font_verif(argc, argv) == -1)
 		return(-1);
-
 	root.mlx = mlx_init();
 	font11_struct_init(fdata);
 	i = 1;
 	ch_count = 0;
-
 	char_init(&(chr[ch_count++])); // initiat char for the space character
 	chr[0].ascii = 32;	// space
-
 	while (i != argc)
 	{
 		ig.img_ptr = mlx_xpm_file_to_image(root.mlx, argv[i], &(ig.x), &(ig.y));
@@ -52,16 +49,13 @@ int main(int argc, char **argv)
 			exit(-1);
 		}
 		char_init(&(chr[ch_count]));
-		// name_copy(char *dest, char *src);
 		size_check(argv[i], ig.x, ig.x, CHAR_SIZE_28);
-
 		chr[ch_count].x = ig.x;
 		chr[ch_count].y = ig.y;
 		chr[ch_count].ascii = name_to_num(argv[i]);
 		printf("[FONT][%3d][%c] IG.X[%3d] - IG.Y[%3d]  CHR.X[%3d] - CHR.Y[%3d] MAX[%3d] TOTAL[%d]\n", i, chr[ch_count].ascii, ig.x, ig.y, chr[ch_count].x, chr[ch_count].y, ig.x * ig.y, ( ig.x * ig.y) * 4);
 		ft_memcpy(chr[ch_count].data, ig.img, (ig.x * ig.y) * 4);
 		mlx_destroy_image(root.mlx, ig.img_ptr);
-		// printf("NAME [%s]\n", b[i].name);
 		i++;
 		ch_count++;
 	}

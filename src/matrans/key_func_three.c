@@ -3,7 +3,7 @@
 int k_z(t_root *root)
 {
 	modmatrix(root->map, rotate_z, 0.10);
-	draw_map(root->mlx, root->map);
+	draw_map(root, root->mlx, root->map);
 	mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, \
 		root->prev.o_x, root->prev.o_y);
 	return (0);
@@ -12,7 +12,7 @@ int k_z(t_root *root)
 int k_a(t_root *root)
 {
 	modmatrix(root->map, rotate_z, -0.10);
-	draw_map(root->mlx, root->map);
+	draw_map(root, root->mlx, root->map);
 	mlx_put_image_to_window(root->mlx, root->win, root->prev.img_ptr, \
 		root->prev.o_x, root->prev.o_y);
 	return (0);
@@ -30,6 +30,8 @@ int k_esc(t_root *root)
 		free(root->men.list.map_name[i++]);
 	free(root->men.list.map_name);
 	free(root->font_24);
+	free(root->font_18);
+	free(root->font_11);
 	printf("[!] Exiting the programme\n");
 	exit(EXIT_SUCCESS);
 	return (0);
