@@ -1,0 +1,13 @@
+/* XPM */
+static char *_4[] = {
+/* columns rows colors chars-per-pixel */
+"4 4 3 1 ",
+"  c #3F0202",
+". c #400202",
+"X c red",
+/* pixels */
+"X. X",
+"X. X",
+"X. X",
+"X. X"
+};
