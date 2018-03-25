@@ -14,6 +14,7 @@ void char_init(t_char *chr)
 }
 
 
+
 int main(int argc, char **argv)
 {
 	t_root root;
@@ -22,6 +23,9 @@ int main(int argc, char **argv)
 	t_image ig;
 	int i;
 	int ch_count;
+
+	if(font_verif(argc, argv) == -1)
+		return(-1);
 
 	root.mlx = mlx_init();
 	font24_struct_init(fdata);
@@ -38,7 +42,6 @@ int main(int argc, char **argv)
 		{
 			printf("[-] Error: getting mlx image pointer for %s\n", argv[i]);
 			perror("[!] Reason");
-			// free_file(file, argc);
 			exit(-1);
 		}
 		ig.img = mlx_get_data_addr(ig.img_ptr, &(ig.bpp), &(ig.sl), &(ig.end));
@@ -46,7 +49,6 @@ int main(int argc, char **argv)
 		{
 			printf("[-] Error: getting mlx data pointer for [%s]\n", argv[i]);
 			perror("[!] Reason");
-			// free_file(file, argc);
 			exit(-1);
 		}
 		char_init(&(chr[ch_count]));
@@ -69,8 +71,6 @@ int main(int argc, char **argv)
 	}
 	font_struct_manage(chr, fdata);
 	write_struct_font(chr, FONT_STRUCT_PATH);
-
-	// free_file(file, argc);
 	exit(0);
 	return (0);
 }

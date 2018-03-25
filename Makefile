@@ -159,6 +159,8 @@ FONT_SRC =		src/button_creator/size_check.c			\
 				src/button_creator/name_copy.c			\
 				src/button_creator/font24_struct_init.c	\
 				src/button_creator/font_struct_manage.c	\
+				src/button_creator/font_verif.c			\
+				src/map_perser/is_file.c				\
 
 
 

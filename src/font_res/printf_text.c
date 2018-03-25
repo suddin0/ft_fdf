@@ -3,7 +3,6 @@
 
 static char *text_itoa(long int num)
 {
-	printf("CAME IN TEXT_ITOA [%d] ------ ¨¨¨\n", num);
 	static char str[22];
 	int k;
 	unsigned long long n;
@@ -28,9 +27,6 @@ static char *text_itoa(long int num)
 	printf("%s\n", str);
 	return (str);
 }
-
-
-
 
 
 

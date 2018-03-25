@@ -48,11 +48,19 @@
 // # define CHAR_SIZE_28	1000 * 4	// max character size size 8mb [8388608]
 # define CHAR_SIZE_28	20000 * 4		// max character size size 8mb [8388608]
 # define CHAR_SIZE_16	54140 * 4	// max character size size 8mb [8388608]
-# define FCHAR_MAX		97	// Maximum characters in the pile + space
+# define FCHAR_MAX		98	// Maximum characters in the pile + space
 # define BUTTON_MAX		16	// Maximum numer of buttons we will use in button creator or in our first menu
-# define BUTTON_STRUCT_PATH	"res/__buttons__/button.struct"
-# define FONT_STRUCT_PATH	"res/__font__/font.struct"
-# define MAP_PATH			"maps"
+
+/* File paths */
+# define BUTTON_STRUCT_PATH		"res/__buttons__/button.struct"
+# define FONT_STRUCT_PATH	"res/__font__/font@24.struct"
+# define FONT_18_STRUCT_PATH	"res/__font__/font@18.struct"
+# define FONT_11_STRUCT_PATH	"res/__font__/font@11.struct"
+
+// # define FONT_24_STRUCT_PATH	"res/__font__/font@24.struct"
+// # define FONT_18_STRUCT_PATH	"res/__font__/font@18.struct"
+// # define FONT_11_STRUCT_PATH	"res/__font__/font@11.struct"
+# define MAP_PATH				"maps"
 
 # define MAX_ERROR_MSG 250 // Max error message size
 
@@ -62,6 +70,9 @@
 # define FOOT_BG_COLOR	0x383f49
 # define PREV_BG_COLOR	0x323842
 # define MAP_COLOR		0xe0e0bd
+
+/* Color set for font*/
+# define COL_ERROR 0xD24B4Bff
 
 // # define COL_R(R)		(R >> 16)
 // # define COL_G(G)		((G >> 8) & 0xFF)

@@ -20,9 +20,6 @@ static int is_num_hex(char c)
 }
 
 
-
-
-
 static long line_pnt(char *str, long line)
 {
 	long i;
@@ -30,13 +27,17 @@ static long line_pnt(char *str, long line)
 	i = line;
 	if(!str)
 		return (0);
-	while(str[i] && str[i] != 0xA) // 0xA = line feed (new line)
+	while(str[i] && str[i] != '\n') // 0xA = line feed (new line)
 		i++;
 		// printf("CAME HERE LINE_PNT i[%d]\n", i);
-	if (i == line || str[i] == 0)
-		return (0);	// if new line wasn't found and i was not changed because
+	if (i == line && str[i] != 0)
+		return (-2);	// if new line wasn't found and i was not changed because
 		 			// there zas nothing to read, then we have reached the end of
 					// file
+	if (i == line || str[i] == 0)
+		return (0);	// if new line wasn't found and i was not changed because
+						 			// there zas nothing to read, then we have reached the end of
+									// file
 	return (i);
 }
 
@@ -94,8 +95,13 @@ t_map *get_map(char *name, t_image *img)
 	map->origine_x = ORIGINE_X;
 	map->origine_y = ORIGINE_Y;
 	map->step = STEP;
-	while((n_line = line_pnt(mp, o_line)) > 0)
+	while((n_line = line_pnt(mp, o_line)) != 0)
 	{
+		if(n_line == -2)
+		{
+			o_line++;
+			continue;
+		}
 		// printf("CAME HERE WHILE GET_MAP\n");
 		data = (t_m_data *) malloc(sizeof(t_m_data));
 		data->next = NULL;
@@ -110,7 +116,7 @@ t_map *get_map(char *name, t_image *img)
 		data->next = map->data; // data = 4 -- m->data = 3
 		data_prev  = data;      // data_prev = 4
 		map->data = data;       // m->data = 4  m->data->next = 3
-		if(data->next) // set the previous
+		if(data->next) 			// set the previous
 			data->next->prev = data_prev; // data->next->prev = 4
 		while(data)
 			data = data->next;

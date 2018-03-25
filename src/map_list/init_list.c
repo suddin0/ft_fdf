@@ -45,6 +45,13 @@ inline static void set_error_message(t_map_list *list, char *map_dir,  int error
 		ft_strcat(list->error_msg, map_dir);
 		ft_strcat(list->error_msg, " could not been open");
 	}
+	else if(error_no == 3)
+	{
+		list->error = 3;
+		ft_strcpy(list->error_msg, "[-] Error: Can not access ");
+		ft_strcat(list->error_msg, map_dir);
+		ft_strcat(list->error_msg, ". (Path might nit access)");
+	}
 }
 
 // inline static void init_var(t_map_list *list)
@@ -86,6 +93,11 @@ void init_list(char *map_dir, t_map_list *list)
 	char *tmp_file;
 
 	// init_var(list);
+	if(!is_dir(map_dir))
+	{
+		set_error_message(list, map_dir, 3);
+		return ;
+	}
 	if((list->total_map = dir_file_count_list(map_dir)) == 0)
 		set_error_message(list, map_dir, 1);
 	dir = opendir(map_dir);

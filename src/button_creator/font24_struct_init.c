@@ -1,18 +1,5 @@
 #include "button_creator.h"
 
-// typedef struct s_font_create_data
-// {
-// 	// char name[100];
-// 	// int ascii;
-// 	// int x;
-// 	// int y;
-// 	int pad_left;
-// 	int pad_right;
-// 	int pad_top;
-// } t_f_create_data;
-
-
-
 static void pad_left_init(t_f_create_data *fdata)
 {
 	int i;

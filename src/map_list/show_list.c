@@ -42,6 +42,11 @@ void show_list(t_map_list *list, t_root *root)
 	int div_height; // height of each division
 	int border;		// border height;
 
+	if(list->error > 0)
+	{
+		printf_text(root, &(root->menu), "%C%x%y%s", COL_ERROR, 10, list->height + 10 , list->error_msg);
+		return ;
+	}
 	i = 0;
 	curr_x = list->o_x;
 	curr_y = list->o_y;

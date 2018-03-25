@@ -2,21 +2,6 @@
 #include "button_creator.h"
 
 
-// int file_check(int argc, char ***argv)
-// {
-// 	int i;
-//
-// 	i = 0;
-// 	while (i != argc - 1)
-// 	{
-// 		printf("CAME IIN FILE_CHECK [%d] [%s] - [%s] - [%s]\n", i, argv[i][0], argv[i][1], argv[i][2]);
-// 		if(is_file(argv[i][0]) <= 0 || is_file(argv[i][1]) <= 0 || is_file(argv[i][2]) <= 0)
-// 			return (i + 1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 int create_name(char ****file, int argc, char **argv)
 {
 	int lim;
@@ -49,47 +34,6 @@ int create_name(char ****file, int argc, char **argv)
 	(*file)[jim] = 0;
 	return (1);
 }
-
-
-// void name_copy(char *dest, char *src)
-// {
-// 	int len;
-// 	int start;
-// 	int end;
-// 	int i;
-//
-// 	if(!dest || !src)
-// 		return;
-// 	start = 0;
-// 	i = 0;
-// 	len = ft_strlen(src);
-// 	while(len-- && src[len] != '/');
-// 	start = (len == 0) ? len : len + 1;
-// 	end =  ft_strlen(&(src[start])) - 6;
-// 	while (i != end && src[start])
-// 		dest[i++] = src[start++];
-// 	dest[i] = 0;
-// }
-
-//
-// void size_check(char *name, int a, int  b)
-// {
-// 	if ((a * b) > BUTTON_SIZE)
-// 	{
-// 		ft_printf("[-] Error size: %s is too larg to hold in stake %dmb, max size %dmb\n", name, a * b, BUTTON_SIZE);
-// 		exit(-1);
-// 	}
-// }
-
-
-// void write_struct(t_button b[], char *path)
-// {
-// 	int fd;
-//
-// 	fd = open(path, O_WRONLY | O_CREAT, 0644);
-// 	write(fd, b, sizeof(t_button) * BUTTON_MAX);
-// 	close(fd);
-// }
 
 void show_image(char *img, int x, int y)
 {
