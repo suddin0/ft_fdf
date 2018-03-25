@@ -74,7 +74,7 @@ void printf_text(t_root *root, t_image *img, char *str, ...)
 	va_start(args, str);
 	ft_memset(o_, 0, 5);
 	i = 0;
-	font = root->font_24;
+	font = root->font_18;
 	RGBA = 0xffffffff;
 	o_[0] = 10; // o_x
 	o_[1] = 10; // o_y

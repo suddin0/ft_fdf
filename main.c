@@ -69,24 +69,27 @@ int main(int argc, char **argv)
 
 	int fd;
 	// t_char chr[FCHAR_MAX];
-	t_font *font;
 
-	root.font_24 = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1));
 
-	fd = open(FONT_STRUCT_PATH, O_RDONLY);
-	if(fd < 0)
-	{
-		printf("[-] Error: opening %s\n", FONT_STRUCT_PATH);
-		perror("Reason");
-		exit(-1);
-	}
-	read(fd, root.font_24, sizeof(t_font) * FCHAR_MAX);
-	if(read <= 0)
-	{
-		printf("[-] Error: read %s\n", FONT_STRUCT_PATH);
-		exit(-1);
-	}
-	font = root.font_24;
+
+	// t_font *font;
+    //
+	// root.font_24 = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1));
+    //
+	// fd = open(FONT_STRUCT_PATH, O_RDONLY);
+	// if(fd < 0)
+	// {
+	// 	printf("[-] Error: opening %s\n", FONT_STRUCT_PATH);
+	// 	perror("Reason");
+	// 	exit(-1);
+	// }
+	// read(fd, root.font_24, sizeof(t_font) * FCHAR_MAX);
+	// if(read <= 0)
+	// {
+	// 	printf("[-] Error: read %s\n", FONT_STRUCT_PATH);
+	// 	exit(-1);
+	// }
+	// font = root.font_24;
 
 
 
@@ -102,8 +105,8 @@ int main(int argc, char **argv)
 
 	// put_text("Coucou", &root, 10, 70);
 	// put_text("^_`abcdefghijklmnopqrstuvwxyz{|}~", &root, 10, 200);
-	// put_text("Are Th-e~r-=e_ A@ny Lo,cal Host_.+ 1 + 1 10023 X = 10", &root, 10, 200);
-	// put_text("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", &root, 10, 70);
+	// put_text("%fAre Th-e~r-=e_ A@ny Lo,cal Host_.+ 1 + 1 10023 X = 10", &root, 10, 200);
+	printf_text(&root, &(root.prev), "%f!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", root.font_24);
 
 	// t_map_list list;
 	// init_list(MAP_PATH, &list);

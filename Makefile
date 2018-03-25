@@ -134,10 +134,14 @@ SRC		=	$(MAIN)							\
 
 
 BUTTON_CREATOR 	= $(P_BIN)/button_creator
-FONT_CREATOR 	= $(P_BIN)/font_creator
+FONT_24_CREATOR = $(P_BIN)/font_24_creator
+FONT_18_CREATOR = $(P_BIN)/font_18_creator
+FONT_11_CREATOR = $(P_BIN)/font_11_creator
 
-P_BUTTON_CREATOR = src/button_creator/button_creator.c
-P_FONT_CREATOR	 = src/button_creator/font_creator.c
+P_BUTTON_CREATOR	= src/button_creator/button_creator.c
+P_FONT_24_CREATOR	= src/button_creator/font_24_creator.c
+P_FONT_18_CREATOR	= src/button_creator/font_18_creator.c
+P_FONT_11_CREATOR	= src/button_creator/font_11_creator.c
 
 ## Button creator source
 BUTTON_SRC =	src/map_perser/file_size.c				\
@@ -158,6 +162,8 @@ FONT_SRC =		src/button_creator/size_check.c			\
 				src/button_creator/write_struct.c		\
 				src/button_creator/name_copy.c			\
 				src/button_creator/font24_struct_init.c	\
+				src/button_creator/font18_struct_init.c	\
+				src/button_creator/font11_struct_init.c	\
 				src/button_creator/font_struct_manage.c	\
 				src/button_creator/font_verif.c			\
 				src/map_perser/is_file.c				\
@@ -167,10 +173,13 @@ FONT_SRC =		src/button_creator/size_check.c			\
 ## Where buttons are found
 XPM_BUTTON_PATH := res/__buttons__/xpm
 XPM_FONT@24_PATH := res/__font__/xpm/font@24
-XPM_FONT@14_PATH := res/__font__/xpm/font@14
+XPM_FONT@18_PATH := res/__font__/xpm/font@18
+XPM_FONT@11_PATH := res/__font__/xpm/font@11
 
 BUTTON_STRUCT 	:= res/__buttons__/button.struct
-FONT_STRUCT 	:= res/__font__/font.struct
+FONT_24_STRUCT 	:= res/__font_24_/font@24.struct
+FONT_18_STRUCT 	:= res/__font_18_/font@18.struct
+FONT_11_STRUCT 	:= res/__font_11_/font@11.struct
 
 BUTTON_NAME 	:=	$(XPM_BUTTON_PATH)/right 	\
 					$(XPM_BUTTON_PATH)/left 	\
@@ -184,199 +193,104 @@ BUTTON_NAME 	:=	$(XPM_BUTTON_PATH)/right 	\
 					$(XPM_BUTTON_PATH)/zoom		\
 					$(XPM_BUTTON_PATH)/uzoom	\
 
-FONT@24_NAME	:=	$(XPM_FONT@24_PATH)/33.xpm		\
-					$(XPM_FONT@24_PATH)/34.xpm		\
-					$(XPM_FONT@24_PATH)/35.xpm		\
-					$(XPM_FONT@24_PATH)/36.xpm		\
-					$(XPM_FONT@24_PATH)/37.xpm		\
-					$(XPM_FONT@24_PATH)/38.xpm		\
-					$(XPM_FONT@24_PATH)/39.xpm		\
-					$(XPM_FONT@24_PATH)/40.xpm		\
-					$(XPM_FONT@24_PATH)/41.xpm		\
-					$(XPM_FONT@24_PATH)/42.xpm		\
-					$(XPM_FONT@24_PATH)/43.xpm		\
-					$(XPM_FONT@24_PATH)/44.xpm		\
-					$(XPM_FONT@24_PATH)/45.xpm		\
-					$(XPM_FONT@24_PATH)/46.xpm		\
-					$(XPM_FONT@24_PATH)/47.xpm		\
-					$(XPM_FONT@24_PATH)/48.xpm		\
-					$(XPM_FONT@24_PATH)/49.xpm		\
-					$(XPM_FONT@24_PATH)/50.xpm		\
-					$(XPM_FONT@24_PATH)/51.xpm		\
-					$(XPM_FONT@24_PATH)/52.xpm		\
-					$(XPM_FONT@24_PATH)/53.xpm		\
-					$(XPM_FONT@24_PATH)/54.xpm		\
-					$(XPM_FONT@24_PATH)/55.xpm		\
-					$(XPM_FONT@24_PATH)/56.xpm		\
-					$(XPM_FONT@24_PATH)/57.xpm		\
-					$(XPM_FONT@24_PATH)/58.xpm		\
-					$(XPM_FONT@24_PATH)/59.xpm		\
-					$(XPM_FONT@24_PATH)/60.xpm		\
-					$(XPM_FONT@24_PATH)/61.xpm		\
-					$(XPM_FONT@24_PATH)/62.xpm		\
-					$(XPM_FONT@24_PATH)/63.xpm		\
-					$(XPM_FONT@24_PATH)/64.xpm		\
-					$(XPM_FONT@24_PATH)/65.xpm		\
-					$(XPM_FONT@24_PATH)/66.xpm		\
-					$(XPM_FONT@24_PATH)/67.xpm		\
-					$(XPM_FONT@24_PATH)/68.xpm		\
-					$(XPM_FONT@24_PATH)/69.xpm		\
-					$(XPM_FONT@24_PATH)/70.xpm		\
-					$(XPM_FONT@24_PATH)/71.xpm		\
-					$(XPM_FONT@24_PATH)/72.xpm		\
-					$(XPM_FONT@24_PATH)/73.xpm		\
-					$(XPM_FONT@24_PATH)/74.xpm		\
-					$(XPM_FONT@24_PATH)/75.xpm		\
-					$(XPM_FONT@24_PATH)/76.xpm		\
-					$(XPM_FONT@24_PATH)/77.xpm		\
-					$(XPM_FONT@24_PATH)/78.xpm		\
-					$(XPM_FONT@24_PATH)/79.xpm		\
-					$(XPM_FONT@24_PATH)/80.xpm		\
-					$(XPM_FONT@24_PATH)/81.xpm		\
-					$(XPM_FONT@24_PATH)/82.xpm		\
-					$(XPM_FONT@24_PATH)/83.xpm		\
-					$(XPM_FONT@24_PATH)/84.xpm		\
-					$(XPM_FONT@24_PATH)/85.xpm		\
-					$(XPM_FONT@24_PATH)/86.xpm		\
-					$(XPM_FONT@24_PATH)/87.xpm		\
-					$(XPM_FONT@24_PATH)/88.xpm		\
-					$(XPM_FONT@24_PATH)/89.xpm		\
-					$(XPM_FONT@24_PATH)/90.xpm		\
-					$(XPM_FONT@24_PATH)/91.xpm		\
-					$(XPM_FONT@24_PATH)/92.xpm		\
-					$(XPM_FONT@24_PATH)/93.xpm		\
-					$(XPM_FONT@24_PATH)/94.xpm		\
-					$(XPM_FONT@24_PATH)/95.xpm		\
-					$(XPM_FONT@24_PATH)/96.xpm		\
-					$(XPM_FONT@24_PATH)/97.xpm		\
-					$(XPM_FONT@24_PATH)/98.xpm		\
-					$(XPM_FONT@24_PATH)/99.xpm		\
-					$(XPM_FONT@24_PATH)/100.xpm	\
-					$(XPM_FONT@24_PATH)/101.xpm	\
-					$(XPM_FONT@24_PATH)/102.xpm	\
-					$(XPM_FONT@24_PATH)/103.xpm	\
-					$(XPM_FONT@24_PATH)/104.xpm	\
-					$(XPM_FONT@24_PATH)/105.xpm	\
-					$(XPM_FONT@24_PATH)/106.xpm	\
-					$(XPM_FONT@24_PATH)/107.xpm	\
-					$(XPM_FONT@24_PATH)/108.xpm	\
-					$(XPM_FONT@24_PATH)/109.xpm	\
-					$(XPM_FONT@24_PATH)/110.xpm	\
-					$(XPM_FONT@24_PATH)/111.xpm	\
-					$(XPM_FONT@24_PATH)/112.xpm	\
-					$(XPM_FONT@24_PATH)/113.xpm	\
-					$(XPM_FONT@24_PATH)/114.xpm	\
-					$(XPM_FONT@24_PATH)/115.xpm	\
-					$(XPM_FONT@24_PATH)/116.xpm	\
-					$(XPM_FONT@24_PATH)/117.xpm	\
-					$(XPM_FONT@24_PATH)/118.xpm	\
-					$(XPM_FONT@24_PATH)/119.xpm	\
-					$(XPM_FONT@24_PATH)/120.xpm	\
-					$(XPM_FONT@24_PATH)/121.xpm	\
-					$(XPM_FONT@24_PATH)/122.xpm	\
-					$(XPM_FONT@24_PATH)/123.xpm	\
-					$(XPM_FONT@24_PATH)/124.xpm	\
-					$(XPM_FONT@24_PATH)/125.xpm	\
-					$(XPM_FONT@24_PATH)/127.xpm	\
+FONT_NAME	:=		33.xpm	\
+					34.xpm	\
+					35.xpm	\
+					36.xpm	\
+					37.xpm	\
+					38.xpm	\
+					39.xpm	\
+					40.xpm	\
+					41.xpm	\
+					42.xpm	\
+					43.xpm	\
+					44.xpm	\
+					45.xpm	\
+					46.xpm	\
+					47.xpm	\
+					48.xpm	\
+					49.xpm	\
+					50.xpm	\
+					51.xpm	\
+					52.xpm	\
+					53.xpm	\
+					54.xpm	\
+					55.xpm	\
+					56.xpm	\
+					57.xpm	\
+					58.xpm	\
+					59.xpm	\
+					60.xpm	\
+					61.xpm	\
+					62.xpm	\
+					63.xpm	\
+					64.xpm	\
+					65.xpm	\
+					66.xpm	\
+					67.xpm	\
+					68.xpm	\
+					69.xpm	\
+					70.xpm	\
+					71.xpm	\
+					72.xpm	\
+					73.xpm	\
+					74.xpm	\
+					75.xpm	\
+					76.xpm	\
+					77.xpm	\
+					78.xpm	\
+					79.xpm	\
+					80.xpm	\
+					81.xpm	\
+					82.xpm	\
+					83.xpm	\
+					84.xpm	\
+					85.xpm	\
+					86.xpm	\
+					87.xpm	\
+					88.xpm	\
+					89.xpm	\
+					90.xpm	\
+					91.xpm	\
+					92.xpm	\
+					93.xpm	\
+					94.xpm	\
+					95.xpm	\
+					96.xpm	\
+					97.xpm	\
+					98.xpm	\
+					99.xpm	\
+					100.xpm	\
+					101.xpm	\
+					102.xpm	\
+					103.xpm	\
+					104.xpm	\
+					105.xpm	\
+					106.xpm	\
+					107.xpm	\
+					108.xpm	\
+					109.xpm	\
+					110.xpm	\
+					111.xpm	\
+					112.xpm	\
+					113.xpm	\
+					114.xpm	\
+					115.xpm	\
+					116.xpm	\
+					117.xpm	\
+					118.xpm	\
+					119.xpm	\
+					120.xpm	\
+					121.xpm	\
+					122.xpm	\
+					123.xpm	\
+					124.xpm	\
+					125.xpm	\
+					127.xpm	\
 
-
-
-FONT_NAME		:=	$(XPM_FONT_PATH)/33.xpm		\
-					$(XPM_FONT_PATH)/34.xpm		\
-					$(XPM_FONT_PATH)/35.xpm		\
-					$(XPM_FONT_PATH)/36.xpm		\
-					$(XPM_FONT_PATH)/37.xpm		\
-					$(XPM_FONT_PATH)/38.xpm		\
-					$(XPM_FONT_PATH)/39.xpm		\
-					$(XPM_FONT_PATH)/40.xpm		\
-					$(XPM_FONT_PATH)/41.xpm		\
-					$(XPM_FONT_PATH)/42.xpm		\
-					$(XPM_FONT_PATH)/43.xpm		\
-					$(XPM_FONT_PATH)/44.xpm		\
-					$(XPM_FONT_PATH)/45.xpm		\
-					$(XPM_FONT_PATH)/46.xpm		\
-					$(XPM_FONT_PATH)/47.xpm		\
-					$(XPM_FONT_PATH)/48.xpm		\
-					$(XPM_FONT_PATH)/49.xpm		\
-					$(XPM_FONT_PATH)/50.xpm		\
-					$(XPM_FONT_PATH)/51.xpm		\
-					$(XPM_FONT_PATH)/52.xpm		\
-					$(XPM_FONT_PATH)/53.xpm		\
-					$(XPM_FONT_PATH)/54.xpm		\
-					$(XPM_FONT_PATH)/55.xpm		\
-					$(XPM_FONT_PATH)/56.xpm		\
-					$(XPM_FONT_PATH)/57.xpm		\
-					$(XPM_FONT_PATH)/58.xpm		\
-					$(XPM_FONT_PATH)/59.xpm		\
-					$(XPM_FONT_PATH)/60.xpm		\
-					$(XPM_FONT_PATH)/61.xpm		\
-					$(XPM_FONT_PATH)/62.xpm		\
-					$(XPM_FONT_PATH)/63.xpm		\
-					$(XPM_FONT_PATH)/64.xpm		\
-					$(XPM_FONT_PATH)/65.xpm		\
-					$(XPM_FONT_PATH)/66.xpm		\
-					$(XPM_FONT_PATH)/67.xpm		\
-					$(XPM_FONT_PATH)/68.xpm		\
-					$(XPM_FONT_PATH)/69.xpm		\
-					$(XPM_FONT_PATH)/70.xpm		\
-					$(XPM_FONT_PATH)/71.xpm		\
-					$(XPM_FONT_PATH)/72.xpm		\
-					$(XPM_FONT_PATH)/73.xpm		\
-					$(XPM_FONT_PATH)/74.xpm		\
-					$(XPM_FONT_PATH)/75.xpm		\
-					$(XPM_FONT_PATH)/76.xpm		\
-					$(XPM_FONT_PATH)/77.xpm		\
-					$(XPM_FONT_PATH)/78.xpm		\
-					$(XPM_FONT_PATH)/79.xpm		\
-					$(XPM_FONT_PATH)/80.xpm		\
-					$(XPM_FONT_PATH)/81.xpm		\
-					$(XPM_FONT_PATH)/82.xpm		\
-					$(XPM_FONT_PATH)/83.xpm		\
-					$(XPM_FONT_PATH)/84.xpm		\
-					$(XPM_FONT_PATH)/85.xpm		\
-					$(XPM_FONT_PATH)/86.xpm		\
-					$(XPM_FONT_PATH)/87.xpm		\
-					$(XPM_FONT_PATH)/88.xpm		\
-					$(XPM_FONT_PATH)/89.xpm		\
-					$(XPM_FONT_PATH)/90.xpm		\
-					$(XPM_FONT_PATH)/91.xpm		\
-					$(XPM_FONT_PATH)/92.xpm		\
-					$(XPM_FONT_PATH)/93.xpm		\
-					$(XPM_FONT_PATH)/94.xpm		\
-					$(XPM_FONT_PATH)/95.xpm		\
-					$(XPM_FONT_PATH)/96.xpm		\
-					$(XPM_FONT_PATH)/97.xpm		\
-					$(XPM_FONT_PATH)/98.xpm		\
-					$(XPM_FONT_PATH)/99.xpm		\
-					$(XPM_FONT_PATH)/100.xpm	\
-					$(XPM_FONT_PATH)/101.xpm	\
-					$(XPM_FONT_PATH)/102.xpm	\
-					$(XPM_FONT_PATH)/103.xpm	\
-					$(XPM_FONT_PATH)/104.xpm	\
-					$(XPM_FONT_PATH)/105.xpm	\
-					$(XPM_FONT_PATH)/106.xpm	\
-					$(XPM_FONT_PATH)/107.xpm	\
-					$(XPM_FONT_PATH)/108.xpm	\
-					$(XPM_FONT_PATH)/109.xpm	\
-					$(XPM_FONT_PATH)/110.xpm	\
-					$(XPM_FONT_PATH)/111.xpm	\
-					$(XPM_FONT_PATH)/112.xpm	\
-					$(XPM_FONT_PATH)/113.xpm	\
-					$(XPM_FONT_PATH)/114.xpm	\
-					$(XPM_FONT_PATH)/115.xpm	\
-					$(XPM_FONT_PATH)/116.xpm	\
-					$(XPM_FONT_PATH)/117.xpm	\
-					$(XPM_FONT_PATH)/118.xpm	\
-					$(XPM_FONT_PATH)/119.xpm	\
-					$(XPM_FONT_PATH)/120.xpm	\
-					$(XPM_FONT_PATH)/121.xpm	\
-					$(XPM_FONT_PATH)/122.xpm	\
-					$(XPM_FONT_PATH)/123.xpm	\
-					$(XPM_FONT_PATH)/124.xpm	\
-					$(XPM_FONT_PATH)/125.xpm	\
-					$(XPM_FONT_PATH)/126.xpm	\
-					$(XPM_FONT_PATH)/127.xpm	\
-
+FONT@24_NAME = $(addprefix $(XPM_FONT@24_PATH)/, $(FONT_NAME))
+FONT@18_NAME = $(addprefix $(XPM_FONT@18_PATH)/, $(FONT_NAME))
+FONT@11_NAME = $(addprefix $(XPM_FONT@11_PATH)/, $(FONT_NAME))
 
 
 ## Objects without path names
@@ -390,20 +304,20 @@ __START: all
 	 printf "$(OK)[+][$(PROJECT)] Done$(C_DEF)\n"
 
 ## For multiple Binarys
-all : $(LIBFT_A) $(NAME) $(BUTTON_STRUCT)
+all : $(LIBFT_A) $(NAME) $(BUTTON_STRUCT) $(FONT_24_STRUCT) $(FONT_18_STRUCT) $(FONT_11_STRUCT)
 
 $(NAME):	$(SRC)
 	@$(CC) $(CC_FLAG_ASAN) $(SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT)  \
 		-o $(NAME)
 
 ## Clean objects and others
-clean: button_clean
+clean:				button_clean	font_24_fclean	font_18_fclean	font_11_fclean
 	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed all objects from ./$(P_OBJ)$(C_DEF)\n"
 	printf	"$(OK)[+][$(PROJECT)] Cleaned$(C_DEF)\n"
 
 ## Cleans everything
-fclean:		clean button_fclean
+fclean:		clean	button_fclean	font_24_fclean	font_18_fclean	font_11_fclean
 	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed $(NAME)$(C_DEF)\n"
 	@make -C lib/libft fclean --no-print-directory
@@ -463,43 +377,85 @@ button_fclean: button_clean
 
 button_re: button_fclean button_make
 
-# button_test: $(LIBFT_A) $(P_BIN)
-# 	@printf "$(WARN)[!][$(PROJECT)] Creating button_test in $(P_BIN)$(C_DEF)\n"
-# 	$(CC) button_test.c  $(CC_FLAG_ASAN) $(IMAGE_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
-# 	-o button_test
-# 	@printf "$(OK)[+][$(PROJECT)] button_test compiled in $(P_BIN)$(C_DEF)\n"
+
+
+
+
 
 ## ----------------- FONT Creator --------------- ##
-$(FONT_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
+## --------------@24----------- ##
+$(FONT_24_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(WARN)[!][$(PROJECT)] Creating font_creator in $(P_BIN)$(C_DEF)\n"
-	@$(CC) $(P_FONT_CREATOR)  $(CC_FLAG_ASAN) $(FONT_SRC) -I ./$(P_INCLUDE) \
-		-I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) -o $(FONT_CREATOR)
+	@$(CC) $(P_FONT_24_CREATOR)  $(CC_FLAG_ASAN) $(FONT_SRC) -I ./$(P_INCLUDE) \
+		-I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) -o $(FONT_24_CREATOR)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
-$(FONT_STRUCT) :
+$(FONT_24_STRUCT) :
 	@make button_make --no-print-directory
 
-font_make: $(P_BIN) $(FONT_CREATOR) $(XPM_FONT_PATH)
-	@./$(FONT_CREATOR) $(FONT@24_NAME)
+font_24_make: $(P_BIN) $(FONT_24_CREATOR) $(XPM_FONT_PATH)
+	@./$(FONT_24_CREATOR) $(FONT@24_NAME)
 
-font_clean:
-	@printf	"$(WARN)[!][$(PROJECT)] font_creator in $(P_BIN)$(C_DEF)\n"
-	@rm -f $(FONT_CREATOR)
+font_24_clean:
+	@printf	"$(WARN)[!][$(PROJECT)] font_24_creator in $(P_BIN)$(C_DEF)\n"
+	@rm -f $(FONT_24_CREATOR)
 
-font_fclean: font_clean
-	@printf	"$(WARN)[!][$(PROJECT)] Removed $(FONT_STRUCT)$(C_DEF)\n"
-	@rm -f $(FONT_STRUCT)
+font_24_fclean: font_24_clean
+	@printf	"$(WARN)[!][$(PROJECT)] Removed $(FONT_24_STRUCT)$(C_DEF)\n"
+	@rm -f $(FONT_24_STRUCT)
 
-font_re: font_fclean font_make
+font_24_re: font_24_fclean font_24_make
 
-# font_test: $(LIBFT_A) $(P_BIN)
-# 	@printf "$(WARN)[!][$(PROJECT)] Creating font_test in $(P_BIN)$(C_DEF)\n"
-# 	$(CC) button_test.c  $(CC_FLAG_ASAN) $(FONT_NAME) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
-# 	-o button_test
-# 	@printf "$(OK)[+][$(PROJECT)] button_test compiled in $(P_BIN)$(C_DEF)\n"
-#
-#
+
+## --------------@18----------- ##
+$(FONT_18_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
+	@printf "$(WARN)[!][$(PROJECT)] Creating font_creator in $(P_BIN)$(C_DEF)\n"
+	@$(CC) $(P_FONT_18_CREATOR)  $(CC_FLAG_ASAN) $(FONT_SRC) -I ./$(P_INCLUDE) \
+		-I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) -o $(FONT_18_CREATOR)
+	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
+# BUTTON_PATH := res/__buttons__/xpm
+# BUTTON_NAME := $(BUTTON_PATH)/arrow
+$(FONT_18_STRUCT) :
+	@make button_make --no-print-directory
+
+font_18_make: $(P_BIN) $(FONT_18_CREATOR) $(XPM_FONT_PATH)
+	@./$(FONT_18_CREATOR) $(FONT@18_NAME)
+
+font_18_clean:
+	@printf	"$(WARN)[!][$(PROJECT)] font_18_creator in $(P_BIN)$(C_DEF)\n"
+	@rm -f $(FONT_18_CREATOR)
+
+font_18_fclean: font_18_clean
+	@printf	"$(WARN)[!][$(PROJECT)] Removed $(FONT_18_STRUCT)$(C_DEF)\n"
+	@rm -f $(FONT_18_STRUCT)
+
+font_18_re: font_18_fclean font_18_make
+
+## --------------@18----------- ##
+$(FONT_11_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
+	@printf "$(WARN)[!][$(PROJECT)] Creating font_creator in $(P_BIN)$(C_DEF)\n"
+	@$(CC) $(P_FONT_11_CREATOR)  $(CC_FLAG_ASAN) $(FONT_SRC) -I ./$(P_INCLUDE) \
+		-I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) -o $(FONT_11_CREATOR)
+	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
+# BUTTON_PATH := res/__buttons__/xpm
+# BUTTON_NAME := $(BUTTON_PATH)/arrow
+$(FONT_11_STRUCT) :
+	@make button_make --no-print-directory
+
+font_11_make: $(P_BIN) $(FONT_11_CREATOR) $(XPM_FONT_PATH)
+	@./$(FONT_11_CREATOR) $(FONT@11_NAME)
+
+font_11_clean:
+	@printf	"$(WARN)[!][$(PROJECT)] font_11_creator in $(P_BIN)$(C_DEF)\n"
+	@rm -f $(FONT_11_CREATOR)
+
+font_11_fclean: font_11_clean
+	@printf	"$(WARN)[!][$(PROJECT)] Removed $(FONT_11_STRUCT)$(C_DEF)\n"
+	@rm -f $(FONT_11_STRUCT)
+
+font_18_re: font_11_fclean font_11_make
+
 
 ## This rule is called when a difference in operating sistem has been
 ## detected. You can put your prerequisite to be changed if a different

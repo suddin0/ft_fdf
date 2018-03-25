@@ -118,6 +118,8 @@ int name_to_num(char *name);
 
 /* font */
 void font24_struct_init(t_f_create_data *fdata);
+void font18_struct_init(t_f_create_data *fdata);
+void font11_struct_init(t_f_create_data *fdata);
 void font_struct_manage(t_font *font, t_f_create_data *fdata);
 int font_verif(int argc, char **argv);
 
