@@ -16,8 +16,8 @@ t_map *map_malloc(t_image *img)
 	map->lines = 0;
 	map->data = NULL;
 	map->next = NULL;
-	map->origine_x = 0.0f;
-	map->origine_y = 0.0f;
+	map->origine_x = ORIGINE_X;
+	map->origine_y = ORIGINE_Y;
 	map->step = STEP;
 	map->color = COLOR(img->img_ptr, 0xFF3399);
 	return (map);

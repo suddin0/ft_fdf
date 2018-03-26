@@ -43,6 +43,7 @@ inline static void init_var(t_map_list *list)
 	list->curr_map = -1;
 	list->map_name = NULL;
 	list->error = 0; // no rror
+	memset(list->error_msg, 0, MAX_ERROR_MSG + NAME_MAX);
 	list->o_x = 0;
 	list->o_y = MAP_LIST_OY;
 	list->x = MENU_X;

@@ -42,4 +42,7 @@ void root_init(t_root *root, char **argv)
 	ft_strncpy(root->name, argv[1], strlen(argv[1]) - 4);
 	ft_putstr(root->name);
 	root->win = mlx_new_window(root->mlx, root->sz_x, root->sz_y, root->name);
+	root->prev.img_ptr = NULL;
+	root->menu.img_ptr = NULL;
+	root->foot.img_ptr = NULL;
 }

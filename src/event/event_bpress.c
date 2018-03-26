@@ -27,7 +27,6 @@ int bpress_func_0(int key, int x, int y, void *rot)
 				return (1);
 			}
 		}
-
 	return (0);
 }
 
@@ -48,10 +47,9 @@ int bpress_func_1(int key, int x, int y, void *rot)
 	{
 		if(key == MOUSE_LEFT && (btn = is_list_area(root->men.list, x, y)) != -1)
 		{
+			CLEAR(root->menu); // Let it stay here, out side it clear the whole page
 			load_map(root, &(root->men.list), btn);
-			mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
-				root->menu.o_x, root->menu.o_y);
-			return (1);
+			show_list(&(root->men.list), root);
 		}
 		else if(key == MOUSE_GOUP)
 		{
@@ -70,7 +68,6 @@ int bpress_func_1(int key, int x, int y, void *rot)
 			show_list(&(root->men.list), root);
 			mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
 				root->menu.o_x, root->menu.o_y);
-
 		}
 	}
 	draw_button(root->men.button[0], &(root->menu), root->men.button[0].stat);

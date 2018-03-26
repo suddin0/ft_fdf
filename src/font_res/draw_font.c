@@ -35,7 +35,6 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
 
 
 	opacity = (double) ((double) (A * 100) / 255) * 0.01;
-	printf("font- [%c] X[%3d] Y[%3d]\n", chr.ascii, chr.x, chr.y);
 	while (y < o_y + chr.y)
 	{
 		x = o_x * 4;

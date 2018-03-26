@@ -2,8 +2,6 @@
 
 static int is_space(char c)
 {
-	// 0x20	Space
-	// 0x9	Tab
 	if(c == 0x20 || c == 0x9)
 		return (1);
 	return (0);
@@ -11,8 +9,6 @@ static int is_space(char c)
 
 static int is_num_hex(char c)
 {
-	// 0x20	Space
-	// 0x9	Tab
 	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || \
 		(c >= 'a' && c <= 'f') || (c == 'X') || (c == 'x'))
 		return (1);
@@ -27,19 +23,15 @@ static long line_pnt(char *str, long line)
 	i = line;
 	if(!str)
 		return (0);
-	while(str[i] && str[i] != '\n') // 0xA = line feed (new line)
+	while(str[i] && str[i] != '\n')
 		i++;
-		// printf("CAME HERE LINE_PNT i[%d]\n", i);
 	if (i == line && str[i] != 0)
-		return (-2);	// if new line wasn't found and i was not changed because
-		 			// there zas nothing to read, then we have reached the end of
-					// file
+		return (-2);
 	if (i == line || str[i] == 0)
-		return (0);	// if new line wasn't found and i was not changed because
-						 			// there zas nothing to read, then we have reached the end of
-									// file
+		return (0);
 	return (i);
 }
+
 
 
 t_map *get_map(char *name, t_image *img)
@@ -77,7 +69,7 @@ t_map *get_map(char *name, t_image *img)
 			ft_printf("[-] Error: %s is a directory and not a file\n", name);
 		else
 			ft_printf("[-] Error: not a valid file\n");
-		exit(-1);
+		return (NULL);
 	}
 
 	if ((fd = open(name, O_RDONLY)) == -1)
@@ -91,7 +83,8 @@ t_map *get_map(char *name, t_image *img)
 		free(map);
 		ft_printf("[-] Error: reading. Read %d/%d\n", rd , map->file_sz);
 		return (NULL);
-	}
+	}	
+	close(fd);
 	map->origine_x = ORIGINE_X;
 	map->origine_y = ORIGINE_Y;
 	map->step = STEP;
@@ -102,32 +95,41 @@ t_map *get_map(char *name, t_image *img)
 			o_line++;
 			continue;
 		}
-		// printf("CAME HERE WHILE GET_MAP\n");
 		data = (t_m_data *) malloc(sizeof(t_m_data));
 		data->next = NULL;
 		data->prev = NULL;
 		if((data->row = count_num(mp, o_line, n_line)) <= 0)
 		{
+
 			ft_printf("[-] Error: Invalid map (line %d)\n", map->lines + 1);
-			exit(-1);
+			free(mp);
+			free(data);
+			free_map(map);
+			return(NULL);
 		}
 		data->col = map->lines;
-		data->data = get_num(mp, o_line, n_line, data->row);
+		if((data->data = get_num(mp, o_line, n_line, data->row)) == NULL)
+		{
+			free(mp);
+			free_map(map);
+			return (NULL);
+		}
 		data->next = map->data; // data = 4 -- m->data = 3
 		data_prev  = data;      // data_prev = 4
 		map->data = data;       // m->data = 4  m->data->next = 3
 		if(data->next) 			// set the previous
 			data->next->prev = data_prev; // data->next->prev = 4
-		while(data)
+		while(data)	// Is this useful ? maby only a data = NULL is ok ?
 			data = data->next;
 		map->lines++;
 		o_line = n_line + 1;
 	}
-	close(fd);
 	if(map->lines <= 0)
 	{
 		printf("[-] Error: map contains %d lines\n", map->lines);
-		exit(-1);
+		free(mp);
+		free_map(map);
+		return (NULL);
 	}
 	data_to_array(map);
 	free(mp);

@@ -24,9 +24,6 @@ int b1(t_root *root)
 	root->men.button[0].stat = ST_DEFAULT;
 	root->men.button[1].stat = ST_ACTIVE;
 	root->men.button[2].stat = ST_DEFAULT;
-	draw_button(root->men.button[0], &(root->menu), root->men.button[0].stat);
-	draw_button(root->men.button[1], &(root->menu), root->men.button[1].stat);
-	draw_button(root->men.button[2], &(root->menu), root->men.button[2].stat);
 	root->men.curr_opt = 1;
 	if(root->men.list.map_name)
 		free_list(&(root->men.list));
@@ -34,6 +31,9 @@ int b1(t_root *root)
 	show_list(&(root->men.list), root);
 
 
+	draw_button(root->men.button[0], &(root->menu), root->men.button[0].stat);
+	draw_button(root->men.button[1], &(root->menu), root->men.button[1].stat);
+	draw_button(root->men.button[2], &(root->menu), root->men.button[2].stat);
 	mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
 		root->menu.o_x, root->menu.o_y);
 

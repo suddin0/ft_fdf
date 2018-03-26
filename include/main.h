@@ -1,32 +1,32 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-# include <limits.h>		// Get Path Name limits
+
+# include <sys/types.h>
 # include <sys/stat.h>		// For file status
+# include <limits.h>		// Get Path Name limits
 # include <fcntl.h>			// For open
 # include <stdio.h>			// For printf
 # include <unistd.h>		// For read
-# include <errno.h>			// For read
+# include <errno.h>			// For Error details
 # include <math.h>			// For read
-
-#include <sys/types.h>
-#include <dirent.h>
+# include <dirent.h>
 # include <stdarg.h>
 
-# include "libft.h"
-# include "ft_printf.h"
-# include "mlx.h"
-# include "button_map.h"	// Tus use buttom macros
-# include "nn_mask.h"		// Tus use buttom macros
+# include "libft.h"			// Libc
+# include "ft_printf.h"		// Ft_printf
+# include "mlx.h"			// Graphic library
+# include "button_map.h"	// Tus use button macros
+# include "nn_mask.h"		// Tus use Xlib macros (get events etc...)
 // # include "mlx_int.h" 	// If included many errors appears
 
 /* Main Winsow */
 # define DEF_ROOT_X 1600	// Window width
 # define DEF_ROOT_Y 950		// Window Height
 
-# define ORIGINE_X  270.0f
-# define ORIGINE_Y  290.0f
-# define STEP 		30.0f
+# define ORIGINE_X  270.0f	// Map origine x (start drawing from this position x)
+# define ORIGINE_Y  290.0f	// Map origine y (start drawing from this position y)
+# define STEP 		30.0f	// Space between each line
 
 // Image Sizes
 # define MENU_X DEF_ROOT_X / 4
@@ -45,7 +45,6 @@
 # define MAP_LIST_OY 60
 
 # define BUTTON_SIZE	19000 * 4	// max button size 8mb [8388608]
-// # define CHAR_SIZE_28	1000 * 4	// max character size size 8mb [8388608]
 # define CHAR_SIZE_28	20000 * 4		// max character size size 8mb [8388608]
 # define CHAR_SIZE_18	54140 * 4	// max character size size 8mb [8388608]
 # define FCHAR_MAX		98	// Maximum characters in the pile + space
@@ -60,7 +59,7 @@
 # define FONT_24_STRUCT_PATH	"res/__font__/font@24.struct"
 # define FONT_18_STRUCT_PATH	"res/__font__/font@18.struct"
 # define FONT_11_STRUCT_PATH	"res/__font__/font@11.struct"
-# define MAP_PATH				"maps"
+# define MAP_PATH				"mp"
 
 # define MAX_ERROR_MSG 250 // Max error message size
 
@@ -204,12 +203,6 @@ typedef struct s_char
 
 typedef t_char t_font;
 
-
-// typedef struct s_alphabet
-// {
-//
-// } t_alphabet;
-
 typedef struct s_map_list
 {
 	int 	total_map;	// Total valide map files found
@@ -283,7 +276,7 @@ typedef struct	s_root
 	t_font	*font_11;
 } t_root;
 
-int is_dot_fdf(char *str);
+int 	is_dot_fdf(char *str);
 int		file_size(const char *name);
 int		is_dir(const char *name);
 int		is_file(const char *name);
@@ -297,6 +290,7 @@ void	free_map(t_map *map);
 void	print_map(t_map *map, int space);
 int		pre_check(int argc, char **argv);
 void	root_init(t_root *root, char **argv);
+void 	free_root(t_root *root, int exit_code);
 
 
 void	put_color(t_image *img, int x, int y, int col);

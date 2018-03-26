@@ -78,7 +78,7 @@
 # define FONT_18_SMALL_EQUAL_PAD_TOP 	6	// =
 # define FONT_18_SMALL_AT_PAD_TOP		2	// @
 
-# define FONT_11_SMALL_PAD_TOP			3
+# define FONT_11_SMALL_PAD_TOP			2
 # define FONT_11_SMALL_SMALL_PAD_TOP 	10	// , .
 # define FONT_11_SMALL_MIDLE_PAD_TOP 	6	// - ~
 # define FONT_11_SMALL_UNDER_PAD_TOP 	12	// _

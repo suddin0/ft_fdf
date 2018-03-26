@@ -32,7 +32,10 @@ long *get_num(char *str, long o_line, int n_line, int dig)
 			if(((o_line + 1) == n_line))
 			{
 				printf("[-] Error: get_number: bad map at [%ld][%c]\n", o_line, str[o_line]);
-				exit(-1);
+				free(num);
+				num = NULL;
+				// exit(-1);
+				return (NULL);
 			}
 			if(str[o_line] == '-')
 				neg = 1;

@@ -12,6 +12,7 @@ inline static void free_data(t_m_data *data)
 		free(tmp);
 		tmp = data;
 	}
+	data = NULL;
 }
 
 inline static void free_point(t_map *map, t_point **point)
@@ -19,12 +20,16 @@ inline static void free_point(t_map *map, t_point **point)
 	int line;
 
 	line = 0;
-	while(line != map->lines)
+	if (!(point) || !(*point))
+		return;
+	while(line < map->lines)
 	{
-		printf("FREE_DATA 1\n");
-		free(point[line++]);
+		free(point[line]);
+		point[line] = NULL;
+		line++;
 	}
 	free(point);
+	point = NULL;
 
 }
 
@@ -39,6 +44,7 @@ void free_map(t_map *map)
 	{
 		free_point(tmp_map, tmp_map->map);
 		free(tmp_map->line_sz);
+		tmp_map->line_sz = NULL;
 		if(tmp_map->data)
 			free_data(tmp_map->data);
 		map = map->next;
@@ -46,4 +52,5 @@ void free_map(t_map *map)
 		tmp_map = NULL;
 		tmp_map = map;
 	}
+	map = NULL;
 }

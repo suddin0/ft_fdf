@@ -26,6 +26,7 @@ inline static int dir_file_count_list(char *map_dir)
   	}
 	else
 		return (-1);
+	printf("CAME TO THE END OF DIR_FILE_COUNT file found[%d]\n", file);
 	return (file);
 }
 
@@ -34,36 +35,25 @@ inline static void set_error_message(t_map_list *list, char *map_dir,  int error
 	if (error_no == 1)
 	{
 		list->error = 1;
-  		ft_strcpy(list->error_msg, "[-] Error: directory ");
+  		ft_strcpy(list->error_msg, "Directory ");
   		ft_strcat(list->error_msg, map_dir);
-  		ft_strcat(list->error_msg, " might be empty (read 0 files)");
+  		ft_strcat(list->error_msg, " is empty (read 0 files)");
 	}
 	else if(error_no == 2)
 	{
 		list->error = 2;
-		ft_strcpy(list->error_msg, "[-] Error: directory ");
+		ft_strcpy(list->error_msg, "directory ");
 		ft_strcat(list->error_msg, map_dir);
 		ft_strcat(list->error_msg, " could not been open");
 	}
 	else if(error_no == 3)
 	{
 		list->error = 3;
-		ft_strcpy(list->error_msg, "[-] Error: Can not access ");
+		ft_strcpy(list->error_msg, "Can not access ");
 		ft_strcat(list->error_msg, map_dir);
-		ft_strcat(list->error_msg, ". (Path might nit access)");
+		ft_strcat(list->error_msg, ".");
 	}
 }
-
-// inline static void init_var(t_map_list *list)
-// {
-// 	list->total_map = 0;
-// 	list->curr_map = -1;
-// 	list->error = 0; // no rror
-// 	list->o_x = 10;
-// 	list->o_y = 90;
-// 	list->x = MENU_X;
-// 	list->y = MENU_Y + list->o_y;
-// }
 
 inline static void set_name(DIR *dir, t_map_list *list, char *map_dir)
 {
@@ -92,14 +82,18 @@ void init_list(char *map_dir, t_map_list *list)
 	int file;
 	char *tmp_file;
 
-	// init_var(list);
+	list->error = 0;
 	if(!is_dir(map_dir))
 	{
 		set_error_message(list, map_dir, 3);
 		return ;
 	}
-	if((list->total_map = dir_file_count_list(map_dir)) == 0)
+	if((list->total_map = dir_file_count_list(map_dir)) <= 0)
+	{
+		printf("FOUND [%d] MAPS INSIDE [%s]\n", list->total_map, map_dir );
 		set_error_message(list, map_dir, 1);
+		return;
+	}
 	dir = opendir(map_dir);
 	if (dir != NULL || list->total_map == -1)
   	{
@@ -109,4 +103,6 @@ void init_list(char *map_dir, t_map_list *list)
   	}
 	else
 		set_error_message(list, map_dir, 1);
+	printf("Map initialized\n");
+	perror("MAP STAT");
 }

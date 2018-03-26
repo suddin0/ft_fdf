@@ -44,7 +44,10 @@ int main(int argc, char **argv)
 	init_foot(&root, &(root.foot));
 
 	if(!(map = get_map(argv[1], &(root.prev))))
-		return (-1);
+	{
+		printf("[!] Get map sent NULL.\n");
+		free_root(&root, -1);
+	}
 	root.map = map;
 
 	modmatrix(map, rotate_x, 120);
@@ -54,97 +57,12 @@ int main(int argc, char **argv)
 	printf("HEY, INSIDE MAIN AGAIN map.file_size[%d] map.lines[%d]\n", map->file_sz, map->lines);
 
 	/* ------ Using an xpm image ----- */
-	int ppp = 0;
-	void *nn = NULL;
-	void *rr = NULL;
-
-	char *dt; // data
-	int dt_x = 0, dt_y = 0;
-	int none;
-
-
-
-	int h = 0;
-	int w = 0;
-
-	int fd;
-	// t_char chr[FCHAR_MAX];
-
-
-
-	// t_font *font;
-    //
-	// root.font_24 = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1));
-    //
-	// fd = open(FONT_STRUCT_PATH, O_RDONLY);
-	// if(fd < 0)
-	// {
-	// 	printf("[-] Error: opening %s\n", FONT_STRUCT_PATH);
-	// 	perror("Reason");
-	// 	exit(-1);
-	// }
-	// read(fd, root.font_24, sizeof(t_font) * FCHAR_MAX);
-	// if(read <= 0)
-	// {
-	// 	printf("[-] Error: read %s\n", FONT_STRUCT_PATH);
-	// 	exit(-1);
-	// }
-	// font = root.font_24;
-
-
-
-	// draw_font(font['A' - 32], &(root.menu), 50, 20, 0x7289da2a);
-	// draw_font(chr[28], &(root.menu), 10, 10, 0xE6E6FA00);
-	// draw_font(chr[29], &(root.menu), 10 + chr[19 ].x, 10, 0x00FF00DD);
-	// draw_font(chr[16], &(root.menu), 10 + chr[0 ].x, 10 + chr[0 ].y);
-
-
-
-	// mlx_put_image_to_window (root->mlx,root.window, t_img *img, int x, int y);
-
-
-	// put_text("Coucou", &root, 10, 70);
-	// put_text("^_`abcdefghijklmnopqrstuvwxyz{|}~", &root, 10, 200);
-	// put_text("%fAre Th-e~r-=e_ A@ny Lo,cal Host_.+ 1 + 1 10023 X = 10", &root, 10, 200);
-	// printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", root.font_24, 20, 20);
-	// printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", root.font_18, 20, 90);
-	// printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", root.font_11, 20, 160);
-
 
 	printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+~/E<-,F=-L.,_x./0:;<=>?@-37 CDE[\\]^_`mnopqrstuvwxyz{|}~", root.font_24, 20, 20);
 	printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+~/E<-,F=-L.,_x./0:;<=>?@-37 CDE[\\]^_`mnopqrstuvwxyz{|}~", root.font_18, 20, 60);
 	printf_text(&root, &(root.prev), "%f%x%y !\"#$%&'()*+~/E<-,F=-L.,_x./0:;<=>?@-37 CDE[\\]^_`mnopqrstuvwxyz{|}~", root.font_11, 20, 100);
-
-	// t_map_list list;
-	// init_list(MAP_PATH, &list);
-    //
-	// int i = 0;
-	// printf("total maps [%d]\n", list.total_map);
-	// while(i < list.total_map )
-	// 	printf("map[%s]\n", list.map_name[i++]);
-	// printf("Error  [%d]\n", list.error);
-	// printf("Error Message [%s]\n", list.error_msg);
-
-	// show_list(&list, &root);
-
-	// printf_text(&root, &(root.foot), "%f%x%y%CZOOM: %d", root.font_11, 2, 5, 0x777777ff, 50);
-
-	ft_printf("me [% 3zi] \n", 0);
-	   printf("vr [% 3zi] \n", 0);
-
-	// printf_text(&root, &(root.menu), "%C%x%yHello there [%s] [%d]%", 0x99aab5aa, 10, 90, "Lol", 334);
-
-	// ft_printf("-------------------ROTATION_START---------------");
-	// rotat(root.map, rot);
-	// ft_printf("-------------------ROTATION_END-----------------");
-
-	// draw_map(root.map, &(root.prev));
-
-
-
-
-
-
+	// printf_text(&root, &(root.prev), "%C%f%x%y [-] Error: directory mp might be empty (read 0 files)", COL_ERROR, root.font_11, 20, 140);
+	printf_text(&root, &(root.prev), "%C%f%x%y%s", COL_ERROR, root.font_18, 10, 140 + 10 , "[-] Error: directory mp might be empty (read 0 files)");
 
 	mlx_put_image_to_window(root.mlx, root.win, root.menu.img_ptr, root.menu.o_x, root.menu.o_y);
 	mlx_put_image_to_window(root.mlx, root.win, root.prev.img_ptr, root.prev.o_x, root.prev.o_y);
@@ -159,7 +77,6 @@ int main(int argc, char **argv)
 
 
 	// mlx_key_hook (root.win , exit_esc, &root);
-	mlx_loop_hook(root.mlx, NULL, NULL);
 	mlx_loop(root.mlx);
 	return (0);
 }

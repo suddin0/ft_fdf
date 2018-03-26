@@ -107,6 +107,7 @@ SRC		=	$(MAIN)							\
 			src/print_map.c					\
 			src/pre_check.c					\
 			src/root_init.c					\
+			src/free_root.c 				\
 			src/init.c						\
 			src/color.c						\
 			src/event/event_handler.c		\
@@ -177,9 +178,9 @@ XPM_FONT@18_PATH := res/__font__/xpm/font@18
 XPM_FONT@11_PATH := res/__font__/xpm/font@11
 
 BUTTON_STRUCT 	:= res/__buttons__/button.struct
-FONT_24_STRUCT 	:= res/__font_24_/font@24.struct
-FONT_18_STRUCT 	:= res/__font_18_/font@18.struct
-FONT_11_STRUCT 	:= res/__font_11_/font@11.struct
+FONT_24_STRUCT 	:= res/__font__/font@24.struct
+FONT_18_STRUCT 	:= res/__font__/font@18.struct
+FONT_11_STRUCT 	:= res/__font__/font@11.struct
 
 BUTTON_NAME 	:=	$(XPM_BUTTON_PATH)/right 	\
 					$(XPM_BUTTON_PATH)/left 	\
@@ -305,14 +306,14 @@ __START: all
 	 printf "$(OK)[+][$(PROJECT)] Done$(C_DEF)\n"
 
 ## For multiple Binarys
-all : $(LIBFT_A) $(NAME) $(BUTTON_STRUCT) $(FONT_24_STRUCT) $(FONT_18_STRUCT) $(FONT_11_STRUCT)
+all : $(LIBFT_A) $(NAME)
 
-$(NAME):	$(SRC)
+$(NAME):	$(SRC) $(BUTTON_STRUCT) $(FONT_24_STRUCT) $(FONT_18_STRUCT) $(FONT_11_STRUCT)
 	@$(CC) $(CC_FLAG_ASAN) $(SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT)  \
 		-o $(NAME)
 
 ## Clean objects and others
-clean:				button_clean	font_24_fclean	font_18_fclean	font_11_fclean
+clean:				button_clean	font_24_clean	font_18_clean	font_11_clean
 	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed all objects from ./$(P_OBJ)$(C_DEF)\n"
 	printf	"$(OK)[+][$(PROJECT)] Cleaned$(C_DEF)\n"
@@ -392,7 +393,7 @@ $(FONT_24_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
-$(FONT_24_STRUCT) : $(P_FONT_24_CREATOR)
+$(FONT_24_STRUCT) :
 	@make font_24_make --no-print-directory
 
 font_24_make: $(P_BIN) $(FONT_24_CREATOR) $(XPM_FONT_PATH)
@@ -417,7 +418,7 @@ $(FONT_18_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
-$(FONT_18_STRUCT) : $(P_FONT_24_CREATOR)
+$(FONT_18_STRUCT) :
 	@make font_18_make --no-print-directory
 
 font_18_make: $(P_BIN) $(FONT_18_CREATOR) $(XPM_FONT_PATH)
@@ -441,7 +442,7 @@ $(FONT_11_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
-$(FONT_11_STRUCT) : $(P_FONT_24_CREATOR)
+$(FONT_11_STRUCT) :
 	@make font_11_make --no-print-directory
 
 font_11_make: $(P_BIN) $(FONT_11_CREATOR) $(XPM_FONT_PATH)
