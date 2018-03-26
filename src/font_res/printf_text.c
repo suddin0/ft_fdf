@@ -49,10 +49,8 @@ int put_text(t_root *root, t_image *img, char *str, ...)
 	if(!str)
 		return 0;
 
-	printf("CAME HERE IN PUT_TEXT TO PRIINT %s\n", str);
 	while (str[i])
 	{
-		printf("inside while put_text[%c]\n", str[i]);
 		if(!ft_isprint(str[i]))
 			str[i] = 127;
 		draw_font(font[str[i] - 32], img, o_[0] + font[str[i] - 32].pad_left, o_[1] + font[str[i] - 32].pad_top, RGBA);

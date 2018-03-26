@@ -193,6 +193,9 @@ BUTTON_NAME 	:=	$(XPM_BUTTON_PATH)/right 	\
 					$(XPM_BUTTON_PATH)/info		\
 					$(XPM_BUTTON_PATH)/zoom		\
 					$(XPM_BUTTON_PATH)/uzoom	\
+					$(XPM_BUTTON_PATH)/reload	\
+					$(XPM_BUTTON_PATH)/face		\
+					$(XPM_BUTTON_PATH)/help		\
 
 FONT_NAME	:=		33.xpm	\
 					34.xpm	\

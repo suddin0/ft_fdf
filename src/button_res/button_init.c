@@ -20,7 +20,7 @@ void show_button(t_root *root, t_image *m)
 	draw_button((root->men.button)[7 ], m, (root->men.button)[7 ].stat);
 	draw_button((root->men.button)[8 ], m, (root->men.button)[8 ].stat);
 	draw_button((root->men.button)[9 ], m, (root->men.button)[9 ].stat);
-	draw_button((root->men.button)[10], m, (root->men.button)[10].stat);
+	// draw_button((root->men.button)[10], m, (root->men.button)[10].stat);
 	draw_button((root->men.button)[10], m, (root->men.button)[10].stat);
 	draw_button((root->men.button)[11], m, (root->men.button)[11].stat);
 	draw_button((root->men.button)[12], m, (root->men.button)[12].stat);
@@ -38,6 +38,9 @@ inline static void button_func_init(t_button *button)
 	button[6 ].f = (void *) &b6;
 	button[7 ].f = (void *) &b7;
 	button[8 ].f = (void *) &b8;
+	button[9 ].f = (void *) &b9;
+	button[10 ].f = (void *) &b10;
+	button[11 ].f = (void *) &b11;
 	button[12].f = (void *) &b12;
 	button[13].f = (void *) &b13;
 }

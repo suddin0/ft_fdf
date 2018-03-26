@@ -2,6 +2,18 @@
 # define MAIN_H
 
 
+/* The following '#if' was declarted because in linux the mlx_loop_hook
+	refresh too fast thus all translations and rotations are too fast to
+	look like an animation or to be controled, Soo we used sleep to wait
+	befor the next itaration.
+*/
+# if defined(__linux__)
+	#define SLEEP_INTER 10000 /* Change this value to adjust the translation speed in your OS */
+# else
+	#define SLEEP_INTER 0
+# endif
+
+
 # include <sys/types.h>
 # include <sys/stat.h>		// For file status
 # include <limits.h>		// Get Path Name limits
@@ -59,7 +71,7 @@
 # define FONT_24_STRUCT_PATH	"res/__font__/font@24.struct"
 # define FONT_18_STRUCT_PATH	"res/__font__/font@18.struct"
 # define FONT_11_STRUCT_PATH	"res/__font__/font@11.struct"
-# define MAP_PATH				"mp"
+# define MAP_PATH				"maps"
 
 # define MAX_ERROR_MSG 250 // Max error message size
 
@@ -347,6 +359,9 @@ int b5(t_root *root);
 int b6(t_root *root);
 int b7(t_root *root);
 int b8(t_root *root);
+int b9(t_root *root);
+int b10(t_root *root);
+int b11(t_root *root);
 int b12(t_root *root);
 int b13(t_root *root);
 

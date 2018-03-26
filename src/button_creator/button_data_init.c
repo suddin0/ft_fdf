@@ -13,9 +13,9 @@ void button_data_init(t_b_create_data *b)
 	strcpy(((b[6 ]).name), "up");
 	strcpy(((b[7 ]).name), "uzoom");
 	strcpy(((b[8 ]).name), "zoom");
-	strcpy(((b[9 ]).name), "default");
-	strcpy(((b[10]).name), "face");
-	strcpy(((b[11]).name), "side");
+	strcpy(((b[9 ]).name), "reload"); // extra 1
+	strcpy(((b[10]).name), "face");  // extra 2
+	strcpy(((b[11]).name), "help");  // extra 2
 	strcpy(((b[12]).name), "trans");
 	strcpy(((b[13]).name), "rotate");
 	init_bid  (b);
@@ -35,7 +35,7 @@ void init_bid(t_b_create_data *b)
 	(b[6 ]).id = 6 ; // up
 	(b[7 ]).id = 7 ; // uzoom
 	(b[8 ]).id = 8 ; // zoom
-	(b[9 ]).id = 9 ; // default
+	(b[9 ]).id = 9 ; // reload
 	(b[10]).id = 10; // face
 	(b[11]).id = 11; // side
 	(b[12]).id = 12; // trans
@@ -53,7 +53,7 @@ void init_btype(t_b_create_data *b)
 	(b[6 ]).type = TP_NORMAL; // up
 	(b[7 ]).type = TP_NORMAL; // uzoom
 	(b[8 ]).type = TP_NORMAL; // zoom
-	(b[9 ]).type = TP_NORMAL; // default
+	(b[9 ]).type = TP_NORMAL; // reload
 	(b[10]).type = TP_NORMAL; // face
 	(b[11]).type = TP_NORMAL; // side
 	(b[12]).type = TP_RADIO;  // trans
@@ -71,7 +71,7 @@ void init_bstat(t_b_create_data *b)
 	(b[6 ]).stat = 0; // up
 	(b[7 ]).stat = 0; // uzoom
 	(b[8 ]).stat = 0; // zoom
-	(b[9 ]).stat = 0; // default
+	(b[9 ]).stat = 0; // reload
 	(b[10]).stat = 0; // face
 	(b[11]).stat = 0; // side
 	(b[12]).stat = 2; // trans
@@ -89,9 +89,9 @@ void init_borigine(t_b_create_data *b)
 	(b[6 ]).o_x = OX_UP		; // up
 	(b[7 ]).o_x = OX_UZOOM	; // uzoom
 	(b[8 ]).o_x = OX_ZOOM	; // zoom
-	(b[9 ]).o_x = OX_DEFAULT; // default
+	(b[9 ]).o_x = OX_RELOAD; // reload
 	(b[10]).o_x = OX_FACE	; // face
-	(b[11]).o_x = OX_SIDE	; // side
+	(b[11]).o_x = OX_HELP	; // side
 	(b[12]).o_x = OX_TRANS	; // trans
 	(b[13]).o_x = OX_ROTATE	; // rotate
 
@@ -104,9 +104,9 @@ void init_borigine(t_b_create_data *b)
 	(b[6 ]).o_y = OY_UP		; // up
 	(b[7 ]).o_y = OY_UZOOM	; // uzoom
 	(b[8 ]).o_y = OY_ZOOM	; // zoom
-	(b[9 ]).o_y = OY_DEFAULT; // default
+	(b[9 ]).o_y = OY_RELOAD; // reload
 	(b[10]).o_y = OY_FACE	; // face
-	(b[11]).o_y = OY_SIDE	; // side
+	(b[11]).o_y = OY_HELP	; // side
 	(b[12]).o_y = OY_TRANS	; // trans
 	(b[13]).o_y = OY_ROTATE	; // rotate
 }

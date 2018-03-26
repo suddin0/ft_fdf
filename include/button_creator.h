@@ -43,11 +43,13 @@
 # define OX_UP		OX_DOWN
 # define OX_UZOOM	OX_UP + (X_DOWN + (X_ZOOM / 3))
 # define OX_ZOOM	OX_UP - (X_ZOOM + (X_ZOOM / 3))
-# define OX_DEFAULT	0
-# define OX_FACE	0
-# define OX_SIDE	0
+
 # define OX_TRANS	(MENU_X / 2) - X_TRANS
 # define OX_ROTATE	(MENU_X / 2)
+
+# define OX_RELOAD	70
+# define OX_FACE	OX_RELOAD + 100
+# define OX_HELP	OX_FACE + 100
 
 # define OY_MAIN	0
 # define OY_MAP		0
@@ -58,11 +60,13 @@
 # define OY_UP		OY_DOWN - Y_UP
 # define OY_UZOOM	OY_UP + (Y_ZOOM / 3)//+ (Y_UZOOM + (Y_UZOOM  / 2))
 # define OY_ZOOM	OY_UP + (Y_ZOOM / 3)//- (Y_ZOOM  + (Y_ZOOM   / 2))
-# define OY_DEFAULT	0
-# define OY_FACE	0
-# define OY_SIDE	0
+
 # define OY_TRANS	(MENU_Y / 2) - (Y_TRANS		+ 20)
 # define OY_ROTATE	(MENU_Y / 2) - (Y_ROTATE	+ 20)
+
+# define OY_RELOAD	((MENU_Y / 2) - (Y_TRANS		+ 20)) - 120
+# define OY_FACE	OY_RELOAD
+# define OY_HELP	OY_RELOAD
 
 # define FONT_24_SMALL_PAD_TOP			6
 # define FONT_24_SMALL_SMALL_PAD_TOP 	21	// , .
