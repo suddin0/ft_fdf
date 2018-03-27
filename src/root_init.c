@@ -1,6 +1,6 @@
 #include "main.h"
 
-t_font *get_font(char *font_path)
+inline static	t_font *get_font(char *f_path)
 {
 	int fd;
 	int rd;
@@ -10,19 +10,19 @@ t_font *get_font(char *font_path)
 	font = NULL;
 	if(!(font = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1))))
 	{
-		ft_printf("[-] Error: Could not allocat enough memory for %s", font_path);
+		ft_printf("[-] Error: Could not allocat enough memory for %s", f_path);
 		exit(-1);
 	}
-	fd = open(font_path, O_RDONLY);
+	fd = open(f_path, O_RDONLY);
 	if(fd < 0)
 	{
-		printf("[-] Error: opening %s\n", font_path);
+		printf("[-] Error: opening %s\n", f_path);
 		perror("Reason");
 		exit(-1);
 	}
 	if(read(fd, font, sizeof(t_font) * FCHAR_MAX) <= 0)
 	{
-		printf("[-] Error: read %s\n", font_path);
+		printf("[-] Error: read %s\n", f_path);
 		exit(-1);
 	}
 	close(fd);
@@ -30,7 +30,7 @@ t_font *get_font(char *font_path)
 }
 
 
-void root_init(t_root *root, char **argv)
+void			root_init(t_root *root, char **argv)
 {
 	root->mlx = mlx_init();
 	root->sz_x = DEF_ROOT_X;

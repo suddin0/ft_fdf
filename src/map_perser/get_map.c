@@ -83,11 +83,12 @@ t_map *get_map(char *name, t_image *img)
 		free(map);
 		ft_printf("[-] Error: reading. Read %d/%d\n", rd , map->file_sz);
 		return (NULL);
-	}	
+	}
 	close(fd);
 	map->origine_x = ORIGINE_X;
 	map->origine_y = ORIGINE_Y;
 	map->step = STEP;
+	map->name = ft_strdup(name);
 	while((n_line = line_pnt(mp, o_line)) != 0)
 	{
 		if(n_line == -2)

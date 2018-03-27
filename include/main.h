@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/27 07:20:50 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/27 07:55:45 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAIN_H
 # define MAIN_H
 
@@ -64,10 +76,6 @@
 
 /* File paths */
 # define BUTTON_STRUCT_PATH		"res/__buttons__/button.struct"
-// # define FONT_STRUCT_PATH		"res/__font__/font@24.struct"
-// # define FONT_18_STRUCT_PATH	"res/__font__/font@18.struct"
-// # define FONT_11_STRUCT_PATH	"res/__font__/font@11.struct"
-
 # define FONT_24_STRUCT_PATH	"res/__font__/font@24.struct"
 # define FONT_18_STRUCT_PATH	"res/__font__/font@18.struct"
 # define FONT_11_STRUCT_PATH	"res/__font__/font@11.struct"
@@ -80,6 +88,7 @@
 # define MENU_BG_COLOR	0x383f49
 # define FOOT_BG_COLOR	0x383f49
 # define PREV_BG_COLOR	0x323842
+// # define MAP_COLOR		0xe0e0bd
 # define MAP_COLOR		0xe0e0bd
 
 /* Color set for font*/
@@ -95,8 +104,8 @@
 # define COL_B(B)		((col >> 8 ) & 0xFF)	// B
 # define COL_A(R)		(col & 0xFF);			// A
 
-// -------------------
 
+# define USAGE_MESSAGE "Usage: ./fdf <file.fdf>\n"
 // Event Notification and mask shortcurring
 // Notify NN_ButtonPress
 # define PMOTION	NN_MotionNotify
@@ -130,7 +139,8 @@
 # define MAX_EVENT_KEY 15
 
 
-
+typedef unsigned char t_uchar;
+typedef unsigned int t_uint;
 
 typedef struct s_point
 {
@@ -138,6 +148,40 @@ typedef struct s_point
 	double y;
 	double z;
 } t_point;
+
+typedef struct s_line_var
+{
+	int x0;
+	int y0;
+	int x1;
+	int y1;
+	int dx;
+	int sx;
+	int dy;
+	int sy;
+	int err;
+	int e2;
+} t_line_var;
+
+typedef struct s_font_var
+{
+	int x;
+	int y;
+	int k;
+
+	unsigned char A;
+	unsigned char R;
+	unsigned char G;
+	unsigned char B;
+
+
+	unsigned char BGA;
+	unsigned char BGR;
+	unsigned char BGG;
+	unsigned char BGB;
+	double opacity;
+	double o_opacity_r;
+} t_font_var;
 
 // contain map object data and various informations about it
 typedef struct s_map_data
@@ -148,7 +192,6 @@ typedef struct s_map_data
 	struct s_map_data	*next;
 	struct s_map_data	*prev;
 }	t_m_data;
-
 
 typedef struct s_mlx_image
 {
@@ -272,7 +315,7 @@ typedef struct	s_root
 	void	*win;	// Window pointer
 	int		sz_x;	// Window Width
 	int		sz_y;	// Window Height
-	char	name[NAME_MAX + 5]; // Window name
+	char	name[NAME_MAX * 2]; // Window name
 	t_map *map;		// Stores the map to show in Preview section
 	t_image	menu; 	// Menu section
 	t_image	prev; 	// Previeu section
@@ -287,6 +330,8 @@ typedef struct	s_root
 	t_font	*font_18;
 	t_font	*font_11;
 } t_root;
+
+
 
 int 	is_dot_fdf(char *str);
 int		file_size(const char *name);
@@ -381,7 +426,7 @@ void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col);
 
 /* list */
 void init_list(char *map_dir, t_map_list *list);
-int is_list_area(t_map_list list, int x, int y);
+int	 is_list_area(t_map_list list, int x, int y);
 void show_list(t_map_list *list, t_root *root);
 void load_map(t_root *root, t_map_list *list, int btn);
 void free_list(t_map_list *list);

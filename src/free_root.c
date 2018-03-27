@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_root.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/27 07:45:16 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/27 07:45:17 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 void free_root(t_root *root, int exit_code)
@@ -10,7 +22,7 @@ void free_root(t_root *root, int exit_code)
 	mlx_destroy_image(root->mlx, root->foot.img_ptr);
 	mlx_destroy_window(root->mlx,root->win);
 	free_map(root->map);
-	while(i != root->men.list.total_map)
+	while (i != root->men.list.total_map)
 		free(root->men.list.map_name[i++]);
 	free(root->men.list.map_name);
 	free(root->font_24);

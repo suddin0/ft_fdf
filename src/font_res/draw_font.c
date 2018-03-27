@@ -1,77 +1,83 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_font.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/27 07:20:42 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/27 07:33:43 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 
-
-
-
-void draw_font(t_char chr, t_image *img, int o_x, int o_y, unsigned int col)
+inline static	void font_var_init(t_font_var *var, int col, int o_x, int o_y)
 {
-	int x;
-	int y;
-	int k;
+	var->x = o_x * 4;
+	var->y = o_y;
+	var->k = 0;
+	var->A = COL_A(col);
+	var->R = COL_R(col);
+	var->G = COL_G(col);
+	var->B = COL_B(col);
+	var->BGA = 0;
+	var->BGR = 0;
+	var->BGG = 0;
+	var->BGB = 0;
+	var->opacity = 0;
+	var->o_opacity_r = 0;
+	var->opacity = (double) ((double) (var->A * 100) / 255) * 0.01;
+}
+
+inline static	void rgb_color_set(t_font_var *var, t_image *img, t_char chr)
+{
+	var->o_opacity_r = (double) (((unsigned char) \
+				(chr.data)[var->k + 2] * 100) / 255);
+	var->o_opacity_r = var->o_opacity_r * 0.01;
+	var->o_opacity_r = var->opacity - var->o_opacity_r;
+	var->o_opacity_r = (var->o_opacity_r > 0 && \
+			var->o_opacity_r < var->opacity) ? var->o_opacity_r : 0;
+	var->BGA = (t_uchar) ((img->img)[var->x + 3 + (var->y * (img->x * 4))]);
+	var->BGR = (t_uchar) ((img->img)[var->x + 2 + (var->y * (img->x * 4))]);
+	var->BGG = (t_uchar) ((img->img)[var->x + 1 + (var->y * (img->x * 4))]);
+	var->BGB = (t_uchar) ((img->img)[var->x + 0 + (var->y * (img->x * 4))]);
+}
+
+
+inline static	void rgb_set(t_font_var *v, t_image *img, t_char chr)
+{
+	rgb_color_set(v, img, chr);
+	(img->img)[v->x + 2 + (v->y * (img->x * 4))]  = ((v->opacity -\
+	v->o_opacity_r) * v->R + (1 - (v->opacity - v->o_opacity_r)) * v->BGR);
+	(img->img)[v->x + 1 + (v->y * (img->x * 4))]  = ((v->opacity -\
+	v->o_opacity_r) * v->G + (1 - (v->opacity - v->o_opacity_r)) * v->BGG);
+	(img->img)[v->x + 0 + (v->y * (img->x * 4))]  = ((v->opacity -\
+	v->o_opacity_r) * v->B + (1 - (v->opacity - v->o_opacity_r)) * v->BGB);
+}
+
+void			draw_font(t_char chr, t_image *img, int o_x, int o_y, t_uint c)
+{
+	t_font_var var;
 
 	if (chr.x == 0 || chr.y == 0)
 		return;
-	x = o_x * 4;
-	y = o_y;
-	k = 0;
-
-	// target = opacity * overlay + (1 - opacity) * background
-
-	unsigned char A = COL_A(col);
-	unsigned char R = COL_R(col);
-	unsigned char G = COL_G(col);
-	unsigned char B = COL_B(col);
-
-
-	unsigned char BGA;
-	unsigned char BGR;
-	unsigned char BGG;
-	unsigned char BGB;
-
-	// double opacity = (double) ((double) (A * 100) / 255) * 0.01;
-	double opacity;
-	double o_opacity_r; // original opacity
-
-
-	opacity = (double) ((double) (A * 100) / 255) * 0.01;
-	while (y < o_y + chr.y)
+	font_var_init(&var, c, o_x, o_y);
+	while (var.y < o_y + chr.y)
 	{
-		x = o_x * 4;
-		while (x < (o_x + chr.x) * 4)
+		var.x = o_x * 4;
+		while (var.x < (o_x + chr.x) * 4)
 		{
-			// if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4)
-			if((x > 0 && y > 0) && (x + (y * img->x)) < (img->x * img->y) && (x < (img->x * 4) &&  y * img->y))
-			{
-				if((unsigned char) (chr.data)[k + 0] != 2 || (unsigned char) (chr.data)[k + 1] != 2 || (unsigned char) (chr.data)[k + 2] != 2)
-				{
-					o_opacity_r =   (double) (((unsigned char) (chr.data)[k + 2] * 100) / 255); // original opacity
-
-					o_opacity_r = o_opacity_r * 0.01; // original opacity
-
-					o_opacity_r = opacity - o_opacity_r;
-					o_opacity_r = (o_opacity_r > 0 && o_opacity_r < opacity) ? o_opacity_r : 0;
-
-					BGA = (unsigned char) ((img->img)[x + 3 + (y * (img->x * 4))]);
-					BGR = (unsigned char) ((img->img)[x + 2 + (y * (img->x * 4))]);
-					BGG = (unsigned char) ((img->img)[x + 1 + (y * (img->x * 4))]);
-					BGB = (unsigned char) ((img->img)[x + 0 + (y * (img->x * 4))]);
-
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * A + (1 - (opacity - o_opacity_r)) * BGA);	// A
-					(img->img)[x + 2 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * R + (1 - (opacity - o_opacity_r)) * BGR);	// R
-					(img->img)[x + 1 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * G + (1 - (opacity - o_opacity_r)) * BGG);	// G
-					(img->img)[x + 0 + (y * (img->x * 4))]  = ((opacity - o_opacity_r) * B + (1 - (opacity - o_opacity_r)) * BGB);	// B
-
-					// /* Real Colors */
-					// (img->img)[x + 3 + (y * (img->x * 4))]  = (chr.data)[k + 3];	// R
-					// (img->img)[x + 2 + (y * (img->x * 4))]  = (chr.data)[k + 2];	// R
-					// (img->img)[x + 1 + (y * (img->x * 4))]  = (chr.data)[k + 1];	// G
-					// (img->img)[x + 0 + (y * (img->x * 4))]  = (chr.data)[k + 0];	// B
-				} /* End of if all white if */
-			}
-			k += 4;
-			x += 4;
+			if((var.x > 0 && var.y > 0) && (var.x + (var.y * img->x)) < \
+			(img->x * img->y) && (var.x < (img->x * 4) &&  var.y * img->y))
+				if((t_uchar) (chr.data)[var.k + 0] != 2 || \
+				(t_uchar) (chr.data)[var.k + 1] != 2 || \
+				(t_uchar) (chr.data)[var.k + 2] != 2)
+					rgb_set(&var, img, chr);
+			var.k += 4;
+			var.x += 4;
 		}
-		y++;
+		(var.y)++;
 	}
 }

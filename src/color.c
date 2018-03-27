@@ -1,18 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/27 07:40:28 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/27 07:40:30 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 
-void put_color(t_image *img, int x, int y, int col)
+void	put_color(t_image *img, int x, int y, int col)
 {
 	x = (x >= img->x || x < 0) ? 0 : x;
 	y = (y >= img->y || y < 0) ? 0 : y;
-	//if(x < img->x && x > 0 && y < img->y && (x + (y * img->x)) < img->x * img->y)
 	if(x > 0 && y > 0 && (x + (y * img->x)) < img->x * img->y)
 		((int *) img->img)[x + (y * img->x)]  = col;
 }
 
 
 
-void set_color(char *img, unsigned int len, int col)
+void	set_color(char *img, unsigned int len, int col)
 {
 	if (len > 8)
 		while (len > 8)

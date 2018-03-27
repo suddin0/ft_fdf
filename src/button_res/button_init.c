@@ -1,14 +1,7 @@
-
-
-
-
-
-
-
 #include "main.h"
 
 
-void show_button(t_root *root, t_image *m)
+void				show_button(t_root *root, t_image *m)
 {
 	draw_button((root->men.button)[0 ], m, (root->men.button)[0 ].stat);
 	draw_button((root->men.button)[1 ], m, (root->men.button)[1 ].stat);
@@ -20,14 +13,13 @@ void show_button(t_root *root, t_image *m)
 	draw_button((root->men.button)[7 ], m, (root->men.button)[7 ].stat);
 	draw_button((root->men.button)[8 ], m, (root->men.button)[8 ].stat);
 	draw_button((root->men.button)[9 ], m, (root->men.button)[9 ].stat);
-	// draw_button((root->men.button)[10], m, (root->men.button)[10].stat);
 	draw_button((root->men.button)[10], m, (root->men.button)[10].stat);
 	draw_button((root->men.button)[11], m, (root->men.button)[11].stat);
 	draw_button((root->men.button)[12], m, (root->men.button)[12].stat);
 	draw_button((root->men.button)[13], m, (root->men.button)[13].stat);
 }
 
-inline static void button_func_init(t_button *button)
+inline static void	button_func_init(t_button *button)
 {
 	button[0 ].f = (void *) &b0;
 	button[1 ].f = (void *) &b1;
@@ -45,17 +37,16 @@ inline static void button_func_init(t_button *button)
 	button[13].f = (void *) &b13;
 }
 
-void button_init(t_root *root, t_image *m)
+void				button_init(t_root *root, t_image *m)
 {
 	int fd;
 
 	fd = 0;
 	root->men.img = m;
 	root->men.mvment = 0;
-	// root->men.c_opt = 0;
 	root->men.btn_hover = -1;
 	root->men.btn_clicked = -1;
-	if((fd = open(BUTTON_STRUCT_PATH, O_RDONLY)) < 0)
+	if ((fd = open(BUTTON_STRUCT_PATH, O_RDONLY)) < 0)
 	{
 		ft_printf("[-] Error: opening %s\n", BUTTON_STRUCT_PATH);
 		perror("Details");

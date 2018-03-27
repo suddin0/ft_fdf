@@ -116,7 +116,6 @@ SRC		=	$(MAIN)							\
 			src/event/event_pmotion.c		\
 			src/event/event_bpress.c		\
 			src/draw_line.c					\
-			src/draw_dot.c					\
 			src/draw_map.c					\
 			src/matrans/modmatrix.c			\
 			src/matrans/rotate_point.c 		\

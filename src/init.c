@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/27 07:45:31 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/27 07:47:26 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 
-void kevent_init(t_root *root)
+void			kevent_init(t_root *root)
 {
 	root->kevent[0]		= k_up;
 	root->kevent[1]		= k_down;
@@ -19,7 +31,7 @@ void kevent_init(t_root *root)
 	root->kevent[13]	= k_esc;
 }
 
-void key_set_init(int *set)
+void			key_set_init(int *set)
 {
 	set[0] = BTN_UP;
 	set[1] = BTN_DOWN;
@@ -37,7 +49,7 @@ void key_set_init(int *set)
 	set[13] = BTN_ESC;
 }
 
-inline static void init_var(t_map_list *list)
+inline static	void init_var(t_map_list *list)
 {
 	list->total_map = 0;
 	list->curr_map = -1;
@@ -53,7 +65,7 @@ inline static void init_var(t_map_list *list)
 	list->border_active = 2;
 }
 
-void init_menu(t_root *root, t_image *m)
+void			init_menu(t_root *root, t_image *m)
 {
 	int fd;
 	m->o_x = 0;
@@ -61,7 +73,6 @@ void init_menu(t_root *root, t_image *m)
 	m->x = MENU_X;
 	m->y = MENU_Y;
 	m->bg = COLOR(root->mlx, MENU_BG_COLOR);
-
 	m->img_ptr = mlx_new_image(root->mlx, m->x , m->y);
 	m->img = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->sl), &(m->end));
 	set_color(m->img, m->x * m->y, m->bg);
@@ -72,35 +83,30 @@ void init_menu(t_root *root, t_image *m)
 }
 
 
-void init_prev(t_root *root, t_image *p)
+void			init_prev(t_root *root, t_image *p)
 {
 	p->o_x = MENU_X;
 	p->o_y = 0;
 	p->x = PREV_X;
 	p->y = PREV_Y;
 	p->bg = COLOR(root->mlx, PREV_BG_COLOR);
-
 	p->img_ptr = mlx_new_image(root->mlx, p->x, p->y);
 	p->img = mlx_get_data_addr(p->img_ptr, &(p->bpp), &(p->sl), &(p->end));
-
 	set_color(p->img, p->x * p->y, p->bg);
 	mlx_put_image_to_window(root->mlx, root->win, p->img_ptr, p->o_x, p->o_y);
-
 	kevent_init(root);
 	key_set_init(root->key_set);
 }
 
-void init_foot(t_root *root, t_image *f)
+void			init_foot(t_root *root, t_image *f)
 {
 	f->o_x = MENU_X;
 	f->o_y = PREV_Y;
 	f->x = FOOT_X;
 	f->y = FOOT_Y;
 	f->bg = COLOR(root->mlx, FOOT_BG_COLOR);
-
 	f->img_ptr = mlx_new_image(root->mlx, f->x, f->y);
 	f->img = mlx_get_data_addr(f->img_ptr, &(f->bpp), &(f->sl), &(f->end));
-
 	set_color(f->img, f->x * f->y, f->bg);
 	mlx_put_image_to_window(root->mlx, root->win, f->img_ptr, f->o_x, f->o_y);
 }

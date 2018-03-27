@@ -1,31 +1,25 @@
 #include "main.h"
 
-void draw_button(t_button button, t_image *img, int stat)
+void draw_button(t_button btn, t_image *img, int st)
 {
 	int x;
 	int y;
 	int k;
 
-	x = button.o_x * 4;
-	y = button.o_y;
+	x = btn.o_x * 4;
+	y = btn.o_y;
 	k = 0;
-	printf("Draw_Button- [%3d][%9s] X[%3d] Y[%3d]\n", button.id, button.name, button.x, button.y);
-	while (y < button.o_y + button.y)
+	while (y < btn.o_y + btn.y)
 	{
-		x = button.o_x * 4;
-		while (x < (button.o_x + button.x) * 4)
-		{
-			// We multiply img->x by 4 because the real size of img is 4 times bigger then it seems
-			// printf("x[%3d] - y[%3d] b.x[%3d] b,y[%3d]\n", x + 0, y, button.x, button.y);
-			// printf("x[%3d] - y[%3d] b.x[%3d] b,y[%3d]\n", x + 1, y, button.x, button.y);
-			// printf("x[%3d] - y[%3d] b.x[%3d] b,y[%3d]\n", x + 2, y, button.x, button.y);
-			// printf("x[%3d] - y[%3d] b.x[%3d] b,y[%3d]\n", x + 3, y, button.x, button.y);
-			if(x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) * 4 && ( x < (img->x * 4) &&  y * img->y))
+		x = btn.o_x * 4;
+		while (x < (btn.o_x + btn.x) * 4) {
+			if (x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) *\
+					4 && ( x < (img->x * 4) &&  y * img->y))
 			{
-				(img->img)[x + 0 + (y * (img->x * 4))]  = (button.view[stat])[k + 0];
-				(img->img)[x + 1 + (y * (img->x * 4))]  = (button.view[stat])[k + 1];
-				(img->img)[x + 2 + (y * (img->x * 4))]  = (button.view[stat])[k + 2];
-				(img->img)[x + 3 + (y * (img->x * 4))]  = (button.view[stat])[k + 3];
+				(img->img)[x + 0 + (y * (img->x * 4))]  = (btn.view[st])[k + 0];
+				(img->img)[x + 1 + (y * (img->x * 4))]  = (btn.view[st])[k + 1];
+				(img->img)[x + 2 + (y * (img->x * 4))]  = (btn.view[st])[k + 2];
+				(img->img)[x + 3 + (y * (img->x * 4))]  = (btn.view[st])[k + 3];
 			}
 			k += 4;
 			x += 4;
