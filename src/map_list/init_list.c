@@ -26,7 +26,6 @@ inline static int dir_file_count_list(char *map_dir)
   	}
 	else
 		return (-1);
-	printf("CAME TO THE END OF DIR_FILE_COUNT file found[%d]\n", file);
 	return (file);
 }
 
@@ -90,7 +89,6 @@ void init_list(char *map_dir, t_map_list *list)
 	}
 	if((list->total_map = dir_file_count_list(map_dir)) <= 0)
 	{
-		printf("FOUND [%d] MAPS INSIDE [%s]\n", list->total_map, map_dir );
 		set_error_message(list, map_dir, 1);
 		return;
 	}
@@ -103,6 +101,4 @@ void init_list(char *map_dir, t_map_list *list)
   	}
 	else
 		set_error_message(list, map_dir, 1);
-	printf("Map initialized\n");
-	perror("MAP STAT");
 }

@@ -135,7 +135,7 @@ int b9(t_root *root)
 	char *name_tmp;
 
 	name_tmp = ft_strdup(root->map->name);
-	free(root->map);
+	free_map(root->map);
 	if((root->map = get_map(name_tmp, &(root->prev))) == NULL)
 		ft_printf("[-] Error: getting file (b9: button 9 function, load map)");
 	free(name_tmp);
@@ -153,7 +153,7 @@ int b10(t_root *root)
 	char *name_tmp;
 
 	name_tmp = ft_strdup(root->map->name);
-	free(root->map);
+	free_map(root->map);
 	if ((root->map = get_map(name_tmp, &(root->prev))) == NULL)
 		ft_printf("[-] Error: getting file (b9: button 9 function, reload map)");
 	free(name_tmp);
