@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:45:21 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/27 07:45:23 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/28 12:31:26 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ inline static void	free_point(t_map *map, t_point **point)
 
 	line = 0;
 	if (!(point) || !(*point))
-		return;
+		return ;
 	while (line < map->lines)
 	{
 		free(point[line]);
@@ -42,7 +42,6 @@ inline static void	free_point(t_map *map, t_point **point)
 	}
 	free(point);
 	point = NULL;
-
 }
 
 void				free_map(t_map *map)

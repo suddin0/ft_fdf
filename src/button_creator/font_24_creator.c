@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 02:16:01 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 04:42:20 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/28 18:36:43 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ inline static void	imgptr_err(char **argv, int flag, int i)
 {
 	if (flag == 0)
 	{
-		printf("[-] Error: getting mlx image pointer for %s\n", argv[i]);
+		ft_printf("[-] Error: getting mlx image pointer for %s\n", argv[i]);
 		perror("[!] Reason");
 	}
 	else if (flag == 1)
 	{
-		printf("[-] Error: getting mlx data pointer for [%s]\n", argv[i]);
+		ft_printf("[-] Error: getting mlx data pointer for [%s]\n", argv[i]);
 		perror("[!] Reason");
 	}
 	exit(-1);

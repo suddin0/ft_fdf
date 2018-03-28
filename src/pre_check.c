@@ -6,14 +6,13 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:57:57 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/27 07:58:02 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/28 12:38:21 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-
-int is_dot_fdf(char *str)
+int	is_dot_fdf(char *str)
 {
 	int i;
 
@@ -24,15 +23,15 @@ int is_dot_fdf(char *str)
 		return (0);
 }
 
-int					pre_check(int argc, char **argv)
+int	pre_check(int argc, char **argv)
 {
-	if(argc < 2)
+	if (argc < 2)
 		ft_printf("[-] Error: Not enough argument \n%s", USAGE_MESSAGE);
-	else if(argc > 2)
+	else if (argc > 2)
 		ft_putstr("[-] Error: Tooo much arguments\n");
-	else if(ft_strlen(argv[1]) > NAME_MAX)
+	else if (ft_strlen(argv[1]) > NAME_MAX)
 		ft_putstr("[-] Error: File name Too long\n");
-	else if(is_dot_fdf(argv[1]) == 0)
+	else if (is_dot_fdf(argv[1]) == 0)
 		ft_putstr("[-] Error: File do not have .fdf extention\n");
 	else
 		return (1);

@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_map.c                                        :+:      :+:    :+:   */
+/*   rotate_point_ext.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/27 07:57:52 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 12:38:57 by suddin           ###   ########.fr       */
+/*   Created: 2018/03/28 12:22:27 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/28 12:22:37 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	print_map(t_map *map, int space)
+void	trans_x(t_map *a, double v)
 {
-	int l;
-	int p;
-	int num_sz;
+	a->origine_x += v;
+}
 
-	l = 0;
-	p = 0;
-	num_sz = 0;
-	while (l < map->lines)
+void	trans_y(t_map *a, double v)
+{
+	a->origine_y += v;
+}
+
+void	zoom(t_map *a, int v)
+{
+	if (a->step <= 0 && v < 0)
 	{
-		while (p < map->line_sz[l])
-		{
-			num_sz = ft_intlen(map->map[l][p].z);
-			if ((space - num_sz) > 0)
-				ft_putnchar(' ', space - num_sz);
-			ft_putnbr(map->map[l][p].z);
-			p++;
-		}
-		ft_putchar('\n');
-		p = 0;
-		l++;
+		ft_printf("[!] Reached minimum zoom, cannot unzoom %d o_x[%d] o_y[%d]\
+				step[%d]\n", v, a->origine_x, a->origine_y, a->step);
+		return ;
 	}
+	a->step += v;
+	a->origine_x += -v;
+	a->origine_y += -v;
 }

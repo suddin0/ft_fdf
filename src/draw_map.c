@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/28 12:27:47 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/28 12:30:36 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 inline static void	show_data(t_root *root, t_map *map)
@@ -7,7 +19,7 @@ inline static void	show_data(t_root *root, t_map *map)
 	color = 0xc0c5ce60;
 	CLEAR(root->foot);
 	printf_text(root, &(root->foot), "%C%f%x%yX: %d  Y: %d", 0xc0c5ce60,\
-			root->font_11, 20, 5, (int) map->origine_x, (int) map->origine_y);
+			root->font_11, 20, 5, (int)map->origine_x, (int)map->origine_y);
 	if (map->step <= 0)
 		color = COL_ERROR;
 	printf_text(root, &(root->foot), "%C%f%x%yZoom: %C%d", 0xc0c5ce60, \
@@ -18,12 +30,10 @@ inline static void	show_data(t_root *root, t_map *map)
 
 void				draw_map(t_root *root, void *img_ptr, t_map *map)
 {
-	int l;
-	int p;
-	double step;
-	t_point **m;
-	t_point a;
-	t_point b;
+	int		l;
+	int		p;
+	double	step;
+	t_point	**m;
 
 	l = 0;
 	p = 0;
@@ -31,11 +41,11 @@ void				draw_map(t_root *root, void *img_ptr, t_map *map)
 	while (l < map->lines)
 	{
 		p = 0;
-		while (p  < map->line_sz[l])
+		while (p < map->line_sz[l])
 		{
 			if (l + 1 < map->lines && p < map->line_sz[l + 1])
 				draw_line(map, m[l][p], m[l + 1][p], COLOR(img_ptr, MAP_COLOR));
-			if (p + 1 <  map->line_sz[l])
+			if (p + 1 < map->line_sz[l])
 				draw_line(map, m[l][p], m[l][p + 1], COLOR(img_ptr, MAP_COLOR));
 			p += 1;
 		}

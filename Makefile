@@ -94,42 +94,47 @@ BUTTON_STRUCT = $(P_RES)/__buttons__/button.struct
 ## Add all your source files to this variable
 
 
-SRC		=	$(MAIN)							\
-			src/map_perser/file_size.c		\
-			src/map_perser/map_malloc.c		\
-			src/map_perser/data_to_array.c	\
-			src/map_perser/get_num.c		\
-			src/map_perser/count_num.c		\
-			src/map_perser/get_map.c		\
-			src/map_perser/is_dir.c			\
-			src/map_perser/is_file.c		\
-			src/free_map.c					\
-			src/print_map.c					\
-			src/pre_check.c					\
-			src/root_init.c					\
-			src/free_root.c 				\
-			src/init.c						\
-			src/color.c						\
-			src/event/event_handler.c		\
-			src/event/is_button_area.c		\
-			src/event/event_func_init.c		\
-			src/event/event_pmotion.c		\
-			src/event/event_bpress.c		\
-			src/draw_line.c					\
-			src/draw_map.c					\
-			src/matrans/modmatrix.c			\
-			src/matrans/rotate_point.c 		\
-			src/matrans/key_func_one.c 		\
-			src/matrans/key_func_two.c 		\
-			src/matrans/key_func_three.c 	\
-			src/button_res/button_init.c 	\
-			src/button_res/draw_button.c 	\
-			src/button_res/button_func.c 	\
-			src/font_res/printf_text.c 		\
-			src/font_res/draw_font.c 		\
-			src/map_list/init_list.c 		\
-			src/map_list/show_list.c 		\
-			src/map_list/free_list.c 		\
+SRC		=	$(MAIN)									\
+			src/map_perser/file_size.c				\
+			src/map_perser/map_malloc.c				\
+			src/map_perser/data_to_array.c			\
+			src/map_perser/get_num.c				\
+			src/map_perser/count_num.c				\
+			src/map_perser/get_map.c				\
+			src/map_perser/get_map_ext.c			\
+			src/map_perser/is_dir.c					\
+			src/map_perser/is_file.c				\
+			src/free_map.c							\
+			src/print_map.c							\
+			src/pre_check.c							\
+			src/root_init.c							\
+			src/free_root.c 						\
+			src/init.c								\
+			src/init_ext.c						\
+			src/color.c								\
+			src/event/event_handler.c				\
+			src/event/is_button_area.c				\
+			src/event/event_func_init.c				\
+			src/event/event_pmotion.c				\
+			src/event/event_bpress.c				\
+			src/draw_line.c							\
+			src/draw_map.c							\
+			src/matrans/modmatrix.c					\
+			src/matrans/rotate_point.c 				\
+			src/matrans/rotate_point_ext.c			\
+			src/matrans/key_func_one.c				\
+			src/matrans/key_func_two.c				\
+			src/matrans/key_func_three.c			\
+			src/button_res/button_init.c			\
+			src/button_res/draw_button.c			\
+			src/button_res/button_func.c			\
+			src/button_res/button_func_ext_1.c		\
+			src/button_res/button_func_ext_2.c		\
+			src/font_res/printf_text.c				\
+			src/font_res/draw_font.c				\
+			src/map_list/init_list.c				\
+			src/map_list/show_list.c				\
+			src/map_list/free_list.c				\
 
 
 

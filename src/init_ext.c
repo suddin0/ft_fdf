@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_map.c                                        :+:      :+:    :+:   */
+/*   init_ext.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/27 07:57:52 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 12:38:57 by suddin           ###   ########.fr       */
+/*   Created: 2018/03/28 12:36:48 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/28 12:36:50 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	print_map(t_map *map, int space)
+void					init_foot(t_root *root, t_image *f)
 {
-	int l;
-	int p;
-	int num_sz;
-
-	l = 0;
-	p = 0;
-	num_sz = 0;
-	while (l < map->lines)
-	{
-		while (p < map->line_sz[l])
-		{
-			num_sz = ft_intlen(map->map[l][p].z);
-			if ((space - num_sz) > 0)
-				ft_putnchar(' ', space - num_sz);
-			ft_putnbr(map->map[l][p].z);
-			p++;
-		}
-		ft_putchar('\n');
-		p = 0;
-		l++;
-	}
+	f->o_x = MENU_X;
+	f->o_y = PREV_Y;
+	f->x = FOOT_X;
+	f->y = FOOT_Y;
+	f->bg = COLOR(root->mlx, FOOT_BG_COLOR);
+	f->img_ptr = mlx_new_image(root->mlx, f->x, f->y);
+	f->img = mlx_get_data_addr(f->img_ptr, &(f->bpp), &(f->sl), &(f->end));
+	set_color(f->img, f->x * f->y, f->bg);
+	mlx_put_image_to_window(root->mlx, root->win, f->img_ptr, f->o_x, f->o_y);
 }

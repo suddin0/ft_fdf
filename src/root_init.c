@@ -1,36 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   root_init.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/28 12:39:19 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/28 18:41:42 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-inline static	t_font *get_font(char *f_path)
+inline static t_font	*get_font(char *f_path)
 {
-	int fd;
-	int rd;
-	t_font *font;
+	int		fd;
+	int		rd;
+	t_font	*font;
 
 	fd = -1;
 	font = NULL;
-	if(!(font = (t_font *) malloc(sizeof(t_font) * (FCHAR_MAX + 1))))
+	if (!(font = (t_font *)malloc(sizeof(t_font) * (FCHAR_MAX + 1))))
 	{
 		ft_printf("[-] Error: Could not allocat enough memory for %s", f_path);
 		exit(-1);
 	}
 	fd = open(f_path, O_RDONLY);
-	if(fd < 0)
+	if (fd < 0)
 	{
-		printf("[-] Error: opening %s\n", f_path);
-		perror("Reason");
+		ft_printf("[-] Error: opening %s\n", f_path);
+		perror("[!] Reason");
 		exit(-1);
 	}
-	if(read(fd, font, sizeof(t_font) * FCHAR_MAX) <= 0)
+	if (read(fd, font, sizeof(t_font) * FCHAR_MAX) <= 0)
 	{
-		printf("[-] Error: read %s\n", f_path);
+		ft_printf("[-] Error: read %s\n", f_path);
 		exit(-1);
 	}
 	close(fd);
 	return (font);
 }
 
-
-void			root_init(t_root *root, char **argv)
+void					root_init(t_root *root, char **argv)
 {
 	root->mlx = mlx_init();
 	root->sz_x = DEF_ROOT_X;

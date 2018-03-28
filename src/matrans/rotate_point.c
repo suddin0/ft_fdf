@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 06:31:28 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 06:34:52 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/28 12:22:40 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,4 @@ void	rotate_z(t_point *a, double v)
 	a->x = (x * cos(v)) + (y * -sin(v)) + (z * 0);
 	a->y = (x * sin(v)) + (y * cos(v)) + (z * 0);
 	a->z = (x * 0) + (y * 0) + (z * 1);
-}
-
-void	trans_x(t_map *a, double v)
-{
-	a->origine_x += v;
-}
-
-void	trans_y(t_map *a, double v)
-{
-	a->origine_y += v;
-}
-
-void	zoom(t_map *a, int v)
-{
-	if (a->step <= 0 && v < 0)
-	{
-		ft_printf("[!] Reached minimum zoom, cannot unzoom %d o_x[%d] o_y[%d]\
-				step[%d]\n", v, a->origine_x, a->origine_y, a->step);
-		return ;
-	}
-	a->step += v;
-	a->origine_x += -v;
-	a->origine_y += -v;
 }

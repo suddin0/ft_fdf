@@ -5,25 +5,6 @@
 # include <unistd.h>		// For read
 
 
-
-// void put_text(char *str, t_root *root, int o_x, int o_y)
-// void show_list(t_map_list *list, t_root *root)
-// {
-// 	int i;
-// 	int curr_x; // current x
-// 	int curr_y; // current y
-//
-// 	i = 0;
-// 	curr_x = list->o_x;
-// 	curr_y = list->o_y;
-// 	while(i < list->total_map)
-// 	{
-// 		printf_text(root, &(root->menu),"%x%y%s", curr_x + 10, curr_y, &(list->map_name[i][strlen(MAP_PATH) + 1]));
-// 		curr_y += 70;
-// 		i++;
-// 	}
-// }
-
 int main(int argc, char **argv)
 {
 	t_root root;

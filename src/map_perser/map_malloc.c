@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_malloc.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/28 11:48:22 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/28 11:48:49 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-
-t_map *map_malloc(t_image *img)
+t_map	*map_malloc(t_image *img)
 {
 	t_map *map;
 
 	map = NULL;
-	map = (t_map *) malloc(sizeof(t_map));	// main structure
+	map = (t_map *)malloc(sizeof(t_map));
 	map->name = NULL;
 	map->path = NULL;
 	map->img = img;

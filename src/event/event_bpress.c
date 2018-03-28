@@ -6,13 +6,13 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 04:57:54 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 05:01:50 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/28 18:28:14 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	bpress_func_0(int key, int x, int y, void *rot)
+int					bpress_func_0(int key, int x, int y, void *rot)
 {
 	t_root	*root;
 	int		btn;
@@ -41,7 +41,39 @@ int	bpress_func_0(int key, int x, int y, void *rot)
 	return (0);
 }
 
-int	bpress_func_1(int key, int x, int y, void *rot)
+inline static void	show_top_menu(t_root *root)
+{
+	draw_button(root->men.button[0], &(root->menu), root->men.button[0].stat);
+	draw_button(root->men.button[1], &(root->menu), root->men.button[1].stat);
+	draw_button(root->men.button[2], &(root->menu), root->men.button[2].stat);
+	mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
+			root->menu.o_x, root->menu.o_y);
+}
+
+inline static void	bpress_f_1_ext(t_root *root, int key)
+{
+	if (key == MOUSE_GOUP)
+	{
+		if (root->men.list.o_y < MAP_LIST_OY)
+			root->men.list.o_y += 40;
+		CLEAR(root->menu);
+		show_list(&(root->men.list), root);
+		mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
+				root->menu.o_x, root->menu.o_y);
+	}
+	else if (key == MOUSE_GODWN)
+	{
+		if (root->men.list.o_y > -((root->men.list.height * \
+						(root->men.list.total_map - 10)) - MAP_LIST_OY))
+			root->men.list.o_y -= 40;
+		CLEAR(root->menu);
+		show_list(&(root->men.list), root);
+		mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
+				root->menu.o_x, root->menu.o_y);
+	}
+}
+
+int					bpress_func_1(int key, int x, int y, void *rot)
 {
 	t_root	*root;
 	int		btn;
@@ -52,7 +84,7 @@ int	bpress_func_1(int key, int x, int y, void *rot)
 	clk = root->men.btn_clicked;
 	root = rot;
 	if (x > root->menu.o_x && x < root->menu.o_x + root->menu.x && \
-	y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
+			y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
 	{
 		if (key == MOUSE_LEFT && (btn = is_list_area(root->men.list, x, y)) \
 				!= -1)
@@ -61,35 +93,13 @@ int	bpress_func_1(int key, int x, int y, void *rot)
 			load_map(root, &(root->men.list), btn);
 			show_list(&(root->men.list), root);
 		}
-		else if (key == MOUSE_GOUP)
-		{
-			if (root->men.list.o_y < MAP_LIST_OY)
-				root->men.list.o_y += 40;
-			CLEAR(root->menu);
-			show_list(&(root->men.list), root);
-			mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
-					root->menu.o_x, root->menu.o_y);
-		}
-		else if (key == MOUSE_GODWN)
-		{
-			if (root->men.list.o_y > -((root->men.list.height * \
-							(root->men.list.total_map - 10)) - MAP_LIST_OY))
-				root->men.list.o_y -= 40;
-			CLEAR(root->menu);
-			show_list(&(root->men.list), root);
-			mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
-					root->menu.o_x, root->menu.o_y);
-		}
+		bpress_f_1_ext(root, key);
 	}
-	draw_button(root->men.button[0], &(root->menu), root->men.button[0].stat);
-	draw_button(root->men.button[1], &(root->menu), root->men.button[1].stat);
-	draw_button(root->men.button[2], &(root->menu), root->men.button[2].stat);
-	mlx_put_image_to_window(root->mlx, root->win, root->menu.img_ptr, \
-			root->menu.o_x, root->menu.o_y);
+	show_top_menu(root);
 	return (0);
 }
 
-int	bpress_func_2(int key, int x, int y, void *rot)
+int					bpress_func_2(int key, int x, int y, void *rot)
 {
 	return (0);
 }
