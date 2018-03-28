@@ -1,44 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   font11_struct_init.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/28 00:44:25 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/28 04:17:46 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "button_creator.h"
 
-static void pad_left_init(t_f_create_data *fdata)
+inline static void	pad_left_init(t_f_create_data *fdata)
 {
 	int i;
 
 	i = 0;
-	fdata[i++].pad_left = 10; // space
-	while (i < 96) // 96 becuse space is not counted in files
+	fdata[i++].pad_left = 10;
+	while (i < 96)
 	{
 		fdata[i].pad_left = 3;
 		i++;
 	}
 }
 
-
-static void pad_right_init(t_f_create_data *fdata)
+inline static void	pad_right_init(t_f_create_data *fdata)
 {
 	int i;
 
 	i = 0;
-	fdata[i++].pad_right = 10; // space
-	while (i < 96) // 96 becuse space is not counted in files
+	fdata[i++].pad_right = 10;
+	while (i < 96)
 	{
 		fdata[i].pad_right = 3;
 		i++;
 	}
-
 }
 
-static void pad_top_init(t_f_create_data *fdata)
+inline static void	pad_top_ext(t_f_create_data *fdata)
 {
-	int i;
-
-	i = 0;
-	while (i < 96)
-	{
-		fdata[i].pad_top = 0;
-		i++;
-	}
-
 	fdata['+' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
 	fdata[',' - 32].pad_top = FONT_11_SMALL_SMALL_PAD_TOP;
 	fdata['-' - 32].pad_top = FONT_11_SMALL_MIDLE_PAD_TOP;
@@ -54,6 +55,11 @@ static void pad_top_init(t_f_create_data *fdata)
 	fdata['c' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
 	fdata['e' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
 	fdata['g' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
+}
+
+inline static void	pad_top_init(t_f_create_data *fdata)
+{
+	pad_top_ext(fdata);
 	fdata['m' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
 	fdata['n' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
 	fdata['o' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
@@ -68,10 +74,9 @@ static void pad_top_init(t_f_create_data *fdata)
 	fdata['y' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
 	fdata['z' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
 	fdata['~' - 32].pad_top = FONT_11_SMALL_PAD_TOP;
-
 }
 
-void font11_struct_init(t_f_create_data *fdata)
+void				font11_struct_init(t_f_create_data *fdata)
 {
 	pad_left_init(fdata);
 	pad_right_init(fdata);

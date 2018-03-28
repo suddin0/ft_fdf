@@ -102,6 +102,12 @@ typedef struct s_button_create_data
 	int o_y;
 } t_b_create_data;
 
+typedef struct s_fle
+{
+	char ***file;
+	t_root root;
+	int argc;
+} t_fle;
 typedef struct s_font_create_data
 {
 	// char name[100];

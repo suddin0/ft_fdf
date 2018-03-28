@@ -1,19 +1,22 @@
-/* *****************************************************************************
-
-	This function return a 1 if the name given is  directory else it returns a 0
-
-***************************************************************************** */
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_size.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/28 08:02:29 by suddin            #+#    #+#             */
+/*   Updated: 2018/03/28 08:02:50 by suddin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "main.h"
 
-
-
-int file_size(const char *name)
+int	file_size(const char *name)
 {
 	struct stat st;
 
-	if(is_file(name) == 0)
+	if (is_file(name) == 0)
 		return (-1);
 	stat(name, &st);
 	return (st.st_size);

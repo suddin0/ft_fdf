@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:59:42 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/27 08:00:32 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/28 06:29:12 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	k_right(t_root *root)
 
 int	k_left(t_root *root)
 {
-	if(!(root->map))
+	if (!(root->map))
 		return (-1);
 	trans_x(root->map, -10.0);
 	draw_map(root, root->mlx, root->map);
