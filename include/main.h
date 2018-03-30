@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:20:50 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/30 03:34:38 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 05:29:02 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,11 +257,11 @@ typedef struct	s_font_data
 
 typedef struct	s_printf_text
 {
-	int i;
-	t_font_data d;
-	int o_[5];
-	t_font *font;
-	va_list args;
+	int			i;
+	t_font_data	d;
+	int			o_[5];
+	t_font		*font;
+	va_list		args;
 }				t_printf_text;
 
 typedef struct	s_root
@@ -366,4 +366,8 @@ int				is_list_area(t_map_list list, int x, int y);
 void			show_list(t_map_list *list, t_root *root);
 void			load_map(t_root *root, t_map_list *list, int btn);
 void			free_list(t_map_list *list);
+int				kpress(int key, t_root *root);
+int				krelease(int key, t_root *root);
+int				bpress(int key, int x, int y, t_root *root);
+int				pmotion(int x, int y, t_root *root);
 #endif

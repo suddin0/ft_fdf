@@ -108,9 +108,11 @@ SRC		=	$(MAIN)									\
 			src/root_init.c							\
 			src/free_root.c 						\
 			src/init.c								\
-			src/init_ext.c						\
+			src/init_ext.c							\
 			src/color.c								\
 			src/event/event_handler.c				\
+			src/event/event_handler_exp_1.c			\
+			src/event/event_handler_exp_2.c			\
 			src/event/is_button_area.c				\
 			src/event/event_func_init.c				\
 			src/event/event_pmotion.c				\

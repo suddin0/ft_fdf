@@ -43,8 +43,8 @@
 # define Y_SIDE 0
 # define Y_TRANS 43
 # define Y_ROTATE 43
-# define OX_MAIN 0
-# define OX_MAP X_MAIN
+# define OX_MAIN 1
+# define OX_MAP X_MAIN + 1
 # define OX_INFO X_INFO + X_MAP + 1
 # define OX_DOWN (MENU_X / 2) - (X_DOWN / 2)
 # define OX_LEFT OX_DOWN - X_LEFT
