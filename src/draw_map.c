@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 12:27:47 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 12:30:36 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 01:47:43 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void				draw_map(t_root *root, void *img_ptr, t_map *map)
 {
 	int		l;
 	int		p;
-	double	step;
 	t_point	**m;
 
 	l = 0;

@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:20:50 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 20:08:40 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 03:34:38 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 # define FCHAR_MAX 98
 # define BUTTON_MAX 16
 # define BUTTON_STRUCT_PATH	  "res/__buttons__/button.struct"
-# define FCHAR_MAX 98
 # define FONT_24_STRUCT_PATH "res/__font__/font@24.struct"
 # define FONT_18_STRUCT_PATH "res/__font__/font@18.struct"
 # define FONT_11_STRUCT_PATH "res/__font__/font@11.struct"
@@ -97,6 +96,7 @@
 # define COLOR(MLX_PTR, H_COLOR) mlx_get_color_value(MLX_PTR, H_COLOR)
 # define VIEW mlx_put_image_to_window
 # define CLEAR(I) set_color(I.img, I.x * I.y, I.bg);
+# define CAST_T_ROOT(ROT) ((t_root *) ROT)
 # define MAX_EVENT_KEY 15
 
 typedef unsigned char	t_uchar;
@@ -241,7 +241,7 @@ typedef struct	s_menu
 	void		(*hover_f)(void *root);
 	void		(*click_f)(void *root);
 	t_button	button[BUTTON_MAX];
-	char		curr_opt;
+	int			curr_opt;
 	t_button	*maps;
 	int			mvment;
 	int			btn_hover;

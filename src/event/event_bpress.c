@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 04:57:54 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 18:28:14 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 03:35:03 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 int					bpress_func_0(int key, int x, int y, void *rot)
 {
-	t_root	*root;
 	int		btn;
 	int		clk;
-	int		hst;
+	t_root	*root;
 
+	root = CAST_T_ROOT(rot);
 	btn = -1;
 	clk = root->men.btn_clicked;
-	root = rot;
 	if (x > root->menu.o_x && x < root->menu.o_x + root->menu.x && y > \
 	root->menu.o_y && y < root->menu.o_y + root->menu.y && key == MOUSE_LEFT)
 	{
@@ -75,16 +74,15 @@ inline static void	bpress_f_1_ext(t_root *root, int key)
 
 int					bpress_func_1(int key, int x, int y, void *rot)
 {
-	t_root	*root;
 	int		btn;
 	int		clk;
-	int		hst;
+	t_root	*root;
 
+	root = CAST_T_ROOT(rot);
 	btn = -1;
 	clk = root->men.btn_clicked;
-	root = rot;
-	if (x > root->menu.o_x && x < root->menu.o_x + root->menu.x && \
-			y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
+	if (x > root->menu.o_x && x < (root->menu.o_x + root->menu.x) && \
+			y > root->menu.o_y && y < (root->menu.o_y + root->menu.y))
 	{
 		if (key == MOUSE_LEFT && (btn = is_list_area(root->men.list, x, y)) \
 				!= -1)
@@ -101,5 +99,9 @@ int					bpress_func_1(int key, int x, int y, void *rot)
 
 int					bpress_func_2(int key, int x, int y, void *rot)
 {
+	key = 0;
+	x = 0;
+	y = 0;
+	rot = 0;
 	return (0);
 }

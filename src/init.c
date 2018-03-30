@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:45:31 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 12:37:26 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 01:38:19 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ inline static	void	init_var(t_map_list *list)
 
 void					init_menu(t_root *root, t_image *m)
 {
-	int fd;
-
 	m->o_x = 0;
 	m->o_y = 0;
 	m->x = MENU_X;

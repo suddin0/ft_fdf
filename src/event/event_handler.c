@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 05:15:01 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 05:22:55 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 04:23:11 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		key_in_set(int key, t_root *root)
 			return (i);
 		i++;
 	}
+	key = 0;
 	return (-1);
 }
 
@@ -96,23 +97,23 @@ int		krelease(int key, t_root *root)
 	clk = root->men.btn_clicked;
 	root->key = 0;
 	mlx_loop_hook(root->mlx, NULL, NULL);
+	key = 0;
 	return (1);
 }
 
-int		button_press(int x, int y, t_button button)
-{
-	if (x > button.o_x && x < button.o_x + button.x && y > button.o_y && \
-			y < button.o_y + button.y)
-		return (1);
-	else
-		return (0);
-}
+//int		button_press(int x, int y, t_button button)
+//{
+//	if (x > button.o_x && x < button.o_x + button.x && y > button.o_y && \
+//			y < button.o_y + button.y)
+//		return (1);
+//	else
+//		return (0);
+//}
 
 int		bpress(int key, int x, int y, t_root *root)
 {
 	int	btn;
 	int	clk;
-	int	hst;
 
 	btn = -1;
 	clk = root->men.btn_clicked;
@@ -153,6 +154,9 @@ int		brelease(int key, int x, int y, t_root *root)
 		root->men.button[clk].stat = ST_DEFAULT;
 	}
 	mlx_loop_hook(root->mlx, NULL, NULL);
+	key = 0;
+	x = 0;
+	y = 0;
 	return (1);
 }
 

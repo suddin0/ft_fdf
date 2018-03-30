@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 05:29:19 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 05:37:25 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 02:04:15 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ inline static	int	p_func_0_ext(t_root *root, int btn)
 
 int					pmotion_func_0(int x, int y, void *rot)
 {
-	t_root	*root;
 	int		btn;
 	int		hvr;
 	int		hst;
+	t_root	*root;
 
-	root = rot;
+	root = CAST_T_ROOT(rot);
 	btn = -1;
 	hvr = root->men.btn_hover;
 	hst = (hvr != -1) ? root->men.button[hvr].stat : 0;
@@ -50,10 +50,16 @@ int					pmotion_func_0(int x, int y, void *rot)
 
 int					pmotion_func_1(int x, int y, void *rot)
 {
+	x = 0;
+	y = 0;
+	rot = NULL;
 	return (0);
 }
 
 int					pmotion_func_2(int x, int y, void *rot)
 {
+	x = 0;
+	y = 0;
+	rot = NULL;
 	return (0);
 }

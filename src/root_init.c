@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 12:39:19 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 18:41:42 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 01:37:24 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 inline static t_font	*get_font(char *f_path)
 {
 	int		fd;
-	int		rd;
 	t_font	*font;
 
 	fd = -1;

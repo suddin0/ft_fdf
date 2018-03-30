@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 05:56:20 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 06:03:23 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 01:47:04 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ inline static void	set_name(DIR *dir, t_map_list *list, char *map_dir)
 
 	i = 0;
 	tmp_file = NULL;
+	ep = NULL;
 	while ((ep = readdir(dir)))
 	{
 		tmp_file = (char *)malloc(sizeof(char) * ((ft_strlen(map_dir) + \
@@ -92,9 +93,6 @@ inline static void	set_name(DIR *dir, t_map_list *list, char *map_dir)
 void				init_list(char *map_dir, t_map_list *list)
 {
 	DIR				*dir;
-	struct dirent	*ep;
-	int				file;
-	char			*tmp_file;
 
 	list->error = 0;
 	if (!is_dir(map_dir))

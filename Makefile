@@ -43,10 +43,8 @@ CC		?=	clang 		## default compiler is clang
 CC_FLAG ?=	-Werror \
 			-Wall	\
 			-Wextra \
-			-O1 -g -fsanitize=address	\
-			-fno-omit-frame-pointer		\
-			-fsanitize-address-use-after-scope \
 			-lm \
+			-O3 \
 
 CC_FLAG_ASAN ?=	-O1 -g -lm -fsanitize=address	\
 			-fno-omit-frame-pointer		\
@@ -316,17 +314,17 @@ __START: all
 all : $(LIBFT_A) $(NAME)
 
 $(NAME):	$(SRC) $(BUTTON_STRUCT) $(FONT_24_STRUCT) $(FONT_18_STRUCT) $(FONT_11_STRUCT)
-	@$(CC) $(CC_FLAG_ASAN) $(SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT)  \
+	@$(CC)  $(SRC) $(CC_FLAG) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT)  \
 		-o $(NAME)
 
 ## Clean objects and others
-clean:				button_clean	font_24_clean	font_18_clean	font_11_clean
+clean:			button_clean	font_24_clean	font_18_clean	font_11_clean
 	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed all objects from ./$(P_OBJ)$(C_DEF)\n"
 	printf	"$(OK)[+][$(PROJECT)] Cleaned$(C_DEF)\n"
 
 ## Cleans everything
-fclean:		clean	button_fclean	font_24_fclean	font_18_fclean	font_11_fclean
+fclean:		clean button_fclean font_24_fclean font_18_fclean font_11_fclean
 	@rm		-f	$(NAME)
 	printf	"$(WARN)[!][$(PROJECT)] Removed $(NAME)$(C_DEF)\n"
 	@make -C lib/libft fclean --no-print-directory
@@ -365,7 +363,7 @@ library:	object $(P_OBJ) $(OBJ_P)
 ## --------------- BUTTON Creator --------------- ##
 $(BUTTON_CREATOR): $(LIBFT_A)  $(P_BUTTON_CREATOR) $(IMAGE_SRC) $(P_BIN)
 	@printf "$(WARN)[!][$(PROJECT)] Creating button_creator in $(P_BIN)$(C_DEF)\n"
-	@$(CC) $(P_BUTTON_CREATOR)  $(CC_FLAG_ASAN) $(BUTTON_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
+	@$(CC) $(P_BUTTON_CREATOR) $(CC_FLAG) $(BUTTON_SRC) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) \
 	-o $(P_BIN)/button_creator
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 
@@ -373,6 +371,7 @@ $(BUTTON_CREATOR): $(LIBFT_A)  $(P_BUTTON_CREATOR) $(IMAGE_SRC) $(P_BIN)
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
 $(BUTTON_STRUCT) :
 	@make button_make --no-print-directory
+	 @printf "$(OK)[+]Buttons are made$(C_DEF)\n"
 button_make: $(P_BIN) $(BUTTON_CREATOR) $(XPM_BUTTON_PATH)
 	@./$(BUTTON_CREATOR) $(BUTTON_NAME)
 
@@ -395,13 +394,14 @@ button_re: button_fclean button_make
 ## --------------@24----------- ##
 $(FONT_24_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(WARN)[!][$(PROJECT)] Creating font_creator in $(P_BIN)$(C_DEF)\n"
-	@$(CC) $(P_FONT_24_CREATOR)  $(CC_FLAG_ASAN) $(FONT_SRC) -I ./$(P_INCLUDE) \
+	@$(CC) $(P_FONT_24_CREATOR) $(CC_FLAG) $(FONT_SRC) -I ./$(P_INCLUDE) \
 		-I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) -o $(FONT_24_CREATOR)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
 $(FONT_24_STRUCT) :
 	@make font_24_make --no-print-directory
+	 @printf "$(OK)[+]Font@24 is made$(C_DEF)\n"
 
 font_24_make: $(P_BIN) $(FONT_24_CREATOR) $(XPM_FONT_PATH)
 	@./$(FONT_24_CREATOR) $(FONT@24_NAME)
@@ -420,13 +420,14 @@ font_24_re: font_24_fclean font_24_make
 ## --------------@18----------- ##
 $(FONT_18_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(WARN)[!][$(PROJECT)] Creating font_creator in $(P_BIN)$(C_DEF)\n"
-	@$(CC) $(P_FONT_18_CREATOR)  $(CC_FLAG_ASAN) $(FONT_SRC) -I ./$(P_INCLUDE) \
+	@$(CC) $(P_FONT_18_CREATOR) $(CC_FLAG)  $(FONT_SRC) -I ./$(P_INCLUDE) \
 		-I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) -o $(FONT_18_CREATOR)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
 $(FONT_18_STRUCT) :
 	@make font_18_make --no-print-directory
+	 @printf "$(OK)[+]Font@18 is made$(C_DEF)\n"
 
 font_18_make: $(P_BIN) $(FONT_18_CREATOR) $(XPM_FONT_PATH)
 	@./$(FONT_18_CREATOR) $(FONT@18_NAME)
@@ -444,13 +445,14 @@ font_18_re: font_18_fclean font_18_make
 ## --------------@18----------- ##
 $(FONT_11_CREATOR): $(LIBFT_A)  $(P_FONT_CREATOR) $(FONT_SRC) $(P_BIN)
 	@printf "$(WARN)[!][$(PROJECT)] Creating font_creator in $(P_BIN)$(C_DEF)\n"
-	@$(CC) $(P_FONT_11_CREATOR)  $(CC_FLAG_ASAN) $(FONT_SRC) -I ./$(P_INCLUDE) \
+	@$(CC) $(P_FONT_11_CREATOR) $(CC_FLAG)  $(FONT_SRC) -I ./$(P_INCLUDE) \
 		-I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT) -o $(FONT_11_CREATOR)
 	@printf "$(OK)[+][$(PROJECT)] button_creator compiled in $(P_BIN)$(C_DEF)\n"
 # BUTTON_PATH := res/__buttons__/xpm
 # BUTTON_NAME := $(BUTTON_PATH)/arrow
 $(FONT_11_STRUCT) :
 	@make font_11_make --no-print-directory
+	 @printf "$(OK)[+]Font@11 is made$(C_DEF)\n"
 
 font_11_make: $(P_BIN) $(FONT_11_CREATOR) $(XPM_FONT_PATH)
 	@./$(FONT_11_CREATOR) $(FONT@11_NAME)
@@ -463,7 +465,7 @@ font_11_fclean: font_11_clean
 	@printf	"$(WARN)[!][$(PROJECT)] Removed $(FONT_11_STRUCT)$(C_DEF)\n"
 	@rm -f $(FONT_11_STRUCT)
 
-font_18_re: font_11_fclean font_11_make
+font_11_re: font_11_fclean font_11_make
 
 
 ## This rule is called when a difference in operating sistem has been

@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:45:16 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 12:32:22 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 01:37:43 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	free_root(t_root *root, int exit_code)
 	free(root->font_18);
 	free(root->font_11);
 	ft_printf("[!] Root has been freed\n");
-	exit(EXIT_SUCCESS);
+	exit(exit_code);
 }

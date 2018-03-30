@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:39:57 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 20:07:39 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 03:01:05 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,110 +39,95 @@ inline static char	*text_itoa(int num)
 	return (str);
 }
 
-inline static int	put_text(t_root *root, t_image *img, char *str, ...)
+inline static	int	put_text(t_image *img, char *str, ...)
 {
-	int		i;
-	int		o_[4];
-	t_font	*font;
-	va_list	args;
-	t_font_data	d;
+	t_printf_text pf;
 
-	va_start(args, str);
-	i = 0;
-	o_[0] = va_arg(args, int);
-	o_[1] = va_arg(args, int);
-	font = va_arg(args, t_font *);
-	d.c = va_arg(args, int);
-	d.img = img;
+	va_start(pf.args, str);
+	pf.i = 0;
+	(pf.o_)[0] = va_arg(pf.args, int);
+	(pf.o_)[1] = va_arg(pf.args, int);
+	pf.font = va_arg(pf.args, t_font *);
+	pf.d.c = va_arg(pf.args, int);
+	pf.d.img = img;
 	if (!str)
 		return (0);
-	while (str[i])
+	while (str[pf.i])
 	{
-		if (!ft_isprint(str[i]))
-			str[i] = 127;
-		draw_font(font[str[i] - 32], &d, o_[0] + font[str[i] - 32].pad_left,\
-	o_[1] + font[str[i] - 32].pad_top);
-		o_[0] += font[str[i] - 32].x + font[str[i] - 32].pad_right;
-		i++;
+		if (!ft_isprint(str[pf.i]))
+			str[pf.i] = 127;
+		draw_font((pf.font)[str[pf.i] - 32], &(pf.d), (pf.o_)[0] + \
+		(pf.font)[str[pf.i] - 32].pad_left, (pf.o_)[1] + \
+		(pf.font)[str[pf.i] - 32].pad_top);
+		(pf.o_)[0] += (pf.font)[str[pf.i] - 32].x + \
+					(pf.font)[str[pf.i] - 32].pad_right;
+		(pf.i)++;
 	}
-	va_end(args);
-	return (o_[0]);
+	va_end(pf.args);
+	return ((pf.o_)[0]);
+}
+
+inline static	int	printf_text_ext(t_printf_text *pf, char *str, t_image *img)
+{
+	if (str[pf->i] != '%')
+		return (0);
+	if (str[pf->i + 1] && str[pf->i + 1] == 'C' && (pf->i += 2) > 0)
+		pf->d.c = va_arg(pf->args, int);
+	else if (str[pf->i + 1] && str[pf->i + 1] == 's' && (pf->i += 2) > 0)
+		pf->o_[0] = put_text(img, va_arg(pf->args, char *), \
+				pf->o_[0], pf->o_[1], pf->font, pf->d.c);
+	else if (str[pf->i + 1] && str[pf->i + 1] == 'd' && (pf->i += 2) > 0)
+		pf->o_[0] = put_text(img, text_itoa(va_arg(pf->args, int)), \
+				pf->o_[0], pf->o_[1], pf->font, pf->d.c);
+	else if (str[pf->i + 1] && str[pf->i + 1] == 'x' && (pf->i += 2) > 0)
+		pf->o_[0] = va_arg(pf->args, int);
+	else if (str[pf->i + 1] && str[pf->i + 1] == 'y' && (pf->i += 2) > 0)
+		pf->o_[1] = va_arg(pf->args, int);
+	else if (str[pf->i + 1] && str[pf->i + 1] == 'f' && (pf->i += 2) > 0)
+		pf->font = va_arg(pf->args, t_font *);
+	else if ((pf->i += 1) > 0)
+	{
+		draw_font((pf->font)[str[pf->i] - 32], &(pf->d), pf->o_[0] + \
+				(pf->font)[str[pf->i] - 32].pad_left, pf->o_[1] + \
+				(pf->font)[str[pf->i] - 32].pad_top);
+		pf->o_[0] += (pf->font)[str[pf->i] - 32].x +
+			(pf->font)[str[pf->i] - 32].pad_right;
+	}
+	return (1);
+}
+
+inline static void	pf_init(t_printf_text *pf, t_root *root, t_image *img)
+{
+	ft_memset(pf->o_, 0, 4);
+	pf->i = 0;
+	pf->font = root->font_18;
+	pf->d.c = COL_WHITE;
+	pf->d.img = img;
+	pf->o_[0] = 10;
+	pf->o_[1] = 10;
 }
 
 void				printf_text(t_root *root, t_image *img, char *str, ...)
 {
-	int			i;
-	t_font_data	d;
-	int			o_[5];
-	t_font		*font;
-	va_list		args;
+	t_printf_text pf;
 
-	va_start(args, str);
-	ft_memset(o_, 0, 5);
-	i = 0;
-	font = root->font_18;
-	d.c = COL_WHITE;
-	d.img = img;
-	o_[0] = 10;
-	o_[1] = 10;
-	while (str[i])
+	va_start(pf.args, str);
+	pf_init(&pf, root, img);
+	while (str[pf.i])
 	{
-		if (!ft_isprint(str[i]))
-			str[i] = 127;
-		if (str[i] == '%')
-		{
-			if (str[i + 1] && str[i + 1] == 'C')
-			{
-				d.c = va_arg(args, int);
-				i += 2;
-				continue ;
-			}
-			if (str[i + 1] && str[i + 1] == 's')
-			{
-				o_[0] = put_text(root, img, va_arg(args, char *), \
-						o_[0], o_[1], font, d.c);
-				i += 2;
-				continue;
-			}
-			if (str[i + 1] && str[i + 1] == 'd')
-			{
-				o_[0] = put_text(root, img, text_itoa(va_arg(args, int)), \
-						o_[0], o_[1], font, d.c);
-				i += 2;
-				continue ;
-			}
-			if (str[i + 1] && str[i + 1] == 'x')
-			{
-				o_[0] = va_arg(args, int);
-				i += 2;
-				continue ;
-			}
-			if (str[i + 1] && str[i + 1] == 'y')
-			{
-				o_[1] = va_arg(args, int);
-				i += 2;
-				continue ;
-			}
-			if (str[i + 1] && str[i + 1] == 'f')
-			{
-				font = va_arg(args, t_font *);
-				i += 2;
-				continue ;
-			}
-			else
-			{
-				draw_font(font[str[i] - 32], &d, o_[0] + \
-		font[str[i] - 32].pad_left, o_[1] + font[str[i] - 32].pad_top);
-				o_[0] += font[str[i] - 32].x + font[str[i] - 32].pad_right;
-			}
-		}
+		if (!ft_isprint(str[pf.i]))
+			str[pf.i] = 127;
+		if (printf_text_ext(&pf, str, img))
+			continue ;
 		else
 		{
-			draw_font(font[str[i] - 32], &d, o_[0] + \
-		font[str[i] - 32].pad_left, o_[1] + font[str[i] - 32].pad_top);
-			o_[0] += font[str[i] - 32].x + font[str[i] - 32].pad_right;
+			draw_font((pf.font)[str[pf.i] - 32], &(pf.d), pf.o_[0] + \
+					(pf.font)[str[pf.i] - 32].pad_left, pf.o_[1] + \
+					(pf.font)[str[pf.i] - 32].pad_top);
+			pf.o_[0] += (pf.font)[str[pf.i] - 32].x + \
+						(pf.font)[str[pf.i] - 32].pad_right;
 		}
-		i++;
+		(pf.i)++;
 	}
-	va_end(args);
+	va_end(pf.args);
 }
