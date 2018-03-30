@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 06:10:12 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 06:28:03 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 06:05:01 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void				show_list(t_map_list *list, t_root *root)
 		if (i == list->curr_map)
 			show_list_ext(list, root, curr_y);
 		printf_text(root, &(root->menu), "%f%x%y%s", root->font_18, \
-		curr_x + 10, curr_y + 30, &(list->map_name[i][strlen(MAP_PATH) + 1]));
+		curr_x + 10, curr_y + 30, \
+		&(list->map_name[i][ft_strlen(MAP_PATH) + 1]));
 		curr_y += list->height;
 		i++;
 	}

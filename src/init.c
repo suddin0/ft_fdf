@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:45:31 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/30 01:38:19 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 06:03:14 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ inline static	void	init_var(t_map_list *list)
 	list->curr_map = -1;
 	list->map_name = NULL;
 	list->error = 0;
-	memset(list->error_msg, 0, MAX_ERROR_MSG + NAME_MAX);
+	ft_memset(list->error_msg, 0, MAX_ERROR_MSG + NAME_MAX);
 	list->o_x = 0;
 	list->o_y = MAP_LIST_OY;
 	list->x = MENU_X;

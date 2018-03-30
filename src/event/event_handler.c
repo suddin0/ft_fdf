@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 05:15:01 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/30 05:03:54 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 05:41:16 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ void	event_handler(t_root *root)
 	mlx_hook(root->win, BPRESS, BPRESS_M, &bpress, root);
 	mlx_hook(root->win, BRELEASE, BRELEASE_M, &brelease, root);
 	mlx_hook(root->win, DESTROY, DESTROY_M, &destroy, root);
+	mlx_loop(root->mlx);
 }

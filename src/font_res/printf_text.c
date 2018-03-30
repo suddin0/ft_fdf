@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 07:39:57 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/30 03:01:05 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 06:02:20 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ inline static char	*text_itoa(int num)
 
 	k = 0;
 	sign = 0;
-	memset(str, 0, 22);
+	ft_memset(str, 0, 22);
 	if (num == 0 && (str[k] = '0') > 0)
 		return (str);
 	else if (num < 0)

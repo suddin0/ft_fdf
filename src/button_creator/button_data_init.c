@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 00:13:22 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 04:10:28 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 06:07:10 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	button_data_init(t_b_create_data *b)
 {
-	strcpy(((b[0]).name), "controle");
-	strcpy(((b[1]).name), "maps");
-	strcpy(((b[2]).name), "info");
-	strcpy(((b[3]).name), "left");
-	strcpy(((b[4]).name), "down");
-	strcpy(((b[5]).name), "right");
-	strcpy(((b[6]).name), "up");
-	strcpy(((b[7]).name), "uzoom");
-	strcpy(((b[8]).name), "zoom");
-	strcpy(((b[9]).name), "reload");
-	strcpy(((b[10]).name), "face");
-	strcpy(((b[11]).name), "help");
-	strcpy(((b[12]).name), "trans");
-	strcpy(((b[13]).name), "rotate");
+	ft_strcpy(((b[0]).name), "controle");
+	ft_strcpy(((b[1]).name), "maps");
+	ft_strcpy(((b[2]).name), "info");
+	ft_strcpy(((b[3]).name), "left");
+	ft_strcpy(((b[4]).name), "down");
+	ft_strcpy(((b[5]).name), "right");
+	ft_strcpy(((b[6]).name), "up");
+	ft_strcpy(((b[7]).name), "uzoom");
+	ft_strcpy(((b[8]).name), "zoom");
+	ft_strcpy(((b[9]).name), "reload");
+	ft_strcpy(((b[10]).name), "face");
+	ft_strcpy(((b[11]).name), "help");
+	ft_strcpy(((b[12]).name), "trans");
+	ft_strcpy(((b[13]).name), "rotate");
 	init_bid(b);
 	init_btype(b);
 	init_bstat(b);

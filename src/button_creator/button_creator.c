@@ -6,7 +6,7 @@
 /*   By: suddin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 08:19:18 by suddin            #+#    #+#             */
-/*   Updated: 2018/03/28 03:57:33 by suddin           ###   ########.fr       */
+/*   Updated: 2018/03/30 06:02:54 by suddin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int					create_name(char ****file, int argc, char **argv)
 	jim = 0;
 	if ((*file = (char ***)malloc(sizeof(char **) * (argc))) == NULL)
 		return (-1);
-	memset(*file, 0, argc);
+	ft_memset(*file, 0, argc);
 	while (lim != argc)
 	{
 		if (((*file)[jim] = (char **)malloc(sizeof(char *) * 3)) == NULL)
