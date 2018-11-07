@@ -49,6 +49,7 @@ you can use the following keys once you have a window to manipulate the `map`:
 
 >`u` :  Rotate in the Y (-) direction
 
+>>
 >`←` :  Translate (move / slide) the map left
 
 >`→` :  Translate (move / slide) the map right
@@ -57,8 +58,9 @@ you can use the following keys once you have a window to manipulate the `map`:
 
 >`↓` :  Translate (move / slide) the map down
 
+>>
 >`+` :  Zoom `in`
-`-` :  Zoom `out`
+>`-` :  Zoom `out`
 
 you can select different maps from the `map` menu.
 ## Map
