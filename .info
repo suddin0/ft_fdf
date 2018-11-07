@@ -1,15 +1,15 @@
 [Error]
--if zoomed too much can not unzoom.
--if first line is a only a new line, map is considered an empty map
+	[X] if zoomed too much can not unzoom.
+	[X] if first line is a only a new line, map is considered an empty map
 
 
 
 [Letter Dimention]
 
 [Map list font size]
-	-Normal : 24 / 23.99999857
-	-small  : 14
+	[X] Normal : 24 / 23.99999857
+	[X] small  : 14
 
 [map list font type]
-	-Noto Kufi Arabic
-	-[x]Open Noto
+	[X] Noto Kufi Arabic
+	[X] Open Noto
