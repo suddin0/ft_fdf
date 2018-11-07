@@ -1,5 +1,5 @@
 ## Introduction
-[FDF](https://fr.wikipedia.org/wiki/Fil_de_fer_%283D%29) (Fil De Fer) also known as [wire-frame](https://en.wikipedia.org/wiki/Wire-frame_model)  is the first project in the graphic branch at [42](http://www.42.fr/) where you must create a 3D wire-frame model of a given [map](https://github.com/suddin0/ft_fdf/tree/master/maps). This project had to use the special graphic library called [mlx](link to the mllx section) as it was required by [42](http://www.42.fr/). You can find more information about this project [here](https://github.com/suddin0/ft_fdf/tree/master/res/subjects).
+[FDF](https://fr.wikipedia.org/wiki/Fil_de_fer_%283D%29) (Fil De Fer) also known as [wire-frame](https://en.wikipedia.org/wiki/Wire-frame_model)  is the first project in the graphic branch at [42](http://www.42.fr/) where you must create a 3D wire-frame model of a given [map](https://github.com/suddin0/ft_fdf/tree/master/maps). This project had to use the special graphic library called [mlx](https://github.com/suddin0/ft_fdf#mlx) as it was required by [42](http://www.42.fr/). You can find more information about this project [here](https://github.com/suddin0/ft_fdf/tree/master/res/subjects).
 
 ## Build And Usage
 ### requirements
@@ -26,12 +26,34 @@ make
 
 ###  usage
 To execute the the binary `fdf` you must pass a [map](https://github.com/suddin0/ft_fdf/tree/master/maps) in it's argument as such:
-`$,/fdf maps/42.fdf`
+
+`$./fdf maps/42.fdf`
+
 You can find some maps here  [here](https://github.com/suddin0/ft_fdf/tree/master/maps)
+you can use the following keys once you have a window to manipulate the `map`:
+
+`ESC` : Quite the program
+`q` : Quite the program
+
+`z` :  Rotate in the Z+ direction
+`a` :  Rotate in the Z- direction
+`x` :  Rotate in the X+ direction
+`s` :  Rotate in the X- direction
+`y` :  Rotate in the Y+ direction
+`u` :  Rotate in the Y- direction
+
+`←` :  Translate (move / slide) the map left
+`→` :  Translate (move / slide) the map right
+`↑` :  Translate (move / slide) the map up
+`↓` :  Translate (move / slide) the map down
 
 ## Map
-### maf file
-Maps are simple files with the extention `.fdf` that contains numerical values representing the hight if a puint represented in space.
+### map files
+Maps are simple files with the extention `.fdf` that contains numerical values representing the hight (the `Z` axis) of a point represented in space. If a map contain unsupported data then the map will not be displayed.
+
+
+### Map representation
+The map is pares and the valued received from the `map file` will be used as the hight or the `Z`axis value.
 
 
 ## mlx

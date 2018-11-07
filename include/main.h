@@ -44,41 +44,45 @@
 # include "button_map.h"
 # include "nn_mask.h"
 
-# define DEF_ROOT_X 1600
-# define DEF_ROOT_Y 950
-# define ORIGINE_X 270.0f
-# define ORIGINE_Y 290.0f
-# define STEP 30.0f
-# define MENU_X DEF_ROOT_X / 4
-# define MENU_Y DEF_ROOT_Y
-# define OPT_X MENU_X / 3
-# define OPT_Y 95
-# define FOOT_X DEF_ROOT_X - (DEF_ROOT_X / 4)
-# define FOOT_Y 23
-# define PREV_X DEF_ROOT_X - (DEF_ROOT_X / 4)
-# define PREV_Y DEF_ROOT_Y - FOOT_Y
-# define MAP_LIST_OY 60
-# define BUTTON_SIZE 19000 * 4
-# define CHAR_SIZE_28 20000 * 4
-# define CHAR_SIZE_18 54140 * 4
-# define FCHAR_MAX 98
-# define BUTTON_MAX 16
-# define BUTTON_STRUCT_PATH	  "res/__buttons__/button.struct"
-# define FONT_24_STRUCT_PATH "res/__font__/font@24.struct"
-# define FONT_18_STRUCT_PATH "res/__font__/font@18.struct"
-# define FONT_11_STRUCT_PATH "res/__font__/font@11.struct"
-# define MAP_PATH "maps"
-# define MAX_ERROR_MSG 250
-# define MENU_BG_COLOR 0x383f49
-# define FOOT_BG_COLOR 0x383f49
-# define PREV_BG_COLOR 0x323842
-# define MAP_COLOR 0xe0e0bd
-# define COL_ERROR 0xD24B4Bff
-# define COL_WHITE 0xffffffff
+# define DEF_ROOT_X		1600
+# define DEF_ROOT_Y		950
+# define ORIGINE_X		270.0f
+# define ORIGINE_Y		290.0f
+# define STEP			30.0f
+# define MENU_X			DEF_ROOT_X / 4
+# define MENU_Y			DEF_ROOT_Y
+# define OPT_X 			MENU_X / 3
+# define OPT_Y			95
+# define FOOT_X			DEF_ROOT_X - (DEF_ROOT_X / 4)
+# define FOOT_Y			23
+# define PREV_X			DEF_ROOT_X - (DEF_ROOT_X / 4)
+# define PREV_Y			DEF_ROOT_Y - FOOT_Y
+# define MAP_LIST_OY	60
+# define BUTTON_SIZE	19000 * 4
+# define CHAR_SIZE_28	20000 * 4
+# define CHAR_SIZE_18	54140 * 4
+# define FCHAR_MAX		98
+# define BUTTON_MAX		16
+
+# define BUTTON_STRUCT_PATH		"res/__buttons__/button.struct"
+# define FONT_24_STRUCT_PATH	"res/__font__/font@24.struct"
+# define FONT_18_STRUCT_PATH	"res/__font__/font@18.struct"
+# define FONT_11_STRUCT_PATH	"res/__font__/font@11.struct"
+# define MAP_PATH				"maps"
+# define MAX_ERROR_MSG			250
+
+# define MENU_BG_COLOR			0x383f49
+# define FOOT_BG_COLOR			0x383f49
+# define PREV_BG_COLOR			0x323842
+# define MAP_COLOR				0xe0e0bd
+# define COL_ERROR				0xD24B4Bff
+# define COL_WHITE				0xffffffff
+
 # define COL_R(R) ((col >> 24) & 0xFF)
 # define COL_G(G) ((col >> 16) & 0xFF)
 # define COL_B(B) ((col >> 8 ) & 0xFF)
 # define COL_A(R) (col & 0xFF);
+
 # define USAGE_MESSAGE "Usage: ./fdf <file.fdf>\n"
 # define PMOTION NN_MOTIONNOTIFY
 # define KPRESS NN_KEYPRESS
@@ -87,6 +91,7 @@
 # define KRELEASE NN_KEYRELEASE
 # define VISIBL NN_VISIBILITYNOTIFY
 # define DESTROY NN_DESTROYNOTIFY
+
 # define ST_DEFAULT 0
 # define ST_HOVER 1
 # define ST_ACTIVE 2
@@ -94,6 +99,7 @@
 # define TP_RADIO 1
 # define MV_TRANS 0
 # define MV_ROTAT 1
+
 # define PMOTION_M NN_POINTERMOTIONMASK
 # define KPRESS_M NN_KEYPRESSMASK
 # define BPRESS_M NN_BUTTONPRESSMASK
@@ -101,6 +107,7 @@
 # define KRELEASE_M NN_KEYRELEASEMASK
 # define VISIBL_M NN_VISIBILITYCHANGEMASK
 # define DESTROY_M NN_STRUCTURENOTIFYMASK
+
 # define COLOR(MLX_PTR, H_COLOR) mlx_get_color_value(MLX_PTR, H_COLOR)
 # define VIEW mlx_put_image_to_window
 # define CLEAR(I) set_color(I.img, I.x * I.y, I.bg);
