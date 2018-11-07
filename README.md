@@ -34,39 +34,23 @@ You can find some maps here  [here](https://github.com/suddin0/ft_fdf/tree/maste
 you can use the following keys once you have a window to manipulate the `map`:
 
 
-`ESC` : Quite the program
+>`ESC` : Quite the program
+>`q`     : Quite the program
 
-`q`     : Quite the program
+>`z` :  Rotate in the Z (+) direction
+>`a` :  Rotate in the Z (-) direction
+>`x` :  Rotate in the X (+) direction
+>`s` :  Rotate in the X (-) direction
+>`y` :  Rotate in the Y (+) direction
+>`u` :  Rotate in the Y (-) direction
 
+>`←` :  Translate (move / slide) the map left
+>`→` :  Translate (move / slide) the map right
+>`↑` :  Translate (move / slide) the map up
+>`↓` :  Translate (move / slide) the map down
 
-`z` :  Rotate in the Z (+) direction
-
-`a` :  Rotate in the Z (-) direction
-
-`x` :  Rotate in the X (+) direction
-
-`s` :  Rotate in the X (-) direction
-
-`y` :  Rotate in the Y (+) direction
-
-`u` :  Rotate in the Y (-) direction
-
-
-
-`←` :  Translate (move / slide) the map left
-
-`→` :  Translate (move / slide) the map right
-
-`↑` :  Translate (move / slide) the map up
-
-`↓` :  Translate (move / slide) the map down
-
-
-
-`+` :  Zoom `in`
-
-`-` :  Zoom `out`
-
+>`+` :  Zoom `in`
+>`-` :  Zoom `out`
 
 you can select different maps from the `map` menu.
 ## Map
@@ -75,7 +59,7 @@ Maps are simple files with the extension `.fdf` that contains numerical values r
 
 
 ### Map representation
-The map is pares and the valued received from the `map file` will be used as the height or the `Z`axis value. each number is treated as a point and the value the number represents is treated that point's `Z` axis, so 2 points horizontally (in the same line left to right) will be represented as a line. This horizontal line has a width which has a default value of `30`, this value is defined in `main.h` as `# define STEP 30.0f`. Much like a horizontal line a vertical line is represented by 2 bumbers tat is in the same line but top to bottom and it's height is also represented by the same value `30` by the same define `# define STEP 30.0f`.
+The map is pares and the valued received from the `map file` will be used as the height or the `Z` axis value. each number is treated as a point and the value the number represents is treated that point's `Z` axis, so 2 points horizontally (in the same line left to right) will be represented as a line. This horizontal line has a width which has a default value of `30 pixels`, this value is defined in `main.h` as `# define STEP 30.0f`. Much like a horizontal line a vertical line is represented by 2 numbers tat is in the same line but top to bottom and it's height is also represented by the same value `30 pixel` by the same define `# define STEP 30.0f`.
 
 ### preview
 **Default**
@@ -90,7 +74,7 @@ The map is pares and the valued received from the `map file` will be used as the
 
 `mlx` is written for `linux` and `macOS`.
  - The version for `Linux` uses `x11` ([X server](https://en.wikipedia.org/wiki/X_Window_System)) and `gl` ([openGL](https://www.opengl.org/resources/libraries/))
- for automate some higher level functionalit such as window management and rendering.
+ for automate some higher level functionality such as window management and rendering.
 - And the version for macOS it uses [cocoa](http://cocoa.dima.unige.it/) and also `gl`
 
 **mlx** has a lot of limits such as:
