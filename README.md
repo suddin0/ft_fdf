@@ -33,21 +33,29 @@ To execute the the binary `fdf` you must pass a [map](https://github.com/suddin0
 You can find some maps here  [here](https://github.com/suddin0/ft_fdf/tree/master/maps)
 you can use the following keys once you have a window to manipulate the `map`:
 
-
 >`ESC` : Quite the program
-`q`     : Quite the program
+
+>`q`     : Quite the program
 
 >`z` :  Rotate in the Z (+) direction
-`a` :  Rotate in the Z (-) direction
-`x` :  Rotate in the X (+) direction
-`s` :  Rotate in the X (-) direction
-`y` :  Rotate in the Y (+) direction
-`u` :  Rotate in the Y (-) direction
+
+>`a` :  Rotate in the Z (-) direction
+
+>`x` :  Rotate in the X (+) direction
+
+>`s` :  Rotate in the X (-) direction
+
+>`y` :  Rotate in the Y (+) direction
+
+>`u` :  Rotate in the Y (-) direction
 
 >`←` :  Translate (move / slide) the map left
-`→` :  Translate (move / slide) the map right
-`↑` :  Translate (move / slide) the map up
-`↓` :  Translate (move / slide) the map down
+
+>`→` :  Translate (move / slide) the map right
+
+>`↑` :  Translate (move / slide) the map up
+
+>`↓` :  Translate (move / slide) the map down
 
 >`+` :  Zoom `in`
 `-` :  Zoom `out`
