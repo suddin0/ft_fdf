@@ -13,9 +13,9 @@
 
 ### Build
 ```bash
-git clone https://github.com/suddin0/ft_fdf.git fdf
-cd fdf
-make
+> git clone https://github.com/suddin0/ft_fdf.git fdf
+> cd fdf
+> make
 ```
 > Note: This version of `fdf`  has been tested on `linux` and `macOS`
 
@@ -26,35 +26,47 @@ make
 
 ###  usage
 To execute the the binary `fdf` you must pass a [map](https://github.com/suddin0/ft_fdf/tree/master/maps) in it's argument as such:
-
-`$./fdf maps/42.fdf`
+```bash
+> ./fdf maps/42.fdf
+```
 
 You can find some maps here  [here](https://github.com/suddin0/ft_fdf/tree/master/maps)
 you can use the following keys once you have a window to manipulate the `map`:
 
 `ESC` : Quite the program
-`q` : Quite the program
+`q`     : Quite the program
 
-`z` :  Rotate in the Z+ direction
-`a` :  Rotate in the Z- direction
-`x` :  Rotate in the X+ direction
-`s` :  Rotate in the X- direction
-`y` :  Rotate in the Y+ direction
-`u` :  Rotate in the Y- direction
+`z` :  Rotate in the Z (+) direction
+`a` :  Rotate in the Z (-) direction
+`x` :  Rotate in the X (+) direction
+`s` :  Rotate in the X (-) direction
+`y` :  Rotate in the Y (+) direction
+`u` :  Rotate in the Y (-) direction
 
 `←` :  Translate (move / slide) the map left
 `→` :  Translate (move / slide) the map right
 `↑` :  Translate (move / slide) the map up
 `↓` :  Translate (move / slide) the map down
 
+`+` :  Zoom `in`
+`-` :  Zoom `out`
+
+you can select different maps from the `map` menu.
 ## Map
 ### map files
-Maps are simple files with the extention `.fdf` that contains numerical values representing the hight (the `Z` axis) of a point represented in space. If a map contain unsupported data then the map will not be displayed.
+Maps are simple files with the extension `.fdf` that contains numerical values representing the height (the `Z` axis) of a point represented in space. If a map contain unsupported data then the map will not be displayed.
 
 
 ### Map representation
-The map is pares and the valued received from the `map file` will be used as the hight or the `Z`axis value.
+The map is pares and the valued received from the `map file` will be used as the height or the `Z`axis value. each number is treated as a point and the value the number represents is treated that point's `Z` axis, so 2 points horizontally (in the same line left to right) will be represented as a line. This horizontal line has a width which has a default value of `30`, this value is defined in `main.h` as `# define STEP 30.0f`. Much like a horizontal line a vertical line is represented by 2 bumbers tat is in the same line but top to bottom and it's height is also represented by the same value `30` by the same define `# define STEP 30.0f`.
 
+### preview
+**Default**
+![Default options](https://github.com/suddin0/ft_fdf/raw/master/res/__fdf_exemples__/default.png)
+**Map Menu**
+![Map Menu](https://github.com/suddin0/ft_fdf/raw/master/res/__fdf_exemples__/menu%20preview.png)
+**Error Map**
+![Error Map](https://github.com/suddin0/ft_fdf/raw/master/res/__fdf_exemples__/error%20preview.png)
 
 ## mlx
 `Mini Lib X` is a small library which act as a wrapper some complex high level `gui` more complex and complete library. This library is aims the new comers in `gui` programming, thus the functionality of this library are petty limited. This library was written by **Olivier Crouzet** aka **ol** and it was written for the students of [42](http://www.42.fr/) and [Epitech](http://www.epitech.eu/fr/).
