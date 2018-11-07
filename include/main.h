@@ -22,7 +22,7 @@
  *	to adjust the speed
 **/
 // #  define SLEEP_INTER 10000
-#  define SLEEP_INTER 100
+#  define SLEEP_INTER 1000
 # else
 #  define SLEEP_INTER 0
 # endif
