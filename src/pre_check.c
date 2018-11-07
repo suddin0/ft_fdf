@@ -14,9 +14,6 @@
 
 int	is_dot_fdf(char *str)
 {
-	int i;
-
-	i = ft_strlen(str);
 	if (ft_strcmp(&(str[ft_strlen(str) - 4]), ".fdf") == 0)
 		return (1);
 	else

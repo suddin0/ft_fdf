@@ -46,22 +46,19 @@ int						kpress(int key, t_root *root)
 
 int						krelease(int key, t_root *root)
 {
-	int clk;
-
-	clk = root->men.btn_clicked;
 	root->key = 0;
+
+	/* Stop the loop callback */
 	mlx_loop_hook(root->mlx, NULL, NULL);
-	key = 0;
+	(void)key;
 	return (1);
 }
 
 int						bpress(int key, int x, int y, t_root *root)
 {
 	int	btn;
-	int	clk;
-
+	
 	btn = -1;
-	clk = root->men.btn_clicked;
 	if (x > root->menu.o_x && x < root->menu.o_x + root->menu.x && \
 			y > root->menu.o_y && y < root->menu.o_y + root->menu.y)
 	{

@@ -41,7 +41,7 @@ int	b10(t_root *root)
 
 int	b11(t_root *root)
 {
-	root = NULL;
+	(void)root;
 	return (0);
 }
 

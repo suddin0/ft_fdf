@@ -27,7 +27,7 @@ void	draw_button(t_button btn, t_image *img, int st)
 		while (x < (btn.o_x + btn.x) * 4)
 		{
 			if (x > 0 && y > 0 && (x + (y * img->x * 4)) < (img->x * img->y) *\
-					4 && (x < (img->x * 4) && y * img->y))
+					4 && (x < (img->x * 4) && y & img->y))
 			{
 				(img->img)[x + 0 + (y * (img->x * 4))] = (btn.view[st])[k + 0];
 				(img->img)[x + 1 + (y * (img->x * 4))] = (btn.view[st])[k + 1];

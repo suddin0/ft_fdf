@@ -12,6 +12,7 @@
 
 #include "main.h"
 
+
 inline static	int	p_func_0_ext(t_root *root, int btn)
 {
 	if (root->men.button[btn].stat == ST_ACTIVE)
@@ -48,18 +49,18 @@ int					pmotion_func_0(int x, int y, void *rot)
 	return (0);
 }
 
-int					pmotion_func_1(int x, int y, void *rot)
+int					pmotion_func_1(not_used int x, not_used int y, not_used void *rot)
 {
-	x = 0;
-	y = 0;
-	rot = NULL;
+	// (void)x;
+	// (void)y;
+	// (void)rot;
 	return (0);
 }
 
-int					pmotion_func_2(int x, int y, void *rot)
+int					pmotion_func_2(not_used int x, not_used int y, not_used void *rot)
 {
-	x = 0;
-	y = 0;
-	rot = NULL;
+	// (void)x;
+	// (void)y;
+	// (void)rot;
 	return (0);
 }

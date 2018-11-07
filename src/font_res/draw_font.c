@@ -69,7 +69,7 @@ void					draw_font(t_char chr, t_font_data *d, int o_x, int o_y)
 		while (var.x < (o_x + chr.x) * 4)
 		{
 			if ((var.x > 0 && var.y > 0) && (var.x + (var.y * d->img->x)) < \
-	(d->img->x * d->img->y) && (var.x < (d->img->x * 4) && var.y * d->img->y))
+	(d->img->x * d->img->y) && (var.x < (d->img->x * 4) && var.y & d->img->y))
 				if ((t_uchar)(chr.data)[var.k + 0] != 2 || \
 						(t_uchar)(chr.data)[var.k + 1] != 2 || \
 						(t_uchar)(chr.data)[var.k + 2] != 2)

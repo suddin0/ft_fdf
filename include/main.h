@@ -13,8 +13,16 @@
 #ifndef MAIN_H
 # define MAIN_H
 
+
+#define not_used __attribute__((unused))
+
 # if defined(__linux__)
-#  define SLEEP_INTER 10000
+/**
+ *	In Linux the speex of mlxloop is too fust thus we use the below define
+ *	to adjust the speed
+**/
+// #  define SLEEP_INTER 10000
+#  define SLEEP_INTER 100
 # else
 #  define SLEEP_INTER 0
 # endif

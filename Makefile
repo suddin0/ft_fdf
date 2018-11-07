@@ -40,6 +40,7 @@ PROJECT	=	FDF
 
 ## compiler related
 CC		?=	clang 		## default compiler is clang
+
 CC_FLAG ?=	-Werror \
 			-Wall	\
 			-Wextra \
@@ -315,7 +316,7 @@ __START: all
 ## For multiple Binarys
 all : $(LIBFT_A) $(NAME)
 
-$(NAME):	$(SRC) $(BUTTON_STRUCT) $(FONT_24_STRUCT) $(FONT_18_STRUCT) $(FONT_11_STRUCT)
+$(NAME):	$(SRC) $(BUTTON_STRUCT) $(FONT_24_STRUCT) $(FONT_18_STRUCT) $(FONT_11_STRUCT) $(P_INCLUDE)/main.h
 	@$(CC)  $(SRC) $(CC_FLAG) -I ./$(P_INCLUDE) -I ./$(P_MLX)  -L $(P_MLX)  $(MLX_FLAG) $(LIBFT)  \
 		-o $(NAME)
 

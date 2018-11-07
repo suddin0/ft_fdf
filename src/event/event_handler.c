@@ -29,8 +29,8 @@ int		brelease(int key, int x, int y, t_root *root)
 	}
 	mlx_loop_hook(root->mlx, NULL, NULL);
 	key = 0;
-	x = 0;
-	y = 0;
+	(void)x;
+	(void)y;
 	return (1);
 }
 

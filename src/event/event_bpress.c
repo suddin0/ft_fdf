@@ -12,15 +12,16 @@
 
 #include "main.h"
 
+
 int					bpress_func_0(int key, int x, int y, void *rot)
 {
 	int		btn;
-	int		clk;
+	// int		clk;
 	t_root	*root;
 
+	// clk = root->men.btn_clicked;
 	root = CAST_T_ROOT(rot);
 	btn = -1;
-	clk = root->men.btn_clicked;
 	if (x > root->menu.o_x && x < root->menu.o_x + root->menu.x && y > \
 	root->menu.o_y && y < root->menu.o_y + root->menu.y && key == MOUSE_LEFT)
 	{
@@ -75,12 +76,10 @@ inline static void	bpress_f_1_ext(t_root *root, int key)
 int					bpress_func_1(int key, int x, int y, void *rot)
 {
 	int		btn;
-	int		clk;
 	t_root	*root;
 
 	root = CAST_T_ROOT(rot);
 	btn = -1;
-	clk = root->men.btn_clicked;
 	if (x > root->menu.o_x && x < (root->menu.o_x + root->menu.x) && \
 			y > root->menu.o_y && y < (root->menu.o_y + root->menu.y))
 	{
@@ -97,11 +96,11 @@ int					bpress_func_1(int key, int x, int y, void *rot)
 	return (0);
 }
 
-int					bpress_func_2(int key, int x, int y, void *rot)
+int					bpress_func_2(not_used int key, not_used int x, not_used int y, not_used void *rot)
 {
-	key = 0;
-	x = 0;
-	y = 0;
-	rot = 0;
+	// (void)key;
+	// (void)x;
+	// (void)y;
+	// (void)rot;
 	return (0);
 }
