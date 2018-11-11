@@ -35,7 +35,8 @@ You can find some extra maps  [here](https://github.com/suddin0/ft_fdf/tree/mast
 you can use the following keys once you have a window to manipulate the `map`:  
 
 >`ESC` : Quite the progra  
->`q`     : Quite the program  
+>`q`   : Quite the program  
+
 >`z` :  Rotate in the Z (+) direction  
 >`a` :  Rotate in the Z (-) direction  
 >`x` :  Rotate in the X (+) direction  
